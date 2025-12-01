@@ -1,14 +1,30 @@
  
  
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
+import Dashboard from './pages/Dashboard/Dashboard'
+import Header from './Components/Header/Header'
 
 function App() {
  
+  const router= createBrowserRouter([
+    {
+      path:"/",
+      exact:true,
+      element:<>
+        <section className='main'>
+          <Header/>
+        </section>
+      </>
+    }
+  ])
 
   return (
     <>
       
-      <h1 className='text-red-600'>Vite + React</h1>
+      <RouterProvider router={router}>
+
+      </RouterProvider> 
        
        
     </>
