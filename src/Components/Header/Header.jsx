@@ -6,9 +6,14 @@ import IconButton from "@mui/material/IconButton";
 import { IoNotifications } from "react-icons/io5";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Divider from '@mui/material/Divider';
+import Divider from "@mui/material/Divider";
 import "../../App.css";
 import { useState } from "react";
+import { FaRegUser } from "react-icons/fa";
+import { IoSettingsOutline } from "react-icons/io5";
+import { TbCircuitCapacitor } from "react-icons/tb";
+import { IoIosLogOut } from "react-icons/io";
+
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -30,14 +35,14 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-[#f1f1f1] w-full h-[50px] pl-52 pr-5 flex items-center justify-between">
+    <header className="bg-[#fff] w-full h-auto py-2 shadow-md   pl-52 pr-5 flex items-center justify-between">
       <div className="part1">
         <Button className="!w-[40px] !h-[40px] flex  !text-[#000] !rounded-full !min-w-[40px]">
           <RiMenu2Fill className="text-[20px]]" />
         </Button>
       </div>
 
-      <div className="part2 w-[40%] flex items-center justify-end gap-4">
+      <div className="part2 w-[40%] flex items-center justify-end gap-5">
         <IconButton aria-label="cart">
           <StyledBadge badgeContent={4} color="secondary">
             <IoNotifications />
@@ -95,10 +100,7 @@ const Header = () => {
           >
             <MenuItem onClick={handleCloseMyAcc} className="!bg-white">
               <div className="flex items-center gap-3">
-                <div
-                  className="rounded-full w-[35px] h-[35px] overflow-hidden cursor-pointer"
-                  
-                >
+                <div className="rounded-full w-[35px] h-[35px] overflow-hidden cursor-pointer">
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsEV1cmRYNcFh_-d-dqVHpxP4MPS4K4WDQ6w&s"
                     alt=""
@@ -107,13 +109,28 @@ const Header = () => {
                 </div>
 
                 <div className="info">
-                    <h3 className="text-[15px] font-[500] leading-5">Aminul haque</h3>
-                    <p className="text-[12px] font-[400] opacity-70">admin-01@gmail.com</p>
-
+                  <h3 className="text-[15px] font-[500] leading-5">
+                    Aminul haque
+                  </h3>
+                  <p className="text-[12px] font-[400] opacity-70">
+                    admin-01@gmail.com
+                  </p>
                 </div>
               </div>
             </MenuItem>
-            <Divider/>
+            <Divider />
+            <MenuItem onClick={handleCloseMyAcc} className="flex gap-4">
+              <FaRegUser className="text-[16px]"/> <span>My Profile</span>
+            </MenuItem>
+            <MenuItem onClick={handleCloseMyAcc} className="flex gap-4">
+              <IoSettingsOutline className="text-[16px]"/> <span>Account setting</span>
+            </MenuItem>
+            <MenuItem onClick={handleCloseMyAcc} className="flex gap-4">
+              <TbCircuitCapacitor className="text-[16px]"/> <span>Activity Log</span>
+            </MenuItem>
+            <MenuItem onClick={handleCloseMyAcc} className="flex gap-4">
+              <IoIosLogOut className="text-[20px]"/> <span>Sing out</span>
+            </MenuItem>
           </Menu>
         </div>
       </div>
