@@ -187,7 +187,7 @@ const Sidebar = () => {
             <Collapse isOpened={submenuIdex === 3 ? true : false}>
               <ul className="w-full">
                 <li>
-                  <Link to="category">
+                  <Link to="/categories">
                     <Button className="!text-[rgba(0,0,0,0.8)] !text-[13px] !pl-8 !font-[500] px-4 !capitalize !justify-start !w-full flex gap-2">
                       <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]">
                         {" "}
@@ -197,41 +197,47 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Button
-                    className="!text-[rgba(0,0,0,0.8)] px-4 !capitalize 
+                  <Link to="/category/add">
+                    <Button
+                      className="!text-[rgba(0,0,0,0.8)] px-4 !capitalize 
                             !justify-start !w-full !text-[13px] !font-[500] !pl-8 flex gap-2"
-                  >
-                    {" "}
-                    <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]"></span>
-                    Add a category
-                  </Button>
+                    >
+                      {" "}
+                      <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]"></span>
+                      Add a category
+                    </Button>
+                  </Link>
                 </li>
                 <li>
-                  <Button
-                    className="!text-[rgba(0,0,0,0.8)] px-4 !capitalize 
+                  <Link to="category/subcategory">
+                    <Button
+                      className="!text-[rgba(0,0,0,0.8)] px-4 !capitalize 
                             !justify-start !w-full !text-[13px] !font-[500] !pl-8 flex gap-2"
-                  >
-                    {" "}
-                    <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]"></span>
-                    Subcategory list
-                  </Button>
+                    >
+                      {" "}
+                      <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]"></span>
+                      Subcategory list
+                    </Button>
+                  </Link>
                 </li>
                 <li>
-                  <Button
-                    className="!text-[rgba(0,0,0,0.8)] px-4 !capitalize 
+                  <Link to="category/subcategory/add">
+                    <Button
+                      className="!text-[rgba(0,0,0,0.8)] px-4 !capitalize 
                             !justify-start !w-full !text-[13px] !font-[500] !pl-8 flex gap-2"
-                  >
-                    {" "}
-                    <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]"></span>
-                    Add a subcategory
-                  </Button>
+                    >
+                      {" "}
+                      <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]"></span>
+                      Add a subcategory
+                    </Button>
+                  </Link>
                 </li>
               </ul>
             </Collapse>
           </li>
 
           <li className="list-none">
-            <Link to="orders">
+            <Link to="/orders">
               <Button className="w-full !capitalize !justify-start text-[14px] !text-[rgba(0,0,0,0.8)] !font-[500] flex gap-2 !py-2 hover:!bg-[#f1f1f1]">
                 <IoBagCheckSharp className="text-[20px]" />
                 <span>Orders</span>

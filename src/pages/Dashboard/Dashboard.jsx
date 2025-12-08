@@ -1,9 +1,10 @@
+import DashboardBoxes from "../../Components/DashboardBoxes/DashboardBoxes";
 
 
 const Dashboard=()=>{
     return(
         <div>
-            Dashboard
+           <DashboardBoxes/>
         </div>
     )
 };
