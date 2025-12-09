@@ -1,4 +1,4 @@
-body{  font-family: "Montserrat", sans-serif;}
+body{  font-family: "Montserrat", sans-serif; background: #f1f1f1;}
 
 .MuiBadge-badge{background: #ff5252 !important;};
 
@@ -6,5 +6,9 @@ body{  font-family: "Montserrat", sans-serif;}
   transition: height 500ms;
 }
 
+/* ::-webkit-scrollbar{width: 10px !important; height: 10px !important;} */
+
 .btn-blue{background:#2260f3 !important; color:#fff !important; padding:8px,20px !important};
-.btn-blue:hover{background:#4d80f5 !important;}
+.btn-blue:hover{background:#4d80f5 !important;};
+.bg-primary{background: #1a69df !important;}
+

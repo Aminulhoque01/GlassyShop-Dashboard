@@ -21,7 +21,7 @@ const DashboardBoxes = () => {
         className="mySwiper"
       >
         <SwiperSlide>
-          <div className='box p-5 cursor-pointer hover:bg-[#f1f1f1] rounded-md border border-[rgba(0,0,0,0.1)] flex items-center gap-4'>
+          <div className='box p-5 cursor-pointer bg-white hover:bg-[#f1f1f1] rounded-md border border-[rgba(0,0,0,0.1)] flex items-center gap-4'>
             <AiTwotoneGift className='text-[40px] text-[#3872fa]'/>
             <div className='info w-[70%]'>
                
@@ -32,7 +32,7 @@ const DashboardBoxes = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className='box p-5 cursor-pointer hover:bg-[#f1f1f1] rounded-md border border-[rgba(0,0,0,0.1)] flex items-center gap-4'>
+          <div className='box p-5 cursor-pointer bg-white hover:bg-[#f1f1f1] rounded-md border border-[rgba(0,0,0,0.1)] flex items-center gap-4'>
             <CgChart className='text-[40px] text-[#10b981]'/>
             <div className='info w-[70%]'>
                
@@ -43,7 +43,7 @@ const DashboardBoxes = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className='box p-5 cursor-pointer hover:bg-[#f1f1f1] rounded-md border border-[rgba(0,0,0,0.1)] flex items-center gap-4'>
+          <div className='box p-5 cursor-pointer bg-white hover:bg-[#f1f1f1] rounded-md border border-[rgba(0,0,0,0.1)] flex items-center gap-4'>
             <PiBankLight className='text-[40px] text-[#7928ca]'/>
             <div className='info w-[70%]'>
                
@@ -54,7 +54,7 @@ const DashboardBoxes = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className='box p-5 cursor-pointer hover:bg-[#f1f1f1] rounded-md border border-[rgba(0,0,0,0.1)] flex items-center gap-4'>
+          <div className='box p-5 cursor-pointer bg-white hover:bg-[#f1f1f1] rounded-md border border-[rgba(0,0,0,0.1)] flex items-center gap-4'>
             <RiProductHuntLine className='text-[40px] text-[#3007e6d5]'/>
             <div className='info w-[70%]'>
                
