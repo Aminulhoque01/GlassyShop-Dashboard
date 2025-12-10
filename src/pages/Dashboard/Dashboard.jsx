@@ -10,6 +10,10 @@ import { Collapse } from "react-collapse";
 import { IoIosArrowUp } from "react-icons/io";
 import Badge from "../../Components/Badge/Badge";
 import Checkbox from "@mui/material/Checkbox";
+import ProgressBar from "../../Components/ProgressBar/ProgressBar";
+import { CiEdit } from "react-icons/ci";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { MdDeleteOutline } from "react-icons/md";
 
 const Dashboard = () => {
   const [isOpenOrderProduct, setIsOpenOrderProduct] = useState(null);
@@ -155,6 +159,20 @@ const Dashboard = () => {
                     </td>
                     <td className="px-6 py-3">
                       <p className="text-[14px]"><span className="font-[600]">234</span>sale</p>
+                      <ProgressBar value={80} type="error"/>
+                    </td>
+                    <td className="px-6 py-3">
+                        <div className="flex items-center gap-1">
+                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]">
+                              <CiEdit className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
+                            </Button>
+                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]">
+                              <MdOutlineRemoveRedEye  className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
+                            </Button>
+                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]">
+                              <MdDeleteOutline className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
+                            </Button>
+                        </div>
                     </td>
                 </tr>
               </tbody>
