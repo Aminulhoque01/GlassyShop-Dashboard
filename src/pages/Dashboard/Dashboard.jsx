@@ -1,27 +1,27 @@
 import DashboardBoxes from "../../Components/DashboardBoxes/DashboardBoxes";
 import image from "../../../src/assets/shop-illustration.webp";
-
+import { Link } from 'react-router-dom'
 import { CiSquarePlus } from "react-icons/ci";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
- 
+
 import { Collapse } from "react-collapse";
 import { IoIosArrowUp } from "react-icons/io";
 import Badge from "../../Components/Badge/Badge";
- 
+import Checkbox from "@mui/material/Checkbox";
 
 const Dashboard = () => {
- const [isOpenOrderProduct, setIsOpenOrderProduct] = useState(null);
- 
-   const isShowOrderdProduct = (index) => {
-     if (isOpenOrderProduct === index) {
-       setIsOpenOrderProduct(null);
-     } else {
-       setIsOpenOrderProduct(index);
-     }
-   };
+  const [isOpenOrderProduct, setIsOpenOrderProduct] = useState(null);
 
+  const isShowOrderdProduct = (index) => {
+    if (isOpenOrderProduct === index) {
+      setIsOpenOrderProduct(null);
+    } else {
+      setIsOpenOrderProduct(index);
+    }
+  };
+  const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
   return (
     <>
       <div
@@ -74,268 +74,359 @@ const Dashboard = () => {
 
       <div className="card my-4 shadow-md sm:rounded-lg bg-white">
         <div className="flex items-center justify-between px-5 py-5">
+          <h2 className="text-[18spx] font-[600]">Products</h2>
+        </div>
+        <div class="relative overflow-x-auto   border border-default">
+          <div className="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+            <table className="w-full text-sm text-left rtl:text-right text-body">
+              <thead className="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+                <tr>
+                  <th scope="col" className="px-6 py-3 font-[600]">
+                    <div className="w-[60px]">
+                      <Checkbox {...label} size="small"/>
+                    </div>
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 font-[600] whitespace-nowrap"
+                  >
+                    Product
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 font-[600] whitespace-nowrap"
+                  >
+                    Category
+                  </th>
+                  <th scope="col" className="px-6 py-3 font-[600]">
+                    SubCategory
+                  </th>
+                   
+                  <th
+                    scope="col"
+                    className="px-6 py-3 font-[600] whitespace-nowrap"
+                  >
+                    Price
+                  </th>
+                  <th scope="col" className="px-6 py-3 font-[600]">
+                    Sales
+                  </th>
+                  <th scope="col" className="px-6 py-3 font-[600]">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="odd:bg-white   even:bg-gray-50
+                 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                  <td scope="col" className="px-6 py-3 font-[600]">
+                    <div className="w-[60px]">
+                      <Checkbox {...label} size="small"/>
+                    </div>
+                  </td>
+
+                  <td className="px-6 py-3">
+                    <div className="flex items-center gap-4 w-[350px]">
+                     <div className="img w-[65px] h-[65px] rounded-md overflow-hidden group">
+                        <Link to="/product/35345">
+                        <img src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fproducts%2Fmodern%2F1.webp&w=1920&q=75" 
+                        alt="" className="w-full group-hover:scale-105 transition-all"/>
+                        </Link>
+                     </div>
+                     <div className="info w-[75%]">
+                        <h3 className="font-[600] text-[12px] leading-4  ">
+                          <Link to="/product/35345">
+                           VINNED Women Embroiderd Rayon Kurta pant set | Kurta set for women
+                          </Link>
+                        </h3>
+                        <span>Books</span>
+                     </div>
+                    </div>
+                  </td>
+                    <td className="px-6 py-3">
+                      Electronics
+                    </td>
+                    <td className="px-6 py-3">Woman</td>
+                    <td className="px-6 py-3">
+                      <div className="flex items-center gap-1 flex-col">
+                        <span className="oldPrice line-through text-gray-500 text-[15px] font-[500]">$58.00</span>
+                        <span className="  text-blue-600 text-[15px] font-[600]">$58.00</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-3">
+                      <p className="text-[14px]"><span className="font-[600]">234</span>sale</p>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div className="card my-4 shadow-md sm:rounded-lg bg-white">
+        <div className="flex items-center justify-between px-5 py-5">
           <h2 className="text-[18spx] font-[600]">Recent Orders</h2>
         </div>
         <div class="relative overflow-x-auto   border border-default">
-             <div className="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
-              <table className="w-full text-sm text-left rtl:text-right text-body">
-                <thead className="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+          <div className="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+            <table className="w-full text-sm text-left rtl:text-right text-body">
+              <thead className="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+                <tr>
+                  <th scope="col" className="px-6 py-3 font-[600]"></th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 font-[600] whitespace-nowrap"
+                  >
+                    Order Id
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 font-[600] whitespace-nowrap"
+                  >
+                    Payment Id
+                  </th>
+                  <th scope="col" className="px-6 py-3 font-[600]">
+                    Products
+                  </th>
+                  <th scope="col" className="px-6 py-3 font-[600]">
+                    Name
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 font-[600] whitespace-nowrap"
+                  >
+                    Phone Number
+                  </th>
+                  <th scope="col" className="px-6 py-3 font-[600]">
+                    Address
+                  </th>
+                  <th scope="col" className="px-6 py-3 font-[600]">
+                    Pincode
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 font-[600] whitespace-nowrap"
+                  >
+                    Total Amount
+                  </th>
+                  <th scope="col" className="px-6 py-3 font-[600]">
+                    Email
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 font-[600] whitespace-nowrap"
+                  >
+                    User Id
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 font-[600] whitespace-nowrap"
+                  >
+                    Order Status
+                  </th>
+                  <th scope="col" className="px-6 py-3 font-[600]">
+                    Date
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="bg-neutral-primary border-b border-default font-[500]">
+                  <td className="px-6 py-4">
+                    <Button
+                      onClick={() => isShowOrderdProduct(0)}
+                      className="!w-[35px] !h-[35px] !min-h-[35px] !rounded-full !bg-[#f1f1f1]"
+                    >
+                      {isOpenOrderProduct === 0 ? (
+                        <IoIosArrowUp className="text-[16px] text-[rgba(0,0,0,0.7)]" />
+                      ) : (
+                        <IoIosArrowDown className="text-[16px] text-[rgba(0,0,0,0.7)]" />
+                      )}
+                    </Button>
+                  </td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">
+                    <Badge status="confirm" />
+                  </td>
+                  <td className="px-6 py-4">54644</td>
+                </tr>
+                {isOpenOrderProduct === 0 && (
                   <tr>
-                    <th scope="col" className="px-6 py-3 font-[600]"></th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 font-[600] whitespace-nowrap"
-                    >
-                      Order Id
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 font-[600] whitespace-nowrap"
-                    >
-                      Payment Id
-                    </th>
-                    <th scope="col" className="px-6 py-3 font-[600]">
-                      Products
-                    </th>
-                    <th scope="col" className="px-6 py-3 font-[600]">
-                      Name
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 font-[600] whitespace-nowrap"
-                    >
-                      Phone Number
-                    </th>
-                    <th scope="col" className="px-6 py-3 font-[600]">
-                      Address
-                    </th>
-                    <th scope="col" className="px-6 py-3 font-[600]">
-                      Pincode
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 font-[600] whitespace-nowrap"
-                    >
-                      Total Amount
-                    </th>
-                    <th scope="col" className="px-6 py-3 font-[600]">
-                      Email
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 font-[600] whitespace-nowrap"
-                    >
-                      User Id
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 font-[600] whitespace-nowrap"
-                    >
-                      Order Status
-                    </th>
-                    <th scope="col" className="px-6 py-3 font-[600]">
-                      Date
-                    </th>
+                    <td className=" pl-20" colSpan="6">
+                      <table className="w-full text-sm text-left rtl:text-right text-body">
+                        <thead className="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+                          <tr>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 font-[600] whitespace-nowrap"
+                            >
+                              Product Id
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 font-[600] whitespace-nowrap"
+                            >
+                              Product Title
+                            </th>
+                            <th scope="col" className="px-6 py-3 font-[600]">
+                              Image
+                            </th>
+                            <th scope="col" className="px-6 py-3 font-[600]">
+                              Quantity
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 font-[600] whitespace-nowrap"
+                            >
+                              Price
+                            </th>
+                            <th scope="col" className="px-6 py-3 font-[600]">
+                              SubTotal
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="bg-neutral-primary border-b border-default font-[500]">
+                            <td className="px-6 py-4">dfgdfg</td>
+                            <td className="px-6 py-4">54644</td>
+                            <td className="px-6 py-4">
+                              <img
+                                src="https://serviceapi.spicezgold.com/download/1742462909158_gdgd2.jpg"
+                                className="w-[40px] h-[40px] rounded-md object-cover"
+                                alt=""
+                              />
+                            </td>
+                            <td className="px-6 py-4">2</td>
+                            <td className="px-6 py-4">$1300</td>
+                            <td className="px-6 py-4">$1300</td>
+                          </tr>
+                          <tr className="bg-neutral-primary border-b border-default font-[500]">
+                            <td className="px-6 py-4">dfgdfg</td>
+                            <td className="px-6 py-4">54644</td>
+                            <td className="px-6 py-4">
+                              <img
+                                src="https://serviceapi.spicezgold.com/download/1742462909158_gdgd2.jpg"
+                                className="w-[40px] h-[40px] rounded-md object-cover"
+                                alt=""
+                              />
+                            </td>
+                            <td className="px-6 py-4">2</td>
+                            <td className="px-6 py-4">$1300</td>
+                            <td className="px-6 py-4">$1300</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  <tr className="bg-neutral-primary border-b border-default font-[500]">
-                    <td className="px-6 py-4">
-                      <Button
-                        onClick={() => isShowOrderdProduct(0)}
-                        className="!w-[35px] !h-[35px] !min-h-[35px] !rounded-full !bg-[#f1f1f1]"
-                      >
-                        {
-                            isOpenOrderProduct ===0 ? <IoIosArrowUp  className="text-[16px] text-[rgba(0,0,0,0.7)]" />:
-                            <IoIosArrowDown className="text-[16px] text-[rgba(0,0,0,0.7)]" />
-                        }
-                        
-                      </Button>
+                )}
+                <tr className="bg-neutral-primary border-b border-default font-[500]">
+                  <td className="px-6 py-4">
+                    <Button
+                      onClick={() => isShowOrderdProduct(1)}
+                      className="!w-[35px] !h-[35px] !min-h-[35px] !rounded-full !bg-[#f1f1f1]"
+                    >
+                      {isOpenOrderProduct === 1 ? (
+                        <IoIosArrowUp className="text-[16px] text-[rgba(0,0,0,0.7)]" />
+                      ) : (
+                        <IoIosArrowDown className="text-[16px] text-[rgba(0,0,0,0.7)]" />
+                      )}
+                    </Button>
+                  </td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">54644</td>
+                  <td className="px-6 py-4">
+                    <Badge status="confirm" />
+                  </td>
+                  <td className="px-6 py-4">54644</td>
+                </tr>
+                {isOpenOrderProduct === 1 && (
+                  <tr>
+                    <td className=" pl-20" colSpan="6">
+                      <table className="w-full text-sm text-left rtl:text-right text-body">
+                        <thead className="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+                          <tr>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 font-[600] whitespace-nowrap"
+                            >
+                              Product Id
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 font-[600] whitespace-nowrap"
+                            >
+                              Product Title
+                            </th>
+                            <th scope="col" className="px-6 py-3 font-[600]">
+                              Image
+                            </th>
+                            <th scope="col" className="px-6 py-3 font-[600]">
+                              Quantity
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 font-[600] whitespace-nowrap"
+                            >
+                              Price
+                            </th>
+                            <th scope="col" className="px-6 py-3 font-[600]">
+                              SubTotal
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="bg-neutral-primary border-b border-default font-[500]">
+                            <td className="px-6 py-4">dfgdfg</td>
+                            <td className="px-6 py-4">54644</td>
+                            <td className="px-6 py-4">
+                              <img
+                                src="https://serviceapi.spicezgold.com/download/1742462909158_gdgd2.jpg"
+                                className="w-[40px] h-[40px] rounded-md object-cover"
+                                alt=""
+                              />
+                            </td>
+                            <td className="px-6 py-4">2</td>
+                            <td className="px-6 py-4">$1300</td>
+                            <td className="px-6 py-4">$1300</td>
+                          </tr>
+                          <tr className="bg-neutral-primary border-b border-default font-[500]">
+                            <td className="px-6 py-4">dfgdfg</td>
+                            <td className="px-6 py-4">54644</td>
+                            <td className="px-6 py-4">
+                              <img
+                                src="https://serviceapi.spicezgold.com/download/1742462909158_gdgd2.jpg"
+                                className="w-[40px] h-[40px] rounded-md object-cover"
+                                alt=""
+                              />
+                            </td>
+                            <td className="px-6 py-4">2</td>
+                            <td className="px-6 py-4">$1300</td>
+                            <td className="px-6 py-4">$1300</td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">
-                      <Badge status="confirm" />
-                    </td>
-                    <td className="px-6 py-4">54644</td>
                   </tr>
-                  {isOpenOrderProduct === 0 && (
-                    <tr>
-                      <td className=" pl-20" colSpan="6">
-                        <table className="w-full text-sm text-left rtl:text-right text-body">
-                          <thead className="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
-                            <tr>
-                              <th
-                                scope="col"
-                                className="px-6 py-3 font-[600] whitespace-nowrap"
-                              >
-                                Product Id
-                              </th>
-                              <th
-                                scope="col"
-                                className="px-6 py-3 font-[600] whitespace-nowrap"
-                              >
-                                Product Title
-                              </th>
-                              <th scope="col" className="px-6 py-3 font-[600]">
-                                Image
-                              </th>
-                              <th scope="col" className="px-6 py-3 font-[600]">
-                                Quantity
-                              </th>
-                              <th
-                                scope="col"
-                                className="px-6 py-3 font-[600] whitespace-nowrap"
-                              >
-                                Price
-                              </th>
-                              <th scope="col" className="px-6 py-3 font-[600]">
-                                SubTotal
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="bg-neutral-primary border-b border-default font-[500]">
-                              <td className="px-6 py-4">dfgdfg</td>
-                              <td className="px-6 py-4">54644</td>
-                              <td className="px-6 py-4">
-                                <img
-                                  src="https://serviceapi.spicezgold.com/download/1742462909158_gdgd2.jpg"
-                                  className="w-[40px] h-[40px] rounded-md object-cover"
-                                  alt=""
-                                />
-                              </td>
-                              <td className="px-6 py-4">2</td>
-                              <td className="px-6 py-4">$1300</td>
-                              <td className="px-6 py-4">$1300</td>
-                            </tr>
-                            <tr className="bg-neutral-primary border-b border-default font-[500]">
-                              <td className="px-6 py-4">dfgdfg</td>
-                              <td className="px-6 py-4">54644</td>
-                              <td className="px-6 py-4">
-                                <img
-                                  src="https://serviceapi.spicezgold.com/download/1742462909158_gdgd2.jpg"
-                                  className="w-[40px] h-[40px] rounded-md object-cover"
-                                  alt=""
-                                />
-                              </td>
-                              <td className="px-6 py-4">2</td>
-                              <td className="px-6 py-4">$1300</td>
-                              <td className="px-6 py-4">$1300</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                  )}
-                  <tr className="bg-neutral-primary border-b border-default font-[500]">
-                    <td className="px-6 py-4">
-                      <Button
-                        onClick={() => isShowOrderdProduct(1)}
-                        className="!w-[35px] !h-[35px] !min-h-[35px] !rounded-full !bg-[#f1f1f1]"
-                      >
-                        {
-                            isOpenOrderProduct ===1 ? <IoIosArrowUp  className="text-[16px] text-[rgba(0,0,0,0.7)]" />:
-                            <IoIosArrowDown className="text-[16px] text-[rgba(0,0,0,0.7)]" />
-                        }
-                        
-                      </Button>
-                    </td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">54644</td>
-                    <td className="px-6 py-4">
-                      <Badge status="confirm" />
-                    </td>
-                    <td className="px-6 py-4">54644</td>
-                  </tr>
-                  {isOpenOrderProduct === 1 && (
-                    <tr>
-                      <td className=" pl-20" colSpan="6">
-                        <table className="w-full text-sm text-left rtl:text-right text-body">
-                          <thead className="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
-                            <tr>
-                              <th
-                                scope="col"
-                                className="px-6 py-3 font-[600] whitespace-nowrap"
-                              >
-                                Product Id
-                              </th>
-                              <th
-                                scope="col"
-                                className="px-6 py-3 font-[600] whitespace-nowrap"
-                              >
-                                Product Title
-                              </th>
-                              <th scope="col" className="px-6 py-3 font-[600]">
-                                Image
-                              </th>
-                              <th scope="col" className="px-6 py-3 font-[600]">
-                                Quantity
-                              </th>
-                              <th
-                                scope="col"
-                                className="px-6 py-3 font-[600] whitespace-nowrap"
-                              >
-                                Price
-                              </th>
-                              <th scope="col" className="px-6 py-3 font-[600]">
-                                SubTotal
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="bg-neutral-primary border-b border-default font-[500]">
-                              <td className="px-6 py-4">dfgdfg</td>
-                              <td className="px-6 py-4">54644</td>
-                              <td className="px-6 py-4">
-                                <img
-                                  src="https://serviceapi.spicezgold.com/download/1742462909158_gdgd2.jpg"
-                                  className="w-[40px] h-[40px] rounded-md object-cover"
-                                  alt=""
-                                />
-                              </td>
-                              <td className="px-6 py-4">2</td>
-                              <td className="px-6 py-4">$1300</td>
-                              <td className="px-6 py-4">$1300</td>
-                            </tr>
-                            <tr className="bg-neutral-primary border-b border-default font-[500]">
-                              <td className="px-6 py-4">dfgdfg</td>
-                              <td className="px-6 py-4">54644</td>
-                              <td className="px-6 py-4">
-                                <img
-                                  src="https://serviceapi.spicezgold.com/download/1742462909158_gdgd2.jpg"
-                                  className="w-[40px] h-[40px] rounded-md object-cover"
-                                  alt=""
-                                />
-                              </td>
-                              <td className="px-6 py-4">2</td>
-                              <td className="px-6 py-4">$1300</td>
-                              <td className="px-6 py-4">$1300</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </>
