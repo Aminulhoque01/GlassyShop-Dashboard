@@ -9,9 +9,13 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useState } from "react";
 import { Link } from "react-router";
+import ProgressBar from "../ProgressBar/ProgressBar";
+import Button from "@mui/material/Button";
+import { CiEdit } from "react-icons/ci";
+import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
 
 const columns = [
-  { id: "id", label: "ID", minWidth: 80 },
+  
   { id: "product", label: "Product", minWidth: 170 },
   { id: "category", label: "Category", minWidth: 100 },
   {
@@ -19,11 +23,7 @@ const columns = [
     label: "Sub Category",
     minWidth: 170,
   },
-  {
-    id: "brand",
-    label: "Brand",
-    minWidth: 170,
-  },
+  
   {
     id: "price",
     label: "Price",
@@ -34,11 +34,7 @@ const columns = [
     label: "Sales",
     minWidth: 100,
   },
-  {
-    id: "rating",
-    label: "Rating",
-    minWidth: 80,
-  },
+  
   {
     id: "action",
     label: "Action",
@@ -129,17 +125,27 @@ const MetarialTable = () => {
                   </div>
                 </TableCell>
                 <TableCell style={{ minWidth: columns.minWidth }}>
-                  &nbsp;
+                  <p className="text-[14px]">
+                    <span className="font-[600]">234</span>sale
+                  </p>
+                  <ProgressBar value={80} type="success" />
                 </TableCell>
                 <TableCell style={{ minWidth: columns.minWidth }}>
-                  &nbsp;
+                  <div className="flex items-center gap-1">
+                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1]
+                             !border border-[rgba(0,0,0,0.4)] !rounded-full hover:!bg-[#f1f1f1]" title="Edit">
+                              <CiEdit className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
+                            </Button>
+                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] 
+                            !border border-[rgba(0,0,0,0.4)]" title="view">
+                              <MdOutlineRemoveRedEye  className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
+                            </Button>
+                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]" title="Remove">
+                              <MdDeleteOutline className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
+                            </Button>
+                        </div>
                 </TableCell>
-                <TableCell style={{ minWidth: columns.minWidth }}>
-                  &nbsp;
-                </TableCell>
-                <TableCell style={{ minWidth: columns.minWidth }}>
-                  &nbsp;
-                </TableCell>
+               
               </TableRow>
             </TableBody>
           </Table>
