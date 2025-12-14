@@ -42,10 +42,7 @@ const columns = [
   },
 ];
 
-// function createData(name, code, population, size) {
-//   const density = population / size;
-//   return { name, code, population, size, density };
-// }
+
 
 const MetarialTable = () => {
   const [page, setPage] = useState(0);
