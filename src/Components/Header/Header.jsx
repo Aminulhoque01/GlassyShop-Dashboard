@@ -8,12 +8,12 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import "../../App.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { TbCircuitCapacitor } from "react-icons/tb";
 import { IoIosLogOut } from "react-icons/io";
-
+import {MyContext} from "../../App"
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -34,10 +34,12 @@ const Header = () => {
     setAnchorAcc(null);
   };
 
+  const context = useContext(MyContext)
+
   return (
     <header className="bg-[#fff] w-full h-auto py-2 shadow-md   pl-64 pr-5 flex items-center justify-between">
       <div className="part1">
-        <Button className="!w-[40px] !h-[40px] flex  !text-[#000] !rounded-full !min-w-[40px]">
+        <Button onClick={()=>context.setIsSidebarOpen(!context.isSidebarOpen)}  className="!w-[40px] !h-[40px] flex  !text-[#000] !rounded-full !min-w-[40px]">
           <RiMenu2Fill className="text-[20px]]" />
         </Button>
       </div>

@@ -9,8 +9,9 @@ import { TbCategory } from "react-icons/tb";
 import { IoBagCheckSharp } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import { FaAngleDown } from "react-icons/fa6";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Collapse } from "react-collapse";
+import { MyContext } from "../../App";
 
 const Sidebar = () => {
   const [submenuIdex, setSubmenuIdex] = useState(null);
@@ -22,11 +23,13 @@ const Sidebar = () => {
     }
   };
 
+  const context = useContext(MyContext)
+
   return (
     <>
       <div
-        className="sidebar fixed top-0 left-0 bg-[#fff] w-[18%] h-full border-r 
-      border-[rgba(0,0,0,0.1)] py-2 px-4"
+        className={`sidebar fixed top-0 left-0 bg-[#fff]  h-full border-r 
+      border-[rgba(0,0,0,0.1)] py-2 px-4  w-[${context.isSidebarOpen===true ? '18%':'0%'}]`}
       >
         <div className="img w-full py-2">
           <Link to="/">
