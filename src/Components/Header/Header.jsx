@@ -37,7 +37,7 @@ const Header = () => {
   const context = useContext(MyContext)
 
   return (
-    <header className="bg-[#fff] w-full h-auto py-2 shadow-md   pl-64 pr-5 flex items-center justify-between">
+    <header className={`bg-[#fff] w-full h-auto py-2 shadow-md  ${context.isSidebarOpen===true ? 'pl-64' :'pl-5'} transition-all pr-5 flex items-center justify-between`}>
       <div className="part1">
         <Button onClick={()=>context.setIsSidebarOpen(!context.isSidebarOpen)}  className="!w-[40px] !h-[40px] flex  !text-[#000] !rounded-full !min-w-[40px]">
           <RiMenu2Fill className="text-[20px]]" />

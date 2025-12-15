@@ -20,10 +20,10 @@ function App() {
           <section className="main">
             <Header />
             <div className="contentMain flex">
-              <div className={`overflow-hidden sidebarWrapper w-[${isSidebarOpen===true ? '18%':'0%'}]`}>
+              <div className={`overflow-hidden sidebarWrapper ${isSidebarOpen===true ? 'w-[18%]':'w-[0px] opacity-0'} transition-all`}>
                 <Sidebar />
               </div>
-              <div className="contentRight py-4 px-5 w-[82%]">
+              <div className={`contentRight py-4 px-5 ${isSidebarOpen===true ? 'w-[82%]' : 'w-[100%]'} transition-all`}>
                 <Dashboard></Dashboard>
               </div>
             </div>
