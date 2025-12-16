@@ -83,6 +83,13 @@ const Dashboard = () => {
         <div className="flex items-center justify-between px-5 py-5">
           <h2 className="text-[18spx] font-[600]">Products</h2>
         </div>
+        <div className="flex items-center w-full pl-5 pb-2">
+          <div className="col w-[25%]">
+            <h4 className="font-[600] text-[13px]">Category</h4>
+
+          </div>
+        </div>
+
         <div class="relative overflow-x-auto   border border-default">
           <div className="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
             <table className="w-full text-sm text-left rtl:text-right text-body">
