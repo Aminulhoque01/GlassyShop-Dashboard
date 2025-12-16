@@ -14,6 +14,8 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { TbCircuitCapacitor } from "react-icons/tb";
 import { IoIosLogOut } from "react-icons/io";
 import {MyContext} from "../../App"
+ 
+import { MdOutlineMenuOpen } from "react-icons/md";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -40,7 +42,13 @@ const Header = () => {
     <header className={`bg-[#fff] w-full h-auto py-2 shadow-md  ${context.isSidebarOpen===true ? 'pl-64' :'pl-5'} transition-all pr-5 flex items-center justify-between`}>
       <div className="part1">
         <Button onClick={()=>context.setIsSidebarOpen(!context.isSidebarOpen)}  className="!w-[40px] !h-[40px] flex  !text-[#000] !rounded-full !min-w-[40px]">
-          <RiMenu2Fill className="text-[20px]]" />
+          {
+            context.isSidebarOpen===true ?
+             < MdOutlineMenuOpen className="text-[20px]" />
+             :
+             <RiMenu2Fill className="text-[20px]"/>
+          }
+         
         </Button>
       </div>
 
