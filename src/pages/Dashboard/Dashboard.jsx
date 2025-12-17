@@ -14,13 +14,20 @@ import ProgressBar from "../../Components/ProgressBar/ProgressBar";
 import { CiEdit } from "react-icons/ci";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
-import Tooltip from '@mui/material/Tooltip';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Pagination from '@mui/material/Pagination';
 import MetarialTable from "../../Components/MetarilaTable/MetarialTable";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 
 const Dashboard = () => {
   const [isOpenOrderProduct, setIsOpenOrderProduct] = useState(null);
+    const [age, setAge] =  useState('');
 
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
   const isShowOrderdProduct = (index) => {
     if (isOpenOrderProduct === index) {
       setIsOpenOrderProduct(null);
@@ -84,10 +91,32 @@ const Dashboard = () => {
           <h2 className="text-[18spx] font-[600]">Products</h2>
         </div>
         <div className="flex items-center w-full pl-5 pb-2">
-          <div className="col w-[25%]">
-            <h4 className="font-[600] text-[13px]">Category</h4>
-
+          <div className="col w-[20%]">
+            <h4 className="font-[600] text-[13px] mb-2">Category By</h4>
+          
+          <Select
+           className="w-full"
+           size="small"
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            value={age}
+            label="Age"
+            onChange={handleChange}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Man</MenuItem>
+            <MenuItem value={20}>Woman</MenuItem>
+            <MenuItem value={30}>Kids</MenuItem>
+          </Select>
+          
+     
+             
           </div>
+
+         
+       
         </div>
 
         <div class="relative overflow-x-auto   border border-default">
