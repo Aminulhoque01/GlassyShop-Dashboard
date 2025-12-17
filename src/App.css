@@ -11,4 +11,4 @@ body{  font-family: "Montserrat", sans-serif; background: #f1f1f1;}
 .btn-blue{background:#2260f3 !important; color:#fff !important; padding:8px,20px !important};
 .btn-blue:hover{background:#4d80f5 !important;};
 .bg-primary{background: #1a69df !important;}
-
+.btn{background:green !important;   padding:8px,20px !important}

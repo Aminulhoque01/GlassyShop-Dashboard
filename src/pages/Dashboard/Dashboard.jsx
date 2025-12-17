@@ -18,8 +18,8 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Pagination from '@mui/material/Pagination';
 import MetarialTable from "../../Components/MetarilaTable/MetarialTable";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
+ 
+import { BiExport } from "react-icons/bi";
 
 const Dashboard = () => {
   const [isOpenOrderProduct, setIsOpenOrderProduct] = useState(null);
@@ -90,7 +90,7 @@ const Dashboard = () => {
         <div className="flex items-center justify-between px-5 py-5">
           <h2 className="text-[18spx] font-[600]">Products</h2>
         </div>
-        <div className="flex items-center w-full pl-5 pb-2">
+        <div className="flex items-center w-full pl-5 pb-2 ">
           <div className="col w-[20%]">
             <h4 className="font-[600] text-[13px] mb-2">Category By</h4>
           
@@ -115,10 +115,13 @@ const Dashboard = () => {
              
           </div>
 
-         
+           <div className="col w-[25%] ml-auto flex items-center gap-3">
+              <Button className="btn   !text-white   "> Export</Button>
+              <Button className="btn-blue   !text-white ">Add product</Button>
+           </div>
        
         </div>
-
+  
         <div class="relative overflow-x-auto   border border-default">
           <div className="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
             <table className="w-full text-sm text-left rtl:text-right text-body">
