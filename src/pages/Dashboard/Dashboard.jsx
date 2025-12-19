@@ -1,6 +1,6 @@
 import DashboardBoxes from "../../Components/DashboardBoxes/DashboardBoxes";
 import image from "../../../src/assets/shop-illustration.webp";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { CiSquarePlus } from "react-icons/ci";
 import Button from "@mui/material/Button";
 import { useState } from "react";
@@ -14,16 +14,60 @@ import ProgressBar from "../../Components/ProgressBar/ProgressBar";
 import { CiEdit } from "react-icons/ci";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import Pagination from '@mui/material/Pagination';
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import Pagination from "@mui/material/Pagination";
 import MetarialTable from "../../Components/MetarilaTable/MetarialTable";
- 
+
 import { BiExport } from "react-icons/bi";
 
 const Dashboard = () => {
   const [isOpenOrderProduct, setIsOpenOrderProduct] = useState(null);
-    const [age, setAge] =  useState('');
+  const [char1Data, setChart1Data]=useState([
+    {
+      name: "Page A",
+      uv: 4000,
+      pv: 2400,
+      amt: 2400,
+    },
+    {
+      name: "Page B",
+      uv: 3000,
+      pv: 1398,
+      amt: 2210,
+    },
+    {
+      name: "Page C",
+      uv: 2000,
+      pv: 9800,
+      amt: 2290,
+    },
+    {
+      name: "Page D",
+      uv: 2780,
+      pv: 3908,
+      amt: 2000,
+    },
+    {
+      name: "Page E",
+      uv: 1890,
+      pv: 4800,
+      amt: 2181,
+    },
+    {
+      name: "Page F",
+      uv: 2390,
+      pv: 3800,
+      amt: 2500,
+    },
+    {
+      name: "Page G",
+      uv: 3490,
+      pv: 4300,
+      amt: 2100,
+    },
+  ])
+  const [age, setAge] = useState("");
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -36,6 +80,9 @@ const Dashboard = () => {
     }
   };
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
+
+ 
+
   return (
     <>
       <div
@@ -93,35 +140,31 @@ const Dashboard = () => {
         <div className="flex items-center w-full pl-5 pb-2 ">
           <div className="col w-[20%]">
             <h4 className="font-[600] text-[13px] mb-2">Category By</h4>
-          
-          <Select
-           className="w-full"
-           size="small"
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            value={age}
-            label="Age"
-            onChange={handleChange}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Man</MenuItem>
-            <MenuItem value={20}>Woman</MenuItem>
-            <MenuItem value={30}>Kids</MenuItem>
-          </Select>
-          
-     
-             
+
+            <Select
+              className="w-full"
+              size="small"
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={age}
+              label="Age"
+              onChange={handleChange}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={10}>Man</MenuItem>
+              <MenuItem value={20}>Woman</MenuItem>
+              <MenuItem value={30}>Kids</MenuItem>
+            </Select>
           </div>
 
-           <div className="col w-[25%] ml-auto flex items-center gap-3">
-              <Button className="btn   !text-white   "> Export</Button>
-              <Button className="btn-blue   !text-white ">Add product</Button>
-           </div>
-       
+          <div className="col w-[25%] ml-auto flex items-center gap-3">
+            <Button className="btn   !text-white   "> Export</Button>
+            <Button className="btn-blue   !text-white ">Add product</Button>
+          </div>
         </div>
-  
+
         <div class="relative overflow-x-auto   border border-default">
           <div className="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
             <table className="w-full text-sm text-left rtl:text-right text-body">
@@ -129,7 +172,7 @@ const Dashboard = () => {
                 <tr>
                   <th scope="col" className="px-6 py-3 font-[600]">
                     <div className="w-[60px]">
-                      <Checkbox {...label} size="small"/>
+                      <Checkbox {...label} size="small" />
                     </div>
                   </th>
                   <th
@@ -147,7 +190,7 @@ const Dashboard = () => {
                   <th scope="col" className="px-6 py-3 font-[600]">
                     SubCategory
                   </th>
-                   
+
                   <th
                     scope="col"
                     className="px-6 py-3 font-[600] whitespace-nowrap"
@@ -163,233 +206,308 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="odd:bg-white   even:bg-gray-50
-                 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                <tr
+                  className="odd:bg-white   even:bg-gray-50
+                 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                >
                   <td scope="col" className="px-6 py-3 font-[600]">
                     <div className="w-[60px]">
-                      <Checkbox {...label} size="small"/>
+                      <Checkbox {...label} size="small" />
                     </div>
                   </td>
 
                   <td className="px-6 py-3">
                     <div className="flex items-center gap-4 w-[350px]">
-                     <div className="img w-[65px] h-[65px] rounded-md overflow-hidden group">
+                      <div className="img w-[65px] h-[65px] rounded-md overflow-hidden group">
                         <Link to="/product/35345">
-                        <img src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fproducts%2Fmodern%2F1.webp&w=1920&q=75" 
-                        alt="" className="w-full group-hover:scale-105 transition-all"/>
+                          <img
+                            src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fproducts%2Fmodern%2F1.webp&w=1920&q=75"
+                            alt=""
+                            className="w-full group-hover:scale-105 transition-all"
+                          />
                         </Link>
-                     </div>
-                     <div className="info w-[75%]">
+                      </div>
+                      <div className="info w-[75%]">
                         <h3 className="font-[600] text-[12px] leading-4  ">
                           <Link to="/product/35345">
-                           VINNED Women Embroiderd Rayon Kurta pant set | Kurta set for women
+                            VINNED Women Embroiderd Rayon Kurta pant set | Kurta
+                            set for women
                           </Link>
                         </h3>
                         <span>Books</span>
-                     </div>
+                      </div>
                     </div>
                   </td>
-                    <td className="px-6 py-3">
-                      Electronics
-                    </td>
-                    <td className="px-6 py-3">Woman</td>
-                    <td className="px-6 py-3">
-                      <div className="flex items-center gap-1 flex-col">
-                        <span className="oldPrice line-through text-gray-500 text-[15px] font-[500]">$58.00</span>
-                        <span className="  text-blue-600 text-[15px] font-[600]">$58.00</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-3">
-                      <p className="text-[14px]"><span className="font-[600]">234</span>sale</p>
-                      <ProgressBar value={80} type="error"/>
-                    </td>
-                    <td className="px-6 py-3">
-                        <div className="flex items-center gap-1">
-                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1]
-                             !border border-[rgba(0,0,0,0.4)] !rounded-full hover:!bg-[#f1f1f1]" title="Edit">
-                              <CiEdit className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
-                            </Button>
-                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] 
-                            !border border-[rgba(0,0,0,0.4)]" title="view">
-                              <MdOutlineRemoveRedEye  className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
-                            </Button>
-                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]" title="Remove">
-                              <MdDeleteOutline className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
-                            </Button>
-                        </div>
-                    </td>
+                  <td className="px-6 py-3">Electronics</td>
+                  <td className="px-6 py-3">Woman</td>
+                  <td className="px-6 py-3">
+                    <div className="flex items-center gap-1 flex-col">
+                      <span className="oldPrice line-through text-gray-500 text-[15px] font-[500]">
+                        $58.00
+                      </span>
+                      <span className="  text-blue-600 text-[15px] font-[600]">
+                        $58.00
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-3">
+                    <p className="text-[14px]">
+                      <span className="font-[600]">234</span>sale
+                    </p>
+                    <ProgressBar value={80} type="error" />
+                  </td>
+                  <td className="px-6 py-3">
+                    <div className="flex items-center gap-1">
+                      <Button
+                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1]
+                             !border border-[rgba(0,0,0,0.4)] !rounded-full hover:!bg-[#f1f1f1]"
+                        title="Edit"
+                      >
+                        <CiEdit className="text-[rgba(0,0,0,0.7)] text-[20px]" />
+                      </Button>
+                      <Button
+                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] 
+                            !border border-[rgba(0,0,0,0.4)]"
+                        title="view"
+                      >
+                        <MdOutlineRemoveRedEye className="text-[rgba(0,0,0,0.7)] text-[20px]" />
+                      </Button>
+                      <Button
+                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]"
+                        title="Remove"
+                      >
+                        <MdDeleteOutline className="text-[rgba(0,0,0,0.7)] text-[20px]" />
+                      </Button>
+                    </div>
+                  </td>
                 </tr>
-                <tr className="odd:bg-white   even:bg-gray-50
-                   border-b dark:border-gray-700">
+                <tr
+                  className="odd:bg-white   even:bg-gray-50
+                   border-b dark:border-gray-700"
+                >
                   <td scope="col" className="px-6 py-3 font-[600]">
                     <div className="w-[60px]">
-                      <Checkbox {...label} size="small"/>
+                      <Checkbox {...label} size="small" />
                     </div>
                   </td>
 
                   <td className="px-6 py-3">
                     <div className="flex items-center gap-4 w-[350px]">
-                     <div className="img w-[65px] h-[65px] rounded-md overflow-hidden group">
+                      <div className="img w-[65px] h-[65px] rounded-md overflow-hidden group">
                         <Link to="/product/35345">
-                        <img src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fproducts%2Fmodern%2F1.webp&w=1920&q=75" 
-                        alt="" className="w-full group-hover:scale-105 transition-all"/>
+                          <img
+                            src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fproducts%2Fmodern%2F1.webp&w=1920&q=75"
+                            alt=""
+                            className="w-full group-hover:scale-105 transition-all"
+                          />
                         </Link>
-                     </div>
-                     <div className="info w-[75%]">
+                      </div>
+                      <div className="info w-[75%]">
                         <h3 className="font-[600] text-[12px] leading-4  ">
                           <Link to="/product/35345">
-                           VINNED Women Embroiderd Rayon Kurta pant set | Kurta set for women
+                            VINNED Women Embroiderd Rayon Kurta pant set | Kurta
+                            set for women
                           </Link>
                         </h3>
                         <span>Books</span>
-                     </div>
+                      </div>
                     </div>
                   </td>
-                    <td className="px-6 py-3">
-                      Electronics
-                    </td>
-                    <td className="px-6 py-3">Woman</td>
-                    <td className="px-6 py-3">
-                      <div className="flex items-center gap-1 flex-col">
-                        <span className="oldPrice line-through text-gray-500 text-[15px] font-[500]">$58.00</span>
-                        <span className="  text-blue-600 text-[15px] font-[600]">$58.00</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-3">
-                      <p className="text-[14px]"><span className="font-[600]">234</span>sale</p>
-                      <ProgressBar value={80} type="error"/>
-                    </td>
-                    <td className="px-6 py-3">
-                        <div className="flex items-center gap-1">
-                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1]
-                             !border border-[rgba(0,0,0,0.4)] !rounded-full hover:!bg-[#f1f1f1]" title="Edit">
-                              <CiEdit className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
-                            </Button>
-                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] 
-                            !border border-[rgba(0,0,0,0.4)]" title="view">
-                              <MdOutlineRemoveRedEye  className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
-                            </Button>
-                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]" title="Remove">
-                              <MdDeleteOutline className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
-                            </Button>
-                        </div>
-                    </td>
+                  <td className="px-6 py-3">Electronics</td>
+                  <td className="px-6 py-3">Woman</td>
+                  <td className="px-6 py-3">
+                    <div className="flex items-center gap-1 flex-col">
+                      <span className="oldPrice line-through text-gray-500 text-[15px] font-[500]">
+                        $58.00
+                      </span>
+                      <span className="  text-blue-600 text-[15px] font-[600]">
+                        $58.00
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-3">
+                    <p className="text-[14px]">
+                      <span className="font-[600]">234</span>sale
+                    </p>
+                    <ProgressBar value={80} type="error" />
+                  </td>
+                  <td className="px-6 py-3">
+                    <div className="flex items-center gap-1">
+                      <Button
+                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1]
+                             !border border-[rgba(0,0,0,0.4)] !rounded-full hover:!bg-[#f1f1f1]"
+                        title="Edit"
+                      >
+                        <CiEdit className="text-[rgba(0,0,0,0.7)] text-[20px]" />
+                      </Button>
+                      <Button
+                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] 
+                            !border border-[rgba(0,0,0,0.4)]"
+                        title="view"
+                      >
+                        <MdOutlineRemoveRedEye className="text-[rgba(0,0,0,0.7)] text-[20px]" />
+                      </Button>
+                      <Button
+                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]"
+                        title="Remove"
+                      >
+                        <MdDeleteOutline className="text-[rgba(0,0,0,0.7)] text-[20px]" />
+                      </Button>
+                    </div>
+                  </td>
                 </tr>
-                <tr className="odd:bg-white   even:bg-gray-50
-                 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                <tr
+                  className="odd:bg-white   even:bg-gray-50
+                 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                >
                   <td scope="col" className="px-6 py-3 font-[600]">
                     <div className="w-[60px]">
-                      <Checkbox {...label} size="small"/>
+                      <Checkbox {...label} size="small" />
                     </div>
                   </td>
 
                   <td className="px-6 py-3">
                     <div className="flex items-center gap-4 w-[350px]">
-                     <div className="img w-[65px] h-[65px] rounded-md overflow-hidden group">
+                      <div className="img w-[65px] h-[65px] rounded-md overflow-hidden group">
                         <Link to="/product/35345">
-                        <img src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fproducts%2Fmodern%2F1.webp&w=1920&q=75" 
-                        alt="" className="w-full group-hover:scale-105 transition-all"/>
+                          <img
+                            src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fproducts%2Fmodern%2F1.webp&w=1920&q=75"
+                            alt=""
+                            className="w-full group-hover:scale-105 transition-all"
+                          />
                         </Link>
-                     </div>
-                     <div className="info w-[75%]">
+                      </div>
+                      <div className="info w-[75%]">
                         <h3 className="font-[600] text-[12px] leading-4  ">
                           <Link to="/product/35345">
-                           VINNED Women Embroiderd Rayon Kurta pant set | Kurta set for women
+                            VINNED Women Embroiderd Rayon Kurta pant set | Kurta
+                            set for women
                           </Link>
                         </h3>
                         <span>Books</span>
-                     </div>
+                      </div>
                     </div>
                   </td>
-                    <td className="px-6 py-3">
-                      Electronics
-                    </td>
-                    <td className="px-6 py-3">Woman</td>
-                    <td className="px-6 py-3">
-                      <div className="flex items-center gap-1 flex-col">
-                        <span className="oldPrice line-through text-gray-500 text-[15px] font-[500]">$58.00</span>
-                        <span className="  text-blue-600 text-[15px] font-[600]">$58.00</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-3">
-                      <p className="text-[14px]"><span className="font-[600]">234</span>sale</p>
-                      <ProgressBar value={80} type="error"/>
-                    </td>
-                    <td className="px-6 py-3">
-                        <div className="flex items-center gap-1">
-                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1]
-                             !border border-[rgba(0,0,0,0.4)] !rounded-full hover:!bg-[#f1f1f1]" title="Edit">
-                              <CiEdit className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
-                            </Button>
-                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] 
-                            !border border-[rgba(0,0,0,0.4)]" title="view">
-                              <MdOutlineRemoveRedEye  className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
-                            </Button>
-                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]" title="Remove">
-                              <MdDeleteOutline className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
-                            </Button>
-                        </div>
-                    </td>
+                  <td className="px-6 py-3">Electronics</td>
+                  <td className="px-6 py-3">Woman</td>
+                  <td className="px-6 py-3">
+                    <div className="flex items-center gap-1 flex-col">
+                      <span className="oldPrice line-through text-gray-500 text-[15px] font-[500]">
+                        $58.00
+                      </span>
+                      <span className="  text-blue-600 text-[15px] font-[600]">
+                        $58.00
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-3">
+                    <p className="text-[14px]">
+                      <span className="font-[600]">234</span>sale
+                    </p>
+                    <ProgressBar value={80} type="error" />
+                  </td>
+                  <td className="px-6 py-3">
+                    <div className="flex items-center gap-1">
+                      <Button
+                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1]
+                             !border border-[rgba(0,0,0,0.4)] !rounded-full hover:!bg-[#f1f1f1]"
+                        title="Edit"
+                      >
+                        <CiEdit className="text-[rgba(0,0,0,0.7)] text-[20px]" />
+                      </Button>
+                      <Button
+                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] 
+                            !border border-[rgba(0,0,0,0.4)]"
+                        title="view"
+                      >
+                        <MdOutlineRemoveRedEye className="text-[rgba(0,0,0,0.7)] text-[20px]" />
+                      </Button>
+                      <Button
+                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]"
+                        title="Remove"
+                      >
+                        <MdDeleteOutline className="text-[rgba(0,0,0,0.7)] text-[20px]" />
+                      </Button>
+                    </div>
+                  </td>
                 </tr>
-                <tr className="odd:bg-white   even:bg-gray-50
-                   border-b dark:border-gray-700">
+                <tr
+                  className="odd:bg-white   even:bg-gray-50
+                   border-b dark:border-gray-700"
+                >
                   <td scope="col" className="px-6 py-3 font-[600]">
                     <div className="w-[60px]">
-                      <Checkbox {...label} size="small"/>
+                      <Checkbox {...label} size="small" />
                     </div>
                   </td>
 
                   <td className="px-6 py-3">
                     <div className="flex items-center gap-4 w-[350px]">
-                     <div className="img w-[65px] h-[65px] rounded-md overflow-hidden group">
+                      <div className="img w-[65px] h-[65px] rounded-md overflow-hidden group">
                         <Link to="/product/35345">
-                        <img src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fproducts%2Fmodern%2F1.webp&w=1920&q=75" 
-                        alt="" className="w-full group-hover:scale-105 transition-all"/>
+                          <img
+                            src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fproducts%2Fmodern%2F1.webp&w=1920&q=75"
+                            alt=""
+                            className="w-full group-hover:scale-105 transition-all"
+                          />
                         </Link>
-                     </div>
-                     <div className="info w-[75%]">
+                      </div>
+                      <div className="info w-[75%]">
                         <h3 className="font-[600] text-[12px] leading-4  ">
                           <Link to="/product/35345">
-                           VINNED Women Embroiderd Rayon Kurta pant set | Kurta set for women
+                            VINNED Women Embroiderd Rayon Kurta pant set | Kurta
+                            set for women
                           </Link>
                         </h3>
                         <span>Books</span>
-                     </div>
+                      </div>
                     </div>
                   </td>
-                    <td className="px-6 py-3">
-                      Electronics
-                    </td>
-                    <td className="px-6 py-3">Woman</td>
-                    <td className="px-6 py-3">
-                      <div className="flex items-center gap-1 flex-col">
-                        <span className="oldPrice line-through text-gray-500 text-[15px] font-[500]">$58.00</span>
-                        <span className="  text-blue-600 text-[15px] font-[600]">$58.00</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-3">
-                      <p className="text-[14px]"><span className="font-[600]">234</span>sale</p>
-                      <ProgressBar value={80} type="error"/>
-                    </td>
-                    <td className="px-6 py-3">
-                        <div className="flex items-center gap-1">
-                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1]
-                             !border border-[rgba(0,0,0,0.4)] !rounded-full hover:!bg-[#f1f1f1]" title="Edit">
-                              <CiEdit className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
-                            </Button>
-                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] 
-                            !border border-[rgba(0,0,0,0.4)]" title="view">
-                              <MdOutlineRemoveRedEye  className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
-                            </Button>
-                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]" title="Remove">
-                              <MdDeleteOutline className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
-                            </Button>
-                        </div>
-                    </td>
+                  <td className="px-6 py-3">Electronics</td>
+                  <td className="px-6 py-3">Woman</td>
+                  <td className="px-6 py-3">
+                    <div className="flex items-center gap-1 flex-col">
+                      <span className="oldPrice line-through text-gray-500 text-[15px] font-[500]">
+                        $58.00
+                      </span>
+                      <span className="  text-blue-600 text-[15px] font-[600]">
+                        $58.00
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-3">
+                    <p className="text-[14px]">
+                      <span className="font-[600]">234</span>sale
+                    </p>
+                    <ProgressBar value={80} type="error" />
+                  </td>
+                  <td className="px-6 py-3">
+                    <div className="flex items-center gap-1">
+                      <Button
+                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1]
+                             !border border-[rgba(0,0,0,0.4)] !rounded-full hover:!bg-[#f1f1f1]"
+                        title="Edit"
+                      >
+                        <CiEdit className="text-[rgba(0,0,0,0.7)] text-[20px]" />
+                      </Button>
+                      <Button
+                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] 
+                            !border border-[rgba(0,0,0,0.4)]"
+                        title="view"
+                      >
+                        <MdOutlineRemoveRedEye className="text-[rgba(0,0,0,0.7)] text-[20px]" />
+                      </Button>
+                      <Button
+                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]"
+                        title="Remove"
+                      >
+                        <MdDeleteOutline className="text-[rgba(0,0,0,0.7)] text-[20px]" />
+                      </Button>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
-             
           </div>
           <div className="flex items-center justify-end mt-4 mb-4">
             <Pagination count={10} color="secondary" />
@@ -397,19 +515,13 @@ const Dashboard = () => {
         </div>
       </div>
 
-
-
-
       {/* ....... */}
       <div className="card my-4 shadow-md sm:rounded-lg bg-white">
         <div className="flex items-center justify-between px-5 py-5">
           <h2 className="text-[18spx] font-[600]">Products</h2>
         </div>
-       <MetarialTable/>
+        <MetarialTable />
       </div>
-
-
-
 
       <div className="card my-4 shadow-md sm:rounded-lg bg-white">
         <div className="flex items-center justify-between px-5 py-5">
