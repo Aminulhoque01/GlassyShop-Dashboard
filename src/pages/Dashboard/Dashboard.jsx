@@ -18,12 +18,12 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Pagination from "@mui/material/Pagination";
 import MetarialTable from "../../Components/MetarilaTable/MetarialTable";
-
-import { BiExport } from "react-icons/bi";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+ 
 
 const Dashboard = () => {
   const [isOpenOrderProduct, setIsOpenOrderProduct] = useState(null);
-  const [char1Data, setChart1Data]=useState([
+  const [char1Data, setChart1Data] = useState([
     {
       name: "Page A",
       uv: 4000,
@@ -66,7 +66,7 @@ const Dashboard = () => {
       pv: 4300,
       amt: 2100,
     },
-  ])
+  ]);
   const [age, setAge] = useState("");
 
   const handleChange = (event) => {
@@ -80,8 +80,6 @@ const Dashboard = () => {
     }
   };
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
-
- 
 
   return (
     <>
@@ -788,6 +786,39 @@ const Dashboard = () => {
             </table>
           </div>
         </div>
+      </div>
+
+      <div className="card my-4 shadow-md sm:rounded-lg bg-white">
+        <LineChart
+          style={{
+            width: "100%",
+            maxWidth: "700px",
+            height: "100%",
+            maxHeight: "70vh",
+            aspectRatio: 1.618,
+          }}
+          responsive
+          data={char1Data}
+          margin={{
+            top: 5,
+            right: 0,
+            left: 0,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis width="auto" />
+          <Tooltip />
+          <Legend />
+          <Line
+            type="monotone"
+            dataKey="pv"
+            stroke="#8884d8"
+            activeDot={{ r: 8 }}
+          />
+          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+        </LineChart>
       </div>
     </>
   );
