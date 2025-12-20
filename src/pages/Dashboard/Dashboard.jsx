@@ -25,45 +25,75 @@ const Dashboard = () => {
   const [isOpenOrderProduct, setIsOpenOrderProduct] = useState(null);
   const [char1Data, setChart1Data] = useState([
     {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
+      name: "January",
+      Total_Users: 4000,
+      Total_Sales: 2400,
       amt: 2400,
     },
     {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
+      name: "February",
+      Total_Users: 3000,
+      Total_Sales: 1398,
       amt: 2210,
     },
     {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
+      name: "March",
+      Total_Users: 2000,
+      Total_Sales: 9800,
       amt: 2290,
     },
     {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
+      name: "April",
+      Total_Users: 2780,
+      Total_Sales: 3908,
       amt: 2000,
     },
     {
-      name: "Page E",
-      uv: 1890,
-      pv: 4800,
+      name: "May",
+      Total_Users: 1890,
+      Total_Sales: 4800,
       amt: 2181,
     },
     {
-      name: "Page F",
-      uv: 2390,
-      pv: 3800,
+      name: "Jun",
+      Total_Users: 2390,
+      Total_Sales: 3800,
       amt: 2500,
     },
     {
-      name: "Page G",
-      uv: 3490,
-      pv: 4300,
+      name: "July",
+      Total_Users: 3490,
+      Total_Sales: 4300,
+      amt: 2100,
+    },
+    {
+      name: "August",
+      Total_Users: 3490,
+      Total_Sales: 4300,
+      amt: 2100,
+    },
+    {
+      name: "September",
+      Total_Users: 3490,
+      Total_Sales: 4300,
+      amt: 2100,
+    },
+    {
+      name: "October",
+      Total_Users: 3490,
+      Total_Sales: 4300,
+      amt: 2100,
+    },
+    {
+      name: "Nov",
+      Total_Users: 2390,
+      Total_Sales: 3800,
+      amt: 2500,
+    },
+    {
+      name: "December",
+      Total_Users: 3490,
+      Total_Sales: 4300,
       amt: 2100,
     },
   ]);
@@ -789,9 +819,24 @@ const Dashboard = () => {
       </div>
 
       <div className="card my-4 shadow-md sm:rounded-lg bg-white">
-        <div className="flex items-center justify-center   px-5 py-5">
-              <h2 className="text-[18px] font-[600[]]">Repeat Customer Rate</h2>    
+        <div className="flex items-center justify-between   px-5   pb-0">
+              <h2 className="text-[18px] font-[600]">Repeat Customer Rate</h2>    
         </div>
+
+        <div className="flex items-center gap-5 px-5 py-5 pt-2">
+            <span className="flex items-center gap-1">
+              <span className="block w-[10px] h-[10px] rounded-full bg-green-600 ">  </span>
+              Total Users
+              </span>
+
+              <span className="flex items-center gap-1">
+              <span className="block w-[10px] h-[10px] rounded-full bg-blue-600 ">  </span>
+              Total Sales
+              </span>
+
+        </div>
+
+
         <LineChart
           style={{
             width: "1000%",
@@ -810,17 +855,18 @@ const Dashboard = () => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis width="auto" />
+          <XAxis dataKey="name" tick={{fontSize:12}}/>
+          <YAxis  tick={{fontSize:12}} />
           <Tooltip />
           <Legend />
           <Line
             type="monotone"
-            dataKey="pv"
+            dataKey="Total_Sales"
             stroke="#8884d8"
+            strokeWidth={3}
             activeDot={{ r: 8 }}
           />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+          <Line type="monotone" dataKey="Total_Users" stroke="#82ca9d"  strokeWidth={3} />
         </LineChart>
       </div>
     </>
