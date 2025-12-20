@@ -789,11 +789,14 @@ const Dashboard = () => {
       </div>
 
       <div className="card my-4 shadow-md sm:rounded-lg bg-white">
+        <div className="flex items-center justify-center   px-5 py-5">
+              <h2 className="text-[18px] font-[600[]]">Repeat Customer Rate</h2>    
+        </div>
         <LineChart
           style={{
-            width: "100%",
-            maxWidth: "700px",
-            height: "100%",
+            width: "1000%",
+            maxWidth: "1000px",
+            height: "500%",
             maxHeight: "70vh",
             aspectRatio: 1.618,
           }}
