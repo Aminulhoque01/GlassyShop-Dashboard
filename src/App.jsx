@@ -9,6 +9,8 @@ import { createContext, useState } from "react";
 
 function App() {
   const[isSidebarOpen, setIsSidebarOpen]=useState(true);
+  const [isLogin, setIsLogin]=useState(false);
+
 
 
   const router = createBrowserRouter([
@@ -35,7 +37,9 @@ function App() {
 
  const values={
   isSidebarOpen,
-  setIsSidebarOpen
+  setIsSidebarOpen,
+  isLogin,
+  setIsLogin
  }
 
   return (
