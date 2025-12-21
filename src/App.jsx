@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Header from "./Components/Header/Header";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import { createContext, useState } from "react";
+import Login from "./pages/Login/Login";
 
   const MyContext = createContext();
 
@@ -30,6 +31,15 @@ function App() {
               </div>
             </div>
           </section>
+        </>
+      ),
+    },
+    {
+      path: "/login",
+      exact: true,
+      element: (
+        <>
+          <Login/>
         </>
       ),
     },
