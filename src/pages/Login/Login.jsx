@@ -81,6 +81,14 @@ const Login = () => {
           <span className="text-[14px] text-[rgba(0,0,0,0.7)] font-[500]">Or, Sing in with your email</span>
          <span className="flex items-center w-[100px] h-[2px] bg-[rgba(0,0,0,0.1)]"></span>
         </div>
+
+        <br />
+        <form className="w-full px-8">
+          <div className="form-group mb-4 w-full">
+            <h4>Email</h4>
+            <input type="email" className="w-full h-[40px] border border-[rgba(0,0,0,0.1)]" />
+          </div>
+        </form>
       </div>
 
 
