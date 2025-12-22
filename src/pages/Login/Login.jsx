@@ -9,6 +9,10 @@ import { useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+const label = { slotProps: { input: { 'aria-label': 'Checkbox demo' } } };
 
 const Login = () => {
   const [loadingGoogle, setLoadingGoogle] = useState(false);
@@ -83,11 +87,24 @@ const Login = () => {
         </div>
 
         <br />
-        <form className="w-full px-8">
+        <form className="w-full px-8 mt-3">
           <div className="form-group mb-4 w-full">
-            <h4>Email</h4>
-            <input type="email" className="w-full h-[40px] border border-[rgba(0,0,0,0.1)]" />
+            <h4 className="text-[14px] font-[500] mb-1">Email</h4>
+            <input type="email" className="w-full h-[45px] border-2 border-[rgba(0,0,0,0.1)]
+             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3" />
           </div>
+
+          <div className="form-group mb-4 w-full">
+            <h4 className="text-[14px] font-[500] mb-1">Password</h4>
+            <input type="Password" className="w-full h-[45px] border-2 border-[rgba(0,0,0,0.1)]
+             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3" />
+          </div>
+
+           <div className="form-group mb-4 w-full flex items-center justify-between">
+               <FormControlLabel  control={<Checkbox />} label="Remember me" />
+
+               <Link to="/forget-password" className="text-blue-600 font-[600]">Forget Password?</Link>
+           </div>
         </form>
       </div>
 
