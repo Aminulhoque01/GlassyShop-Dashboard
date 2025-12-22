@@ -16,6 +16,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { MyContext } from "../../App";
 
 import { MdOutlineMenuOpen } from "react-icons/md";
+import { Link } from "react-router";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -152,7 +153,7 @@ const Header = () => {
             </Menu>
           </div>
         ) : (
-          <Button className="btn-blue btn-sm !rounded-full">Sing In</Button>
+         <Link to="/login"> <Button className="btn-blue btn-sm !rounded-full">Sing In</Button></Link>
         )}
       </div>
     </header>
