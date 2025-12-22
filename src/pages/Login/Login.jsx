@@ -47,7 +47,7 @@ const Login = () => {
         </div>
         <h1 className="text-center text-[35px] font-[800] mt-4">
           Welcome Back ! <br />
-          Sing in with your credentials
+          <span className="text-blue-600">Sing in with your credentials</span>
         </h1>
 
         <div className="flex items-center justify-center w-full mt-5 gap-4">
@@ -58,7 +58,7 @@ const Login = () => {
             loading={loadingGoogle}
             loadingPosition="end"
             variant="outlined"
-            className="!bg-none !text-[15px] !capitalize !px-5 !font-[600] !text-[rgba(0,0,0,0.7)] !border-[rgba(0,0,0,0.5)]"
+            className="!bg-none !py-2 !text-[15px] !capitalize !px-5 !font-[600] !text-[rgba(0,0,0,0.7)] !border-[rgba(0,0,0,0.5)]"
           >
             Sing With Google
           </LoadingButton>
@@ -69,12 +69,21 @@ const Login = () => {
             loading={loadingFacebook}
             loadingPosition="end"
             variant="outlined"
-            className="!bg-none !text-[15px] !capitalize !px-5 !font-[600] !text-[rgba(0,0,0,0.7)] !border-[rgba(0,0,0,0.5)]"
+            className="!bg-none  !py-2 !text-[15px] !capitalize !px-5 !font-[600] !text-[rgba(0,0,0,0.7)] !border-[rgba(0,0,0,0.5)]"
           >
             Sing With Facebook
           </LoadingButton>
         </div>
+
+        <br />
+        <div className="w-full flex items-center justify-center gap-3 mt-5">
+         <span className="flex items-center w-[100px] h-[2px] bg-[rgba(0,0,0,0.1)]"></span>
+          <span className="text-[14px] text-[rgba(0,0,0,0.7)] font-[500]">Or, Sing in with your email</span>
+         <span className="flex items-center w-[100px] h-[2px] bg-[rgba(0,0,0,0.1)]"></span>
+        </div>
       </div>
+
+
     </section>
   );
 };
