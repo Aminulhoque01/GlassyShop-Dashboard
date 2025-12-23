@@ -12,7 +12,7 @@ import { FaFacebook } from "react-icons/fa";
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-const label = { slotProps: { input: { 'aria-label': 'Checkbox demo' } } };
+ 
 
 const Login = () => {
   const [loadingGoogle, setLoadingGoogle] = useState(false);
@@ -25,8 +25,8 @@ const Login = () => {
   }
 
   return (
-    <section className="fixed top-0 left-0 w-full h-full bg-white">
-      <header className="w-full fixed top-0 left-0 px-4 py-2 flex items-center justify-between">
+    <section className=" w-full  bg-white">
+      <header className="w-full   px-4 py-2 flex items-center justify-between">
         <Link to="/">
           <img src={logo} alt="" className="w-[200px]" />
         </Link>
@@ -45,7 +45,7 @@ const Login = () => {
         </div>
       </header>
 
-      <div className="loginBox card w-[45%] h-[300px] mx-auto mt-20 relative z-50">
+      <div className="loginBox card w-[600px] h-auto mx-auto mt-20 relative z-50">
         <div className="text-center  ">
           <img src={login} alt="" className="m-auto " />
         </div>
@@ -103,10 +103,14 @@ const Login = () => {
            <div className="form-group mb-4 w-full flex items-center justify-between">
                <FormControlLabel  control={<Checkbox />} label="Remember me" />
 
-               <Link to="/forget-password" className="text-blue-600 font-[600]">Forget Password?</Link>
+               <Link to="/forget-password" className="text-blue-600 font-[600] text-[15px] hover:underline hover:text-gray-700">Forget Password?</Link>
            </div>
+
+           <Button className="btn-blue btn-lg w-full">Sing In</Button>
         </form>
       </div>
+
+      <br />
 
 
     </section>
