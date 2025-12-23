@@ -5,6 +5,7 @@ import Header from "./Components/Header/Header";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import { createContext, useState } from "react";
 import Login from "./pages/Login/Login";
+import SignUp from "./pages/SignUp/SignUp";
 
   const MyContext = createContext();
 
@@ -40,6 +41,15 @@ function App() {
       element: (
         <>
           <Login/>
+        </>
+      ),
+    },
+    {
+      path: "/signup",
+      exact: true,
+      element: (
+        <>
+          <SignUp/>
         </>
       ),
     },

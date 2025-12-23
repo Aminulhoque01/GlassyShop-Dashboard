@@ -9,18 +9,15 @@ import { useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 
- 
-
-const Login = () => {
+const SignUp = () => {
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [loadingFacebook, setLoadingFacebook] = useState(false);
-  const [isPasswordShow, setIsPasswordShow]=useState(false);
-
+  const [isPasswordShow, setIsPasswordShow] = useState(false);
 
   function handleClickGoogle() {
     setLoadingGoogle(true);
@@ -55,8 +52,8 @@ const Login = () => {
           <img src={login} alt="" className="m-auto " />
         </div>
         <h1 className="text-center text-[35px] font-[800] mt-4">
-          Welcome Back ! <br />
-          <span className="text-blue-600">Sing in with your credentials</span>
+          Join us Today! Get special <br />
+          <span className="text-blue-600">benefits and stay up-to-date</span>
         </h1>
 
         <div className="flex items-center justify-center w-full mt-5 gap-4">
@@ -86,50 +83,73 @@ const Login = () => {
 
         <br />
         <div className="w-full flex items-center justify-center gap-3 mt-5">
-         <span className="flex items-center w-[100px] h-[2px] bg-[rgba(0,0,0,0.1)]"></span>
-          <span className="text-[14px] text-[rgba(0,0,0,0.7)] font-[500]">Or, Sing in with your email</span>
-         <span className="flex items-center w-[100px] h-[2px] bg-[rgba(0,0,0,0.1)]"></span>
+          <span className="flex items-center w-[100px] h-[2px] bg-[rgba(0,0,0,0.1)]"></span>
+          <span className="text-[14px] text-[rgba(0,0,0,0.7)] font-[500]">
+            Or, Sing in with your email
+          </span>
+          <span className="flex items-center w-[100px] h-[2px] bg-[rgba(0,0,0,0.1)]"></span>
         </div>
 
         <br />
         <form className="w-full px-8 mt-3">
           <div className="form-group mb-4 w-full">
+            <h4 className="text-[14px] font-[500] mb-1">Full Name</h4>
+            <input
+              type="text"
+              className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
+             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
+            />
+          </div>
+
+          <div className="form-group mb-4 w-full">
             <h4 className="text-[14px] font-[500] mb-1">Email</h4>
-            <input type="email" className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
-             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3" />
+            <input
+              type="email"
+              className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
+             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
+            />
           </div>
 
           <div className="form-group mb-4 w-full">
             <h4 className="text-[14px] font-[500] mb-1">Password</h4>
             <div className="relative w-full">
-              <input type={isPasswordShow===false?'password':'text'} className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
-             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3" />
-             <Button className="!absolute top-[7px] right-[10px] z-50 !rounded-full
-             !w-[35px] !h-[35px] !min-w-[35px]" onClick={()=>setIsPasswordShow(!isPasswordShow)}>
-              {isPasswordShow===false? (
-              <IoEye className="text-[rgba(0,0,0,0.8)] text-[20px]"/> )
-              : (<IoEyeOff className="text-[rgba(0,0,0,0.8)] text-[20px]"/>)
-              }
-              
+              <input
+                type={isPasswordShow === false ? "password" : "text"}
+                className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
+             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
+              />
+              <Button
+                className="!absolute top-[7px] right-[10px] z-50 !rounded-full
+             !w-[35px] !h-[35px] !min-w-[35px]"
+                onClick={() => setIsPasswordShow(!isPasswordShow)}
+              >
+                {isPasswordShow === false ? (
+                  <IoEye className="text-[rgba(0,0,0,0.8)] text-[20px]" />
+                ) : (
+                  <IoEyeOff className="text-[rgba(0,0,0,0.8)] text-[20px]" />
+                )}
               </Button>
             </div>
           </div>
 
-           <div className="form-group mb-4 w-full flex items-center justify-between">
-               <FormControlLabel  control={<Checkbox />} label="Remember me" />
+          <div className="form-group mb-4 w-full flex items-center justify-between">
+            <FormControlLabel control={<Checkbox />} label="Remember me" />
 
-               <Link to="/forget-password" className="text-blue-600 font-[600] text-[15px] hover:underline hover:text-gray-700">Forget Password?</Link>
-           </div>
+            <Link
+              to="/forget-password"
+              className="text-blue-600 font-[600] text-[15px] hover:underline hover:text-gray-700"
+            >
+              Forget Password?
+            </Link>
+          </div>
 
-           <Button className="btn-blue btn-lg w-full">Sign In</Button>
+          <Button className="btn-blue btn-lg w-full">Sign Up</Button>
         </form>
       </div>
 
       <br />
-
-
     </section>
   );
 };
 
-export default Login;
+export default SignUp;
