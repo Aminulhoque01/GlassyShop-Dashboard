@@ -9,34 +9,9 @@ import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
 import Pagination from "@mui/material/Pagination";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import SearchBox from "../../Components/SearchBox/SearchBox";
 
-const columns = [
-  { id: "product", label: "Product", minWidth: 170 },
-  { id: "category", label: "Category", minWidth: 100 },
-  {
-    id: "subcategory",
-    label: "Sub Category",
-    minWidth: 170,
-  },
-
-  {
-    id: "price",
-    label: "Price",
-    minWidth: 130,
-  },
-  {
-    id: "sales",
-    label: "Sales",
-    minWidth: 100,
-  },
-
-  {
-    id: "action",
-    label: "Action",
-    minWidth: 120,
-  },
-];
-
+ 
 const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
 
 const Products = () => {
@@ -48,10 +23,14 @@ const Products = () => {
     <>
        <div className="flex items-center justify-between px-5 py-0 mt-3">
           <h2 className="text-[18spx] font-[600]">Products</h2>
+          <div className="col w-[25%] ml-auto flex items-center justify-end gap-3">
+            <Button className="btn   !text-white   "> Export</Button>
+            <Button className="btn-blue   !text-white ">Add product</Button>
+          </div>
         </div>
       <div className="card my-4 shadow-md sm:rounded-lg bg-white">
         
-        <div className="flex items-center w-full pl-5 pb-2 pt-5 ">
+        <div className="flex items-center w-full pl-5 pb-2 pt-5 px-5 ">
           <div className="col w-[20%]">
             <h4 className="font-[600] text-[13px] mb-2">Category By</h4>
 
@@ -72,11 +51,10 @@ const Products = () => {
               <MenuItem value={30}>Kids</MenuItem>
             </Select>
           </div>
-
-          <div className="col w-[25%] ml-auto flex items-center gap-3">
-            <Button className="btn   !text-white   "> Export</Button>
-            <Button className="btn-blue   !text-white ">Add product</Button>
-          </div>
+           <div className="col w-[20%] ml-auto">
+            <SearchBox/>
+           </div>
+          
         </div>
 
         <div class="relative overflow-x-auto   border border-default">
