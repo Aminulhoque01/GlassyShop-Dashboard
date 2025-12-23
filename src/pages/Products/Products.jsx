@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { Link } from "react-router";
 import ProgressBar from "../../Components/ProgressBar/ProgressBar";
@@ -10,6 +10,7 @@ import Pagination from "@mui/material/Pagination";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import SearchBox from "../../Components/SearchBox/SearchBox";
+import { MyContext } from "../../App";
 
  
 const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
@@ -19,13 +20,21 @@ const Products = () => {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+
+  const context= useContext(MyContext);
+
   return (
     <>
        <div className="flex items-center justify-between px-5 py-0 mt-3">
           <h2 className="text-[18spx] font-[600]">Products</h2>
           <div className="col w-[25%] ml-auto flex items-center justify-end gap-3">
             <Button className="btn   !text-white   "> Export</Button>
-            <Button className="btn-blue   !text-white ">Add product</Button>
+           {/* <Link to="/add-product"> */}
+             <Button className="btn-blue   !text-white " onClick={()=>context.setIsOpenFullScreenPanel({
+              open:true,
+              model:"product"
+             })}>Add product</Button>
+           {/* </Link> */}
           </div>
         </div>
       <div className="card my-4 shadow-md sm:rounded-lg bg-white">
