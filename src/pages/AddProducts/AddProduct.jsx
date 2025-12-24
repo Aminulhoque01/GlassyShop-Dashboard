@@ -243,8 +243,8 @@ const AddProduct = () => {
         <div className="col w-full p-5 px-0">
           <h3 className="font-[700] text-[18px]">Media & Images</h3>
 
-          <div className="grid grid-col-6">
-            <UploadBox/>
+          <div className="grid grid-cols-6">
+            <UploadBox multiple={true}/>
           </div>
         </div>
       </form>
