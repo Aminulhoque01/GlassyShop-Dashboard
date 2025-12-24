@@ -32,7 +32,7 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
   const [isOpenFullScreenPanel, setIsOpenFullScreenPanel] = useState({
-    open: true,
+    open: false,
     model: "",
   });
 
@@ -137,14 +137,7 @@ function App() {
         <Dialog
           fullScreen
           open={isOpenFullScreenPanel.open}
-          onClick={() =>
-            setIsOpenFullScreenPanel({
-              open: false,
-            })
-          }
-          slots={{
-            transition: Transition,
-          }}
+          
         >
           <AppBar sx={{ position: "relative" }}>
             <Toolbar>
@@ -158,10 +151,10 @@ function App() {
                 }
                 aria-label="close"
               >
-                <IoMdClose />
+                <IoMdClose className="text-black"/>
               </IconButton>
               <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                {isOpenFullScreenPanel?.model}
+                <span className="text-gray-800">{isOpenFullScreenPanel?.model}</span>
               </Typography>
               <Button
                 autoFocus
@@ -176,18 +169,7 @@ function App() {
               </Button>
             </Toolbar>
           </AppBar>
-          <List>
-            <ListItemButton>
-              <ListItemText primary="Phone ringtone" secondary="Titania" />
-            </ListItemButton>
-            <Divider />
-            <ListItemButton>
-              <ListItemText
-                primary="Default notification ringtone"
-                secondary="Tethys"
-              />
-            </ListItemButton>
-          </List>
+           {isOpenFullScreenPanel?.model === "Add product" && <AddProduct/>}
         </Dialog>
       </MyContext.Provider>
     </>

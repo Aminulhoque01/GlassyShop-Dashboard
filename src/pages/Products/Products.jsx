@@ -32,7 +32,7 @@ const Products = () => {
            {/* <Link to="/add-product"> */}
              <Button className="btn-blue   !text-white " onClick={()=>context.setIsOpenFullScreenPanel({
               open:true,
-              model:"product"
+              model:"Add product"
              })}>Add product</Button>
            {/* </Link> */}
           </div>

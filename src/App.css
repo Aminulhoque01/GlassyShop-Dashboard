@@ -14,3 +14,4 @@ body{  font-family: "Montserrat", sans-serif; background: #f1f1f1;}
 .btn{background:green !important;   padding:8px,20px !important}
 a.active button{background: #c9c9c9 !important;}
 .btn-lg{padding:8px 20px !important; font-size: 16px !important;}
+.MuiAppBar-colorPrimary{background: #7c7c7c !important;}

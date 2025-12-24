@@ -1,20 +1,54 @@
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemButton from '@mui/material/ListItemButton';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
- 
-import Slide from '@mui/material/Slide';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { useState } from 'react';
 
-const AddProduct=()=>{
-    return(
-        <></>
-    )
-}
+const AddProduct = () => {
+     const [age, setAge] = useState('');
 
-export default AddProduct
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
+  return (
+    <section className="p-5">
+      <form>
+        <div className="grid grid-cols-1 mb-3">
+          <div className="col">
+            <h3>Product Name</h3>
+            <input
+              type="text"
+              className="w-full h-[40px] border border-[rgba(0,0,0,0.1)] focus:outline-none
+                     focus:border-[rgba(0,0,0,0.4)] rounded-sm p-3 text-sm"
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 mb-3">
+          <div className="col">
+            <h3>Product Description</h3>
+            <textarea
+              type="text"
+              className="w-full h-[140px] border border-[rgba(0,0,0,0.1)] focus:outline-none
+                     focus:border-[rgba(0,0,0,0.4)] rounded-sm p-3 text-sm"
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-4 mb-3">
+          <div className="col">
+            <h3>Product Category</h3>
+            <input
+              type="text"
+              className="w-full h-[40px] border border-[rgba(0,0,0,0.1)] focus:outline-none
+                     focus:border-[rgba(0,0,0,0.4)] rounded-sm p-3 text-sm"
+            />
+            
+          </div>
+        </div>
+      </form>
+    </section>
+  );
+};
+
+export default AddProduct;
