@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import { useState } from "react";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
+import UploadBox from "../../Components/UploadBox/UploadBox";
 
 const AddProduct = () => {
   const [productCate, setProductCat] = useState("");
@@ -35,8 +36,8 @@ const AddProduct = () => {
   };
 
   return (
-    <section className="p-5">
-      <form>
+    <section className="p-5 bg-gray-50">
+      <form className="p-8 py-3">
         <div className="grid grid-cols-1 mb-3">
           <div className="col">
             <h3 className="text-[14px] font-[500] mb-1 text-black">
@@ -236,6 +237,14 @@ const AddProduct = () => {
               <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
              
              
+          </div>
+        </div>
+
+        <div className="col w-full p-5 px-0">
+          <h3 className="font-[700] text-[18px]">Media & Images</h3>
+
+          <div className="grid grid-col-6">
+            <UploadBox/>
           </div>
         </div>
       </form>
