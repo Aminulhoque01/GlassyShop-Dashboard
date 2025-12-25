@@ -19,6 +19,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Pagination from "@mui/material/Pagination";
 import MetarialTable from "../../Components/MetarilaTable/MetarialTable";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { useContext } from "react";
+import { MyContext } from "../../App";
  
 
 const Dashboard = () => {
@@ -110,7 +112,9 @@ const Dashboard = () => {
     }
   };
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
-
+ 
+  const context =useContext(MyContext)
+  
   return (
     <>
       <div
@@ -189,7 +193,10 @@ const Dashboard = () => {
 
           <div className="col w-[25%] ml-auto flex items-center gap-3">
             <Button className="btn   !text-white   "> Export</Button>
-            <Button className="btn-blue   !text-white ">Add product</Button>
+            <Button className="btn-blue   !text-white " onClick={()=>context.setIsOpenFullScreenPanel({
+                      open:true,
+                      model:"Add product"
+                    })}>Add product</Button>
           </div>
         </div>
 
