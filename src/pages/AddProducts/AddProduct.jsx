@@ -233,18 +233,23 @@ const AddProduct = () => {
             <h3 className="text-[14px] font-[500] mb-1 text-black">
               Product Rating
             </h3>
-             
-              <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-             
-             
+
+            <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
           </div>
         </div>
 
         <div className="col w-full p-5 px-0">
           <h3 className="font-[700] text-[18px]">Media & Images</h3>
 
-          <div className="grid grid-cols-6">
-            <UploadBox multiple={true}/>
+          <div className="grid grid-cols-7 gap-2">
+            <UploadBox multiple={true} />
+            <div
+              className="uploadBox p-3 rounded-md overflow-hidden border border-dashed 
+                  border-[rgba(0,0,0,0.3)] h-[150px] w-[100%] bg-gray-100 cursor-pointer hover:bg-gray-200
+                  flex items-center justify-center flex-col relative"
+            ></div>
+
+            
           </div>
         </div>
       </form>
