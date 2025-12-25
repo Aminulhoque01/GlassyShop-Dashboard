@@ -7,6 +7,8 @@ import { useState } from "react";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import UploadBox from "../../Components/UploadBox/UploadBox";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const AddProduct = () => {
   const [productCate, setProductCat] = useState("");
@@ -239,17 +241,26 @@ const AddProduct = () => {
         </div>
 
         <div className="col w-full p-5 px-0">
-          <h3 className="font-[700] text-[18px]">Media & Images</h3>
+          <h3 className="font-[700] text-[18px] mb-3">Media & Images</h3>
 
-          <div className="grid grid-cols-7 gap-2">
+          <div className="grid grid-cols-7 gap-3">
             <UploadBox multiple={true} />
             <div
               className="uploadBox p-3 rounded-md overflow-hidden border border-dashed 
                   border-[rgba(0,0,0,0.3)] h-[150px] w-[100%] bg-gray-100 cursor-pointer hover:bg-gray-200
                   flex items-center justify-center flex-col relative"
-            ></div>
-
-            
+            >
+              <LazyLoadImage
+                alt={"image"}
+                src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fproducts%2Fmodern%2F1.webp&w=1920&q=75" // use normal <img> attributes as props
+                className="w-full h-full object-cover"
+                effect="blur"
+                wrapperProps={{
+                  
+                  style: { transitionDelay: "1s" },
+                }}
+              />
+            </div>
           </div>
         </div>
       </form>
