@@ -1,186 +1,122 @@
-
-
- 
-
-import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
-import { useContext, useState } from "react";
-import { IoMdAdd } from "react-icons/io";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import { useState } from "react";
 import { Link } from "react-router";
-import ProgressBar from "../../Components/ProgressBar/ProgressBar";
+ 
+import Button from "@mui/material/Button";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
-import Pagination from "@mui/material/Pagination";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import SearchBox from "../../Components/SearchBox/SearchBox";
-import { MyContext } from "../../App";
 
- 
-const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
+const columns = [
+  
+  { id: "Image", label: "Image", minWidth: 170 },
+   
+  
+  {
+    id: "action",
+    label: "Action",
+    minWidth: 120,
+  },
+];
+
+
 
 const HomeSliderBanner = () => {
-  const [age, setAge] = useState("");
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
-  const context= useContext(MyContext);
-
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+  const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
   return (
     <>
-       <div className="flex items-center justify-between px-5 py-0 mt-3">
-          <h2 className="text-[18spx] font-[600]">Home Slider Banner</h2>
-          <div className="col w-[25%] ml-auto flex items-center justify-end gap-3">
-            <Button className="btn   !text-white   "> Export</Button>
-           {/* <Link to="/add-product"> */}
-             <Button className="btn-blue   !text-white " onClick={()=>context.setIsOpenFullScreenPanel({
-              open:true,
-              model:"Add product"
-             })}>Add product</Button>
-           {/* </Link> */}
-          </div>
-        </div>
-      <div className="card my-4 shadow-md sm:rounded-lg bg-white">
-        
-        <div className="flex items-center w-full pl-5 pb-2 pt-5 px-5 ">
-          <div className="col w-[20%]">
-            <h4 className="font-[600] text-[13px] mb-2">Category By</h4>
-
-            <Select
-              className="w-full"
-              size="small"
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              value={age}
-              label="Age"
-              onChange={handleChange}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Man</MenuItem>
-              <MenuItem value={20}>Woman</MenuItem>
-              <MenuItem value={30}>Kids</MenuItem>
-            </Select>
-          </div>
-           <div className="col w-[20%] ml-auto">
-            <SearchBox/>
-           </div>
-          
-        </div>
-
-        <div class="relative overflow-x-auto   border border-default">
-          <div className="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
-            <table className="w-full text-sm text-left rtl:text-right text-body">
-              <thead className="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
-                <tr>
-                  <th scope="col" className="px-6 py-3 font-[600]">
-                    <div className="w-[60px]">
-                      <Checkbox {...label} size="small" />
-                    </div>
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 font-[600] whitespace-nowrap"
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <TableContainer sx={{ maxHeight: 440 }} >
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead >
+              <TableRow >
+                <TableCell className="!bg-[#00369b] " width={60}>
+                  <Checkbox {...label} size="" className="!text-white"/>
+                </TableCell>
+                {columns.map((column) => (
+                  <TableCell className="!bg-[#00369b] !text-white"
+                    width={300}
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
                   >
-                    Image
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 font-[600] whitespace-nowrap"
-                  >
-                    Action
-                  </th>
-                   
-                  
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  className="odd:bg-white   even:bg-gray-50
-                 even:dark:bg-gray-800 border-b dark:border-gray-700"
-                >
-                  <td scope="col" className="px-6 py-3 font-[600]">
-                    <div className="w-[60px]">
-                      <Checkbox {...label} size="small" />
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow key={0}>
+                <TableCell style={{ minWidth: columns.minWidth }}>
+                  <Checkbox {...label} size="" />
+                </TableCell>
+                <TableCell style={{ minWidth: columns.minWidth }}>
+                  <div className="flex items-center gap-4 w-[300px]">
+                    <div className="img w-full   rounded-md overflow-hidden group">
+                      <Link to="/product/325345" data-discover="true">
+                        <img
+                          src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fcategories%2Fbags.webp&w=1920&q=75"
+                          alt=""
+                          className="w-full group-hover:scale-105 transition-all"
+                        />
+                      </Link>
                     </div>
-                  </td>
-
-                  <td className="px-6 py-3">
-                    <div className="flex items-center gap-4 w-[350px]">
-                      <div className="img w-[65px] h-[65px] rounded-md overflow-hidden group">
-                        <Link to="/product/35345">
-                          <img
-                            src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fproducts%2Fmodern%2F1.webp&w=1920&q=75"
-                            alt=""
-                            className="w-full group-hover:scale-105 transition-all"
-                          />
-                        </Link>
-                      </div>
-                      <div className="info w-[75%]">
-                        <h3 className="font-[600] text-[12px] leading-4  ">
-                          <Link to="/product/35345">
-                            VINNED Women Embroiderd Rayon Kurta pant set | Kurta
-                            set for women
-                          </Link>
-                        </h3>
-                        <span>Books</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-3">Electronics</td>
-                  <td className="px-6 py-3">Woman</td>
-                  <td className="px-6 py-3">
-                    <div className="flex items-center gap-1 flex-col">
-                      <span className="oldPrice line-through text-gray-500 text-[15px] font-[500]">
-                        $58.00
-                      </span>
-                      <span className="  text-blue-600 text-[15px] font-[600]">
-                        $58.00
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-3">
-                    <p className="text-[14px]">
-                      <span className="font-[600]">234</span>sale
-                    </p>
-                    <ProgressBar value={80} type="error" />
-                  </td>
-                  <td className="px-6 py-3">
-                    <div className="flex items-center gap-1">
-                      <Button
-                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1]
-                             !border border-[rgba(0,0,0,0.4)] !rounded-full hover:!bg-[#f1f1f1]"
-                        title="Edit"
-                      >
-                        <CiEdit className="text-[rgba(0,0,0,0.7)] text-[20px]" />
-                      </Button>
-                      <Button
-                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] 
-                            !border border-[rgba(0,0,0,0.4)]"
-                        title="view"
-                      >
-                        <MdOutlineRemoveRedEye className="text-[rgba(0,0,0,0.7)] text-[20px]" />
-                      </Button>
-                      <Button
-                        className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]"
-                        title="Remove"
-                      >
-                        <MdDeleteOutline className="text-[rgba(0,0,0,0.7)] text-[20px]" />
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
+                    
+                  </div>
+                </TableCell>
                
-              </tbody>
-            </table>
-          </div>
-          <div className="flex items-center justify-end mt-4 mb-4">
-            <Pagination count={10} color="secondary" />
-          </div>
-        </div>
-      </div>
+                 
+                
+                <TableCell style={{ minWidth: columns.minWidth }}>
+                  <div className="flex items-center gap-1">
+                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1]
+                             !border border-[rgba(0,0,0,0.4)] !rounded-full hover:!bg-[#f1f1f1]" title="Edit">
+                              <CiEdit className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
+                            </Button>
+                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] 
+                            !border border-[rgba(0,0,0,0.4)]" title="view">
+                              <MdOutlineRemoveRedEye  className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
+                            </Button>
+                            <Button className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]" title="Remove">
+                              <MdDeleteOutline className="text-[rgba(0,0,0,0.7)] text-[20px]"/>
+                            </Button>
+                        </div>
+                </TableCell>
+               
+              </TableRow>
+               
+              
+               
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
     </>
   );
 };
