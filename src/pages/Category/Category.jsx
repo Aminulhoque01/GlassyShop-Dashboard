@@ -16,7 +16,7 @@ import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
 import { MyContext } from "../../App";
 
 const columns = [
-  { id: "Image", label: "Image", minWidth: 170 },
+  { id: "Category Image", label: "Image", minWidth: 170 },
 
   {
     id: "action",
