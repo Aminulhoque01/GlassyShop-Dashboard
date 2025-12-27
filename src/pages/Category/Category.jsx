@@ -52,11 +52,11 @@ const Category = () => {
             onClick={() =>
               context.setIsOpenFullScreenPanel({
                 open: true,
-                model: "Add Home Slider",
+                model: "Add Categories",
               })
             }
           >
-            Add Home Slider 
+            Add Categories
           </Button>
         </div>
       </div>

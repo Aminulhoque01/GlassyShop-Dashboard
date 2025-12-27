@@ -24,6 +24,7 @@ import Slide from "@mui/material/Slide";
 import HomeSliderBanner from "./pages/HomeSliderBanner/HomeSliderBanner";
 import AddHomeSlide from "./pages/HomeSliderBanner/AddHomeSlide";
 import Category from "./pages/Category/Category";
+import AddCategory from "./pages/Category/AddCategory";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -228,6 +229,7 @@ function App() {
           </AppBar>
            {isOpenFullScreenPanel?.model === "Add product" && <AddProduct/>}
             {isOpenFullScreenPanel?.model === "Add Home Slider" && <AddHomeSlide/>}
+            {isOpenFullScreenPanel?.model === "Add Categories" && <AddCategory/>}
         </Dialog>
       </MyContext.Provider>
     </>
