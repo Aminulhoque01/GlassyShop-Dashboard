@@ -22,6 +22,7 @@ import Typography from "@mui/material/Typography";
 import { IoMdClose } from "react-icons/io";
 import Slide from "@mui/material/Slide";
 import HomeSliderBanner from "./pages/HomeSliderBanner/HomeSliderBanner";
+import AddHomeSlide from "./pages/HomeSliderBanner/AddHomeSlide";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -198,6 +199,7 @@ function App() {
             </Toolbar>
           </AppBar>
            {isOpenFullScreenPanel?.model === "Add product" && <AddProduct/>}
+            {isOpenFullScreenPanel?.model === "Add Home Slider" && <AddHomeSlide/>}
         </Dialog>
       </MyContext.Provider>
     </>
