@@ -23,13 +23,15 @@ const Sidebar = () => {
     }
   };
 
-  const context = useContext(MyContext)
+  const context = useContext(MyContext);
 
   return (
     <>
       <div
         className={`sidebar fixed top-0 left-0 bg-[#fff]  h-full border-r 
-      border-[rgba(0,0,0,0.1)] py-2 px-4  w-[${context.isSidebarOpen===true ? '18%':'0px'}]`}
+      border-[rgba(0,0,0,0.1)] py-2 px-4  w-[${
+        context.isSidebarOpen === true ? "18%" : "0px"
+      }]`}
       >
         <div className="img w-full py-2">
           <Link to="/">
@@ -125,19 +127,21 @@ const Sidebar = () => {
                     </Button>
                   </Link>
                 </li>
-                <li> 
-                    <Button onClick={()=>context.setIsOpenFullScreenPanel({
-                      open:true,
-                      model:"Add product"
-                    })}
-                      className="!text-[rgba(0,0,0,0.8)] px-4 !capitalize 
+                <li>
+                  <Button
+                    onClick={() =>
+                      context.setIsOpenFullScreenPanel({
+                        open: true,
+                        model: "Add product",
+                      })
+                    }
+                    className="!text-[rgba(0,0,0,0.8)] px-4 !capitalize 
                             !justify-start !w-full !text-[13px] !font-[500] !pl-8 flex gap-2"
-                    >
-                      {" "}
-                      <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]"></span>
-                      product upload
-                    </Button>
-                   
+                  >
+                    {" "}
+                    <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]"></span>
+                    product upload
+                  </Button>
                 </li>
                 <li>
                   <Button
@@ -202,16 +206,19 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/category/add">
-                    <Button
-                      className="!text-[rgba(0,0,0,0.8)] px-4 !capitalize 
-                            !justify-start !w-full !text-[13px] !font-[500] !pl-8 flex gap-2"
-                    >
-                      {" "}
-                      <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]"></span>
-                      Add a category
-                    </Button>
-                  </Link>
+                  <Button
+                    className="w-full !capitalize !justify-start text-[14px] !pl-8 !text-[rgba(0,0,0,0.8)] !font-[500] flex gap-2 !py-2 hover:!bg-[#f1f1f1]"
+                    onClick={() =>
+                      context.setIsOpenFullScreenPanel({
+                        open: true,
+                        model: "Add Categories",
+                      })
+                    }
+                  >
+                    {" "}
+                    <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]"></span>
+                    Add Categories
+                  </Button>
                 </li>
                 <li>
                   <Link to="category/subcategory">

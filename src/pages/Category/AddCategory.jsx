@@ -9,6 +9,21 @@ const AddCategory = () => {
     <section className="p-5 bg-gray-50">
       <form className="p-8 py-3 ">
         <div className="max-h-[72vh] overflow-y-scroll pr-4 pt-4">
+          <div className="grid grid-cols-1 mb-3">
+            <div className="col w-[25%]">
+              <h3 className="text-[14px] font-[500] mb-1 text-black">
+                Category Name
+              </h3>
+              <input
+                type="text"
+                className="w-full h-[40px] border border-[rgba(0,0,0,0.2)] bg-[#f3f3f3] focus:outline-none
+                     focus:border-[rgba(0,0,0,0.4)] rounded-sm p-3 text-sm"
+              />
+            </div>
+          </div>
+          <h3 className="text-[18px] font-[500] mb-1 text-black">
+                Category Image
+              </h3>
           <div className="grid grid-cols-7 gap-3">
             <UploadBox multiple={true} />
             <div className="uploadBoxWrapper relative">
@@ -34,18 +49,18 @@ const AddCategory = () => {
             </div>
           </div>
         </div>
-         <br />
-        
+        <br />
+
         <br />
         <br />
         <div className="w-[300px]">
-        <Button
-          type="submit"
-          className="w-full btn-blue btn-lg flex items-center gap-2"
-        >
-          <FaCloudUploadAlt className="text-[25px] text-white" />
-          Published and View
-        </Button>
+          <Button
+            type="submit"
+            className="w-full btn-blue btn-lg flex items-center gap-2"
+          >
+            <FaCloudUploadAlt className="text-[25px] text-white" />
+            Published and View
+          </Button>
         </div>
       </form>
     </section>
