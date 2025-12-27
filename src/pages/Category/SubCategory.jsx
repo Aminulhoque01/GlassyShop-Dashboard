@@ -45,18 +45,18 @@ const SubCategory = () => {
       <div className="flex items-center justify-between px-5 py-5 pr-0">
         <h2 className="text-[18spx] font-[600]">Sub Category</h2>
 
-        <div className="col w-[25%] ml-auto flex items-center gap-3">
+        <div className="col w-[30%] ml-auto flex items-center gap-3">
           <Button className="btn   !text-white   "> Export</Button>
           <Button
             className="btn-blue   !text-white "
             onClick={() =>
               context.setIsOpenFullScreenPanel({
                 open: true,
-                model: "Add Categories",
+                model: "Add Sub Categories",
               })
             }
           >
-            Add Categories
+            Add Sub Categories
           </Button>
         </div>
       </div>

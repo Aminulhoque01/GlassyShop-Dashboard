@@ -221,16 +221,19 @@ const Sidebar = () => {
                   </Button>
                 </li>
                 <li>
-                  <Link to="category/subcategory">
-                    <Button
-                      className="!text-[rgba(0,0,0,0.8)] px-4 !capitalize 
-                            !justify-start !w-full !text-[13px] !font-[500] !pl-8 flex gap-2"
-                    >
-                      {" "}
-                      <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]"></span>
-                      Subcategory list
-                    </Button>
-                  </Link>
+                  <Button
+                    className="w-full !capitalize !justify-start text-[14px] !pl-8 !text-[rgba(0,0,0,0.8)] !font-[500] flex gap-2 !py-2 hover:!bg-[#f1f1f1]"
+                    onClick={() =>
+                      context.setIsOpenFullScreenPanel({
+                        open: true,
+                        model: "Add Sub Categories",
+                      })
+                    }
+                  >
+                    {" "}
+                    <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]"></span>
+                    Add Sub Category List
+                  </Button>
                 </li>
                 <li>
                   <Link to="category/subcategory/add">

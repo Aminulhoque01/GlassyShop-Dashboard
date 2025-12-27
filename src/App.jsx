@@ -26,6 +26,7 @@ import AddHomeSlide from "./pages/HomeSliderBanner/AddHomeSlide";
 import Category from "./pages/Category/Category";
 import AddCategory from "./pages/Category/AddCategory";
 import SubCategory from "./pages/Category/SubCategory";
+import AddSubCategory from "./pages/Category/AddSubCategory";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -258,6 +259,7 @@ function App() {
            {isOpenFullScreenPanel?.model === "Add product" && <AddProduct/>}
             {isOpenFullScreenPanel?.model === "Add Home Slider" && <AddHomeSlide/>}
             {isOpenFullScreenPanel?.model === "Add Categories" && <AddCategory/>}
+            {isOpenFullScreenPanel?.model === "Add Sub Categories" && <AddSubCategory/>}
         </Dialog>
       </MyContext.Provider>
     </>
