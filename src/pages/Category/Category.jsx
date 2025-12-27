@@ -43,7 +43,7 @@ const Category = () => {
   return (
     <>
       <div className="flex items-center justify-between px-5 py-5 pr-0">
-        <h2 className="text-[18spx] font-[600]">Home Slider Banner</h2>
+        <h2 className="text-[18spx] font-[600]">Category</h2>
 
         <div className="col w-[25%] ml-auto flex items-center gap-3">
           <Button className="btn   !text-white   "> Export</Button>
