@@ -1,17 +1,20 @@
 import { IoMdClose } from "react-icons/io";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import UploadBox from "../../Components/UploadBox/UploadBox";
+import Button from "@mui/material/Button";
+import { FaCloudUploadAlt } from "react-icons/fa";
 
 const AddHomeSlide = () => {
   return (
     <section className="p-5 bg-gray-50">
       <form className="p-8 py-3 ">
         <div className="max-h-[72vh] overflow-y-scroll pr-4 pt-4">
-             <div className="grid grid-cols-7 gap-3">
+          <div className="grid grid-cols-7 gap-3">
             <UploadBox multiple={true} />
             <div className="uploadBoxWrapper relative">
               <span className="absolute w-[20px] h-[20px] rounded-full overflow-hidden -top-[10px] -right-[10px] bg-red-500 flex items-center justify-center z-50 cursor-pointer">
-                <IoMdClose className="text-[17px] text-white"/></span>
+                <IoMdClose className="text-[17px] text-white" />
+              </span>
 
               <div
                 className="uploadBox p-3 rounded-md overflow-hidden border border-dashed 
@@ -29,9 +32,20 @@ const AddHomeSlide = () => {
                 />
               </div>
             </div>
-
-            
           </div>
+        </div>
+         <br />
+        
+        <br />
+        <br />
+        <div className="w-[300px]">
+        <Button
+          type="submit"
+          className="w-full btn-blue btn-lg flex items-center gap-2"
+        >
+          <FaCloudUploadAlt className="text-[25px] text-white" />
+          Published and View
+        </Button>
         </div>
       </form>
     </section>
