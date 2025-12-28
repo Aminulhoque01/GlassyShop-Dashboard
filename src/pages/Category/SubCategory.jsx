@@ -9,7 +9,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useContext, useState } from "react";
 import { Link } from "react-router";
-
+import Chip from "@mui/material/Chip";
 import Button from "@mui/material/Button";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
@@ -17,7 +17,8 @@ import { MyContext } from "../../App";
 
 const columns = [
   { id: "Sub Category Image", label: "Image", minWidth: 170 },
-  { id: "Sub Category Name", label: "Name", minWidth: 170 },
+  { id: " Category Name", label: "Category Name", minWidth: 170 },
+  { id: "Sub Category Name", label: "Sub Category Name", minWidth: 170 },
 
   {
     id: "action",
@@ -101,7 +102,14 @@ const SubCategory = () => {
                 </TableCell>
 
                 <TableCell style={{ minWidth: columns.minWidth }}>
-                  Electronics
+                  <Chip label="Fashion" />
+                </TableCell>
+                <TableCell style={{ minWidth: columns.minWidth }}>
+                  <div className="flex items-center gap-3">
+                    <Chip label="Man" color="primary"/>
+                    <Chip label="Woman" color="primary"/>
+                    <Chip label="Kids" color="primary"/>
+                  </div>
                 </TableCell>
 
                 <TableCell width={100}>
@@ -113,13 +121,7 @@ const SubCategory = () => {
                     >
                       <CiEdit className="text-[rgba(0,0,0,0.7)] text-[20px]" />
                     </Button>
-                    <Button
-                      className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] 
-                            !border border-[rgba(0,0,0,0.4)]"
-                      title="view"
-                    >
-                      <MdOutlineRemoveRedEye className="text-[rgba(0,0,0,0.7)] text-[20px]" />
-                    </Button>
+                   
                     <Button
                       className="!w-[35px] !h-[35px] !min-w-[35px] bg-[#f1f1f1] !rounded-full hover:!bg-[#f1f1f1] !border border-[rgba(0,0,0,0.4)]"
                       title="Remove"
