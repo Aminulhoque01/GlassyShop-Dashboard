@@ -221,7 +221,7 @@ const Sidebar = () => {
                   </Button>
                 </li>
                 <li>
-                  <Link to="category/subcategory">
+                  <Link to="/category/subcategory">
                     <Button
                       className="!text-[rgba(0,0,0,0.8)] px-4 !capitalize 
                             !justify-start !w-full !text-[13px] !font-[500] !pl-8 flex gap-2"

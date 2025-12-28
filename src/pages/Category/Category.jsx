@@ -17,6 +17,7 @@ import { MyContext } from "../../App";
 
 const columns = [
   { id: "Category Image", label: "Image", minWidth: 170 },
+  { id: "Category Name", label: "Name", minWidth: 170 },
 
   {
     id: "action",
@@ -99,6 +100,9 @@ const Category = () => {
                   </div>
                 </TableCell>
 
+                <TableCell style={{ minWidth: columns.minWidth }}>
+                  Electronics
+                </TableCell>
                 <TableCell width={100}>
                   <div className="flex items-center gap-1">
                     <Button

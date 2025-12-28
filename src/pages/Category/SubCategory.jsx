@@ -17,6 +17,7 @@ import { MyContext } from "../../App";
 
 const columns = [
   { id: "Sub Category Image", label: "Image", minWidth: 170 },
+  { id: "Sub Category Name", label: "Name", minWidth: 170 },
 
   {
     id: "action",
@@ -97,6 +98,10 @@ const SubCategory = () => {
                       </Link>
                     </div>
                   </div>
+                </TableCell>
+
+                <TableCell style={{ minWidth: columns.minWidth }}>
+                  Electronics
                 </TableCell>
 
                 <TableCell width={100}>
