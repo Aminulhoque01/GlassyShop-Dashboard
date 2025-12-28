@@ -27,6 +27,7 @@ import Category from "./pages/Category/Category";
 import AddCategory from "./pages/Category/AddCategory";
 import SubCategory from "./pages/Category/SubCategory";
 import AddSubCategory from "./pages/Category/AddSubCategory";
+import Users from "./pages/Users/Users";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -199,6 +200,33 @@ function App() {
                 } transition-all`}
               >
                 <SubCategory/>
+              </div>
+            </div>
+          </section>
+        </>
+      ),
+    },
+     {
+      path: "/users",
+      exact: true,
+      element: (
+        <>
+          <section className="main">
+            <Header />
+            <div className="contentMain flex">
+              <div
+                className={`overflow-hidden sidebarWrapper ${
+                  isSidebarOpen === true ? "w-[18%]" : "w-[0px] opacity-0"
+                } transition-all`}
+              >
+                <Sidebar />
+              </div>
+              <div
+                className={`contentRight py-4 px-5 ${
+                  isSidebarOpen === true ? "w-[82%]" : "w-[100%]"
+                } transition-all`}
+              >
+                <Users/>
               </div>
             </div>
           </section>
