@@ -244,7 +244,7 @@ const Sidebar = () => {
                   >
                     {" "}
                     <span className="block w-[5px] h-[5px] rounded-full bg-[rgba(0,0,0,0.2)]"></span>
-                    Add Sub Category List
+                    Add Sub Category 
                   </Button>
                 </li>
               </ul>
