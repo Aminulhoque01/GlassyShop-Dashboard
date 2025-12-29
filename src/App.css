@@ -23,3 +23,6 @@ input[type=number]::-webkit-outer-spin-button{
   appearance: none;
   margin:0;
 }
+
+.MuiTableBody-root tr:nth-child(even){background:#f0f0f0  !important}
+
