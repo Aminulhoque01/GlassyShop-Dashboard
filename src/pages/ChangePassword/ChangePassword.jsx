@@ -19,6 +19,7 @@ import { IoEyeOff } from "react-icons/io5";
 const ChangePassword = () => {
    
   const [isPasswordShow, setIsPasswordShow]=useState(false);
+  const [isPasswordShow2, setIsPasswordShow2]=useState(false);
 
 
   
@@ -57,23 +58,14 @@ const ChangePassword = () => {
          
         </div>
 
-        <br />
-        <div className="w-full flex items-center justify-center gap-3 mt-5">
-         <span className="flex items-center w-[100px] h-[2px] bg-[rgba(0,0,0,0.1)]"></span>
-          <span className="text-[14px] text-[rgba(0,0,0,0.7)] font-[500]">Or, Sing in with your email</span>
-         <span className="flex items-center w-[100px] h-[2px] bg-[rgba(0,0,0,0.1)]"></span>
-        </div>
+        
 
         <br />
         <form className="w-full px-8 mt-3">
-          <div className="form-group mb-4 w-full">
-            <h4 className="text-[14px] font-[500] mb-1">Email</h4>
-            <input type="email" className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
-             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3" />
-          </div>
+           
 
           <div className="form-group mb-4 w-full">
-            <h4 className="text-[14px] font-[500] mb-1">Password</h4>
+            <h4 className="text-[14px] font-[500] mb-1">New Password</h4>
             <div className="relative w-full">
               <input type={isPasswordShow===false?'password':'text'} className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
              rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3" />
@@ -88,13 +80,24 @@ const ChangePassword = () => {
             </div>
           </div>
 
-           <div className="form-group mb-4 w-full flex items-center justify-between">
-               <FormControlLabel  control={<Checkbox />} label="Remember me" />
+          <div className="form-group mb-4 w-full">
+            <h4 className="text-[14px] font-[500] mb-1">Confirm Password</h4>
+            <div className="relative w-full">
+              <input type={isPasswordShow2===false?'password':'text'} className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
+             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3" />
+             <Button className="!absolute top-[7px] right-[10px] z-50 !rounded-full
+             !w-[35px] !h-[35px] !min-w-[35px]" onClick={()=>setIsPasswordShow2(!isPasswordShow2)}>
+              {isPasswordShow2===false? (
+              <IoEye className="text-[rgba(0,0,0,0.8)] text-[20px]"/> )
+              : (<IoEyeOff className="text-[rgba(0,0,0,0.8)] text-[20px]"/>)
+              }
+              
+              </Button>
+            </div>
+          </div>
 
-               <Link to="/forget-password" className="text-blue-600 font-[600] text-[15px] hover:underline hover:text-gray-700">Forget Password?</Link>
-           </div>
-
-           <Button className="btn-blue btn-lg w-full">Sign In</Button>
+           
+           <Button className="btn-blue btn-lg w-full">Change password</Button>
         </form>
       </div>
 
