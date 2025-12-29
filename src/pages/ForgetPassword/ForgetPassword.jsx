@@ -5,32 +5,15 @@ import login from "../../assets/loginlogo.svg";
 import { IoIosLogIn } from "react-icons/io";
 import { FaRegUserCircle } from "react-icons/fa";
 import Button from "@mui/material/Button";
-import { useState } from "react";
-import LoadingButton from "@mui/lab/LoadingButton";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import { IoEye } from "react-icons/io5";
-import { IoEyeOff } from "react-icons/io5";
+ 
 
  
 
 const ForgetPassword = () => {
-  const [loadingGoogle, setLoadingGoogle] = useState(false);
-  const [loadingFacebook, setLoadingFacebook] = useState(false);
-  const [isPasswordShow, setIsPasswordShow]=useState(false);
-
-
-  function handleClickGoogle() {
-    setLoadingGoogle(true);
-  }
-  function handleClickFacebook() {
-    setLoadingFacebook(true);
-  }
+  
 
   return (
-    <section className=" w-full  bg-white">
+    <section className=" w-full  bg-white  h-[100vh]">
       <header className="w-full fixed top-0 left-0  px-4 py-2 flex items-center justify-between">
         <Link to="/">
           <img src={logo} alt="" className="w-[200px]" />

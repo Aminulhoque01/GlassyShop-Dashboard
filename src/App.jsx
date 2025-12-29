@@ -30,6 +30,7 @@ import AddSubCategory from "./pages/Category/AddSubCategory";
 import Users from "./pages/Users/Users";
 import Order from "./pages/Order/Order";
 import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
+import Verify from "./pages/Verify/Verify";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -124,6 +125,15 @@ function App() {
       element: (
         <>
           <ForgetPassword />
+        </>
+      ),
+    },
+    {
+      path: "/verify",
+      exact: true,
+      element: (
+        <>
+          <Verify />
         </>
       ),
     },
