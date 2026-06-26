@@ -550,7 +550,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* ....... */}
+       
       <div className="card my-4 shadow-md sm:rounded-lg bg-white">
         <div className="flex items-center justify-between px-5 py-5">
           <h2 className="text-[18spx] font-[600]">Products</h2>
