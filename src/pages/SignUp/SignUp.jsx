@@ -16,6 +16,7 @@ import { IoEyeOff } from "react-icons/io5";
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from "react-router-dom";
 
+
 const SignUp = () => {
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [loadingFacebook, setLoadingFacebook] = useState(false);
