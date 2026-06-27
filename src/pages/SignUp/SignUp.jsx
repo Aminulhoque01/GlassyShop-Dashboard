@@ -17,6 +17,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import { postData } from "../../utilitis/api";
 import toast from "react-hot-toast";
+import { MyContext } from "../../App";
 
 const SignUp = () => {
   const [loadingGoogle, setLoadingGoogle] = useState(false);
@@ -31,6 +32,8 @@ const SignUp = () => {
 
   const validValue = Object.values(formFields).every((el) => el);
 
+  const context=useContext(MyContext)
+  
   const history = useNavigate();
   const onChangeInput = (e) => {
     const { name, value } = e.target;
@@ -49,7 +52,7 @@ const SignUp = () => {
       setIsLoading(true);
 
       if (formFields.name === "") {
-        toast.error("error", "Please enter Full Name");
+        context.openAlertBox("error", "Please enter Full Name");
         setIsLoading(false);
         return;
       }
@@ -226,7 +229,12 @@ const SignUp = () => {
             </Link>
           </div>
 
-          <Button className="btn-blue btn-lg w-full">Sign Up</Button>
+          <Button type="submit" disabled={!validValue} className="btn-blue btn-lg w-full">
+            {
+                    isLoading===true? <CircularProgress color="inherit" />
+                    :"Sign Up"
+                   }
+          </Button>
         </form>
       </div>
 

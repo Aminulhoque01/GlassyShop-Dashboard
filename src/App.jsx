@@ -31,6 +31,7 @@ import Order from "./pages/Order/Order";
 import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
 import Verify from "./pages/Verify/Verify";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
+import toast from "react-hot-toast";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -45,6 +46,16 @@ function App() {
     open: false,
     model: "",
   });
+
+  const openAlertBox=(status, message)=>{
+    if(status==="Success"){
+      toast.success(message)
+    } 
+    if(status==="error"){
+      toast.error(message)
+    } 
+    
+  }
 
   const router = createBrowserRouter([
     {
@@ -292,6 +303,8 @@ function App() {
     },
   ]);
 
+
+
   const values = {
     isSidebarOpen,
     setIsSidebarOpen,
@@ -299,6 +312,7 @@ function App() {
     setIsLogin,
     isOpenFullScreenPanel,
     setIsOpenFullScreenPanel,
+    openAlertBox
   };
 
   return (
