@@ -5,7 +5,7 @@ import login from "../../assets/loginlogo.svg";
 import { IoIosLogIn } from "react-icons/io";
 import { FaRegUserCircle } from "react-icons/fa";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
@@ -13,9 +13,10 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
-
+import { postData } from "../../utilitis/api";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const [loadingGoogle, setLoadingGoogle] = useState(false);
@@ -28,6 +29,8 @@ const SignUp = () => {
     password: "",
   });
 
+  const validValue = Object.values(formFields).every((el) => el);
+
   const history = useNavigate();
   const onChangeInput = (e) => {
     const { name, value } = e.target;
@@ -39,6 +42,53 @@ const SignUp = () => {
     });
   };
 
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsLoading(true);
+
+      if (formFields.name === "") {
+        toast.error("error", "Please enter Full Name");
+        setIsLoading(false);
+        return;
+      }
+
+      if (formFields.email === "") {
+        toast.error("error", "Please enter Email");
+        setIsLoading(false);
+        return;
+      }
+
+      if (formFields.password === "") {
+        toast.error("error", "Please enter Password");
+        setIsLoading(false);
+        return;
+      }
+
+      const res = await postData("/api/user/register", formFields);
+
+      if (res?.success) {
+        toast.success(res?.message || "Registration successful");
+
+        localStorage.setItem("userEmail", formFields.email);
+
+        setFormFields({
+          name: "",
+          email: "",
+          password: "",
+        });
+
+        history("/verify");
+      } else {
+        toast.error(res?.message || "Registration failed");
+      }
+    } catch (error) {
+      toast.error(error?.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   function handleClickGoogle() {
     setLoadingGoogle(true);
@@ -112,13 +162,17 @@ const SignUp = () => {
         </div>
 
         <br />
-        <form className="w-full px-8 mt-3">
+        <form className="w-full px-8 mt-3" onSubmit={handelSubmit}>
           <div className="form-group mb-4 w-full">
             <h4 className="text-[14px] font-[500] mb-1">Full Name</h4>
             <input
               type="text"
               className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
              rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
+              name="name"
+              value={formFields.name}
+              disabled={isLoading === true ? true : false}
+               onChange={onChangeInput}
             />
           </div>
 
@@ -128,6 +182,10 @@ const SignUp = () => {
               type="email"
               className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
              rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
+              name="email"
+              value={formFields.email}
+              disabled={isLoading === true ? true : false}
+               onChange={onChangeInput}
             />
           </div>
 
@@ -138,6 +196,10 @@ const SignUp = () => {
                 type={isPasswordShow === false ? "password" : "text"}
                 className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
              rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
+                name="password"
+                value={formFields.password}
+                disabled={isLoading === true ? true : false}
+                 onChange={onChangeInput}
               />
               <Button
                 className="!absolute top-[7px] right-[10px] z-50 !rounded-full
