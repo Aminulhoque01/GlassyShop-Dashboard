@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 
 import logo from "../../assets/logo-light-full.png";
 
@@ -6,13 +6,17 @@ import { IoIosLogIn } from "react-icons/io";
 import { FaRegUserCircle } from "react-icons/fa";
 import Button from "@mui/material/Button";
 import image from "../../assets/verify.png";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { MyContext } from "../../App";
+import toast from "react-hot-toast";
+import { postData } from "../../utilitis/api";
 
 const Verify = () => {
   const [otp, setOtp] = useState(Array(6).fill(""));
   const inputRefs = useRef([]);
 
     const context = useContext(MyContext);
+     const history = useNavigate();
 
   const handleChange = (value, index) => {
     if (/^[0-9]?$/.test(value)) {
@@ -33,12 +37,59 @@ const Verify = () => {
     }
   };
 
-  const handleSubmit = () => {
-    const finalOtp = otp.join("");
-    console.log("OTP:", finalOtp);
-    // toast.success(`Your OTP is: ${finalOtp}`);
-  };
+ 
 
+   const handleSubmit = async () => {
+    try {
+      const finalOtp = otp.join("");
+
+      const actionType = localStorage.getItem("actionType");
+
+      if (actionType !== "forgot-password") {
+        const res = await postData("/api/user/verify", {
+          email: localStorage.getItem("userEmail"),
+          otp: finalOtp,
+        });
+
+        if (res?.success) {
+          toast.success(res?.message || "Email verified successfully");
+
+          localStorage.removeItem("userEmail");
+
+          setTimeout(() => {
+            history("/login");
+          }, 1500);
+        } else {
+          toast.error(res?.message || "Verification failed");
+        }
+      } else {
+        const res = await postData("/api/user/verify-forgot-password", {
+          email: localStorage.getItem("userEmail"),
+          otp: finalOtp,
+        });
+
+        console.log(res);
+
+        if (res?.success === true) {
+          context.openAlertBox("success", res?.message);
+
+         
+
+          history("/forgot-password");
+        } else {
+          context.openAlertBox("error", res?.message);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+
+      toast.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
+    }
+  };
  
 
 
@@ -76,7 +127,7 @@ const Verify = () => {
         <br />
         <p className="text-center text-[15px]">
           OTP send to &nbsp;{" "}
-          <span className="text-blue-500 font-bold">Your email</span>
+          <span className="text-blue-500 font-bold">Your email {localStorage.getItem('userEmail')}</span>
         </p>
 
         <br />
