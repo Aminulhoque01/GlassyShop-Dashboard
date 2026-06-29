@@ -1,26 +1,36 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 
 import logo from "../../assets/logo-light-full.png";
 import login from "../../assets/loginlogo.svg";
 import { IoIosLogIn } from "react-icons/io";
 import { FaRegUserCircle } from "react-icons/fa";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
-
- 
+import { MyContext } from "../../App";
+import { postData } from "../../utilitis/api";
+import toast from "react-hot-toast";
+import ForgetPassword from "../ForgetPassword/ForgetPassword";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Login = () => {
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [loadingFacebook, setLoadingFacebook] = useState(false);
-  const [isPasswordShow, setIsPasswordShow]=useState(false);
+  const [isPasswordShow, setIsPasswordShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [formFields, setFormFields] = useState({
+    email: "",
+    password: "",
+  });
 
+  const context = useContext(MyContext);
+  const history = useNavigate();
 
   function handleClickGoogle() {
     setLoadingGoogle(true);
@@ -28,6 +38,87 @@ const Login = () => {
   function handleClickFacebook() {
     setLoadingFacebook(true);
   }
+
+  const onChangeInput = (e) => {
+    const { name, value } = e.target;
+    setFormFields(() => {
+      return {
+        ...formFields,
+        [name]: value,
+      };
+    });
+  };
+  const validValue = Object.values(formFields).every((el) => el);
+
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsLoading(true);
+
+      if (formFields.email === "") {
+        context.openAlertBox("error", "Please enter Email");
+        setIsLoading(false);
+        return;
+      }
+
+      if (formFields.password === "") {
+        context.openAlertBox("error", "Please enter Password");
+        setIsLoading(false);
+        return;
+      }
+
+      const res = await postData("/api/user/login", formFields, {
+        withCredentials: true,
+      });
+      console.log(res);
+
+      if (res?.success) {
+        toast.success(res?.message || "login successful");
+
+        localStorage.setItem("accessToken", res?.data?.accessToken);
+        localStorage.setItem("refreshToken", res?.data?.refreshToken);
+
+        setFormFields({
+          email: "",
+          password: "",
+        });
+
+        context.setIsLogin(true);
+
+        history("/");
+      } else {
+        toast.error(res?.message || "login failed");
+      }
+    } catch (error) {
+      toast.error(error?.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const forgetPassword = () => {
+    if (formFields.email === "") {
+      context.openAlertBox("error", "Please enter your email id");
+      return false;
+    } else {
+      localStorage.setItem("userEmail", formFields.email);
+      localStorage.setItem("actionType", "forgot-password");
+
+      postData("/api/user/forgot-password", {
+        email: formFields.email,
+      }).then((res) => {
+        if (res?.error == false) {
+          context.openAlertBox("success", res?.message);
+
+          toast.success("Success", "Otp send");
+          history("/verify");
+        } else {
+          context.openAlertBox("error", res?.message);
+        }
+      });
+    }
+  };
 
   return (
     <section className=" w-full  bg-white">
@@ -86,48 +177,77 @@ const Login = () => {
 
         <br />
         <div className="w-full flex items-center justify-center gap-3 mt-5">
-         <span className="flex items-center w-[100px] h-[2px] bg-[rgba(0,0,0,0.1)]"></span>
-          <span className="text-[14px] text-[rgba(0,0,0,0.7)] font-[500]">Or, Sing in with your email</span>
-         <span className="flex items-center w-[100px] h-[2px] bg-[rgba(0,0,0,0.1)]"></span>
+          <span className="flex items-center w-[100px] h-[2px] bg-[rgba(0,0,0,0.1)]"></span>
+          <span className="text-[14px] text-[rgba(0,0,0,0.7)] font-[500]">
+            Or, Sing in with your email
+          </span>
+          <span className="flex items-center w-[100px] h-[2px] bg-[rgba(0,0,0,0.1)]"></span>
         </div>
 
         <br />
-        <form className="w-full px-8 mt-3">
+        <form action="" className="w-full px-8 mt-3" onSubmit={handelSubmit}>
           <div className="form-group mb-4 w-full">
             <h4 className="text-[14px] font-[500] mb-1">Email</h4>
-            <input type="email" className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
-             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3" />
+            <input
+              type="email"
+              className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
+             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
+              name="email"
+              value={formFields.email}
+              disabled={isLoading === true ? true : false}
+              onChange={onChangeInput}
+            />
           </div>
 
           <div className="form-group mb-4 w-full">
             <h4 className="text-[14px] font-[500] mb-1">Password</h4>
             <div className="relative w-full">
-              <input type={isPasswordShow===false?'password':'text'} className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
-             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3" />
-             <Button className="!absolute top-[7px] right-[10px] z-50 !rounded-full
-             !w-[35px] !h-[35px] !min-w-[35px]" onClick={()=>setIsPasswordShow(!isPasswordShow)}>
-              {isPasswordShow===false? (
-              <IoEye className="text-[rgba(0,0,0,0.8)] text-[20px]"/> )
-              : (<IoEyeOff className="text-[rgba(0,0,0,0.8)] text-[20px]"/>)
-              }
-              
+              <input
+                type={isPasswordShow === false ? "password" : "text"}
+                className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
+             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
+              name="password"
+              value={formFields.password}
+              disabled={isLoading === true ? true : false}
+              onChange={onChangeInput}
+              />
+              <Button
+                className="!absolute top-[7px] right-[10px] z-50 !rounded-full
+             !w-[35px] !h-[35px] !min-w-[35px]"
+                onClick={() => setIsPasswordShow(!isPasswordShow)}
+              >
+                {isPasswordShow === false ? (
+                  <IoEye className="text-[rgba(0,0,0,0.8)] text-[20px]" />
+                ) : (
+                  <IoEyeOff className="text-[rgba(0,0,0,0.8)] text-[20px]" />
+                )}
               </Button>
             </div>
           </div>
 
-           <div className="form-group mb-4 w-full flex items-center justify-between">
-               <FormControlLabel  control={<Checkbox />} label="Remember me" />
+          <div className="form-group mb-4 w-full flex items-center justify-between">
+            <FormControlLabel control={<Checkbox />} label="Remember me" />
 
-               <Link to="/forget-password" className="text-blue-600 font-[600] text-[15px] hover:underline hover:text-gray-700">Forget Password?</Link>
-           </div>
+            <a
+              onClick={() => forgetPassword()}
+              to="/forget-password"
+              className="text-blue-600 font-[600] text-[15px] hover:underline hover:text-gray-700"
+            >
+              Forget Password?
+            </a>
+          </div>
 
-           <Button className="btn-blue btn-lg w-full">Sign In</Button>
+          <Button type="submit" className="btn-blue btn-lg w-full">
+            {isLoading === true ? (
+              <CircularProgress color="inherit" />
+            ) : (
+              "Sign In"
+            )}
+          </Button>
         </form>
       </div>
 
       <br />
-
-
     </section>
   );
 };
