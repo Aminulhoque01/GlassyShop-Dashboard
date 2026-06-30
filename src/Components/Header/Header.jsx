@@ -15,6 +15,8 @@ import { TbCircuitCapacitor } from "react-icons/tb";
 import { IoIosLogOut } from "react-icons/io";
 import { MyContext } from "../../App";
 
+import { fetchDataFromApi } from "../../utilitis/api.js";
+
 import { MdOutlineMenuOpen } from "react-icons/md";
 import { Link } from "react-router";
 
@@ -38,6 +40,20 @@ const Header = () => {
   };
 
   const context = useContext(MyContext);
+
+  const logout = ()=>{
+    setAnchorAcc(null);
+
+     fetchDataFromApi(`/api/user/logout?token=${localStorage.getItem('accessToken')}`,{withCredentials:true}).then((res)=>{
+      
+      if(res.error===false){
+        context.setIsLogin(false);
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+      }
+      
+    })
+  }
 
   return (
     <header
@@ -147,7 +163,7 @@ const Header = () => {
                 <TbCircuitCapacitor className="text-[16px]" />{" "}
                 <span>Activity Log</span>
               </MenuItem>
-              <MenuItem onClick={handleCloseMyAcc} className="flex gap-4">
+              <MenuItem   className="flex gap-4" onClick={logout} >
                 <IoIosLogOut className="text-[20px]" /> <span>Sing out</span>
               </MenuItem>
             </Menu>
