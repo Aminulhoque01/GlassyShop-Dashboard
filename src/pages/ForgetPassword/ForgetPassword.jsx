@@ -1,17 +1,18 @@
-import { Link, NavLink, useNavigate } from "react-router";
-
-import logo from "../../assets/logo-light-full.png";
-import login from "../../assets/loginlogo.svg";
-import { IoIosLogIn } from "react-icons/io";
-import { FaRegUserCircle } from "react-icons/fa";
-import Button from "@mui/material/Button";
 import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { MyContext } from "../../App";
+import { TextField } from "@mui/material";
+import Button from "@mui/material/Button";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { postData } from "../../utilitis/api";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const ForgetPassword = () => {
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isShowPassword2, setIsShowPassword2] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const [formFields, setFormFields] = useState({
     email: localStorage.getItem("userEmail"),
     newPassword: "",
@@ -23,12 +24,11 @@ const ForgetPassword = () => {
 
   const onChangeInput = (e) => {
     const { name, value } = e.target;
-    setFormFields(() => {
-      return {
-        ...formFields,
-        [name]: value,
-      };
-    });
+
+    setFormFields((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const validValue = Object.values(formFields).every((el) => el);
@@ -46,20 +46,18 @@ const ForgetPassword = () => {
       }
 
       if (formFields.confirmPassword === "") {
-        context.openAlertBox("error", "Please enter confirm Password");
+        context.openAlertBox("error", "Please enter confirm password");
         setIsLoading(false);
         return;
       }
 
       if (formFields.newPassword !== formFields.confirmPassword) {
-        context.openAlertBox("error", " Password and Confirm not match");
+        context.openAlertBox("error", "Password and Confirm Password do not match");
         setIsLoading(false);
         return;
       }
 
-      postData(`/api/user/reset-password`, formFields).then((res) => {
-        console.log(res);
-
+      postData("/api/user/reset-password", formFields).then((res) => {
         if (res?.success === true) {
           context.openAlertBox("success", res?.message);
 
@@ -79,89 +77,99 @@ const ForgetPassword = () => {
   };
 
   return (
-    <section className=" w-full  bg-white  h-[100vh]">
-      <header className="w-full fixed top-0 left-0  px-4 py-2 flex items-center justify-between">
-        <Link to="/">
-          <img src={logo} alt="" className="w-[200px]" />
-        </Link>
+    <section className="min-h-[80vh] flex items-center justify-center bg-gray-50 py-10">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+        {/* Heading */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-800">
+            Reset Password
+          </h1>
 
-        <div className="flex items-center gap-2">
-          <NavLink to="/login" exact={true} activeClassName="isActive">
-            <Button className="!cursor-pointer flex gap-2 !rounded-full !text-[rgba(0,0,0,0.8)] !px-5  ">
-              <IoIosLogIn className="flex gap-2" /> Login
-            </Button>
-          </NavLink>
-          <NavLink to="/signup" exact={true} activeClassName="isActive">
-            <Button className="!cursor-pointer flex gap-2 !rounded-full !text-[rgba(0,0,0,0.8)] !px-5  ">
-              <FaRegUserCircle className="flex gap-2" /> Sign up
-            </Button>
-          </NavLink>
+          <p className="text-gray-500 text-sm mt-2">
+            Create a strong password to secure your account.
+          </p>
         </div>
-      </header>
 
-      <div className="loginBox card w-[600px] h-auto mx-auto pt-20 relative z-50">
-        <div className="text-center  ">
-          <img src={login} alt="" className="m-auto " />
-        </div>
-        <h1 className="text-center text-[35px] font-[800] mt-4">
-          Having trouble to sing in ? <br />
-          <span className="text-blue-600">Reset your password</span>
-        </h1>
-
-        <br />
-        <form className="w-full px-8 mt-3">
-          <div className="form-group mb-4 w-full">
-            <h4 className="text-[14px] font-[500] mb-1">old password</h4>
-            <input
-              type="password"
-              className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
-             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
-              placeholder="Enter your old password"
-              value={formFields.oldPassword}
-              disabled={isLoading === true ? true : false}
-              name="oldPassword"
-              onChange={onChangeInput}
-            />
-            <h4 className="text-[14px] font-[500] mb-1">New password</h4>
-            <input
-              type="password"
-              className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
-             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
-              placeholder="Enter your new password"
+        <form onSubmit={handelSubmit} className="space-y-5">
+          {/* New Password */}
+          <div className="relative">
+            <TextField
+              fullWidth
+              label="New Password"
+              variant="outlined"
+              type={isShowPassword ? "text" : "password"}
               value={formFields.newPassword}
-              disabled={isLoading === true ? true : false}
               name="newPassword"
-              onChange={onChangeInput}
-            />
-            <h4 className="text-[14px] font-[500] mb-1">confirm password</h4>
-            <input
-              type="password"
-              className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
-             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
-              placeholder="Enter your confirmPassword"
-              value={formFields.confirmPassword}
               disabled={isLoading}
-              name="confirmPassword"
               onChange={onChangeInput}
             />
+
+            <Button
+              type="button"
+              onClick={() => setIsShowPassword(!isShowPassword)}
+              className="!absolute top-[10px] right-[10px] !min-w-[35px] !w-[35px] !h-[35px]"
+            >
+              {isShowPassword ? (
+                <IoEyeOffOutline className="text-[22px] text-gray-600" />
+              ) : (
+                <IoEyeOutline className="text-[22px] text-gray-600" />
+              )}
+            </Button>
           </div>
 
-          <Button type="submit" className="btn-blue btn-lg w-full" onClick={handelSubmit}>Reset Password</Button>
-          <br />
-          <br />
-          <div className="text-center flex items-center justify-center gap-4">
-            <span>Don't want to reset ?</span>
-            <Link
-              to="/signup"
-              className="text-blue-500 font-[700] text-[15px] hover:underline hover:text-gray-700"
+          {/* Confirm Password */}
+          <div className="relative">
+            <TextField
+              fullWidth
+              label="Confirm Password"
+              variant="outlined"
+              type={isShowPassword2 ? "text" : "password"}
+              value={formFields.confirmPassword}
+              name="confirmPassword"
+              disabled={isLoading}
+              onChange={onChangeInput}
+            />
+
+            <Button
+              type="button"
+              onClick={() => setIsShowPassword2(!isShowPassword2)}
+              className="!absolute top-[10px] right-[10px] !min-w-[35px] !w-[35px] !h-[35px]"
             >
-              Sign In ?
-            </Link>
+              {isShowPassword2 ? (
+                <IoEyeOffOutline className="text-[22px] text-gray-600" />
+              ) : (
+                <IoEyeOutline className="text-[22px] text-gray-600" />
+              )}
+            </Button>
+          </div>
+
+          {/* Button */}
+          <Button
+            type="submit"
+            disabled={!validValue || isLoading}
+            className="btn-blue btn-lg !w-full !py-3 flex items-center justify-center gap-2"
+          >
+            {isLoading ? (
+              <CircularProgress color="inherit" size={22} />
+            ) : (
+              "Reset Password"
+            )}
+          </Button>
+
+          {/* Footer */}
+          <div className="text-center pt-2">
+            <p className="text-sm text-gray-500">
+              Remember your password?{" "}
+              <Link
+                to="/login"
+                className="font-semibold text-primary hover:underline"
+              >
+                Back to Login
+              </Link>
+            </p>
           </div>
         </form>
       </div>
-
-      <br />
     </section>
   );
 };
