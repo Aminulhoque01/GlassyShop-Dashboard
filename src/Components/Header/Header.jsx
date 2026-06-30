@@ -127,10 +127,10 @@ const Header = () => {
 
                   <div className="info">
                     <h3 className="text-[15px] font-[500] leading-5">
-                      Aminul haque
+                     {context?.userData?.data?.name}
                     </h3>
                     <p className="text-[12px] font-[400] opacity-70">
-                      admin-01@gmail.com
+                      {context?.userData?.data?.email}
                     </p>
                   </div>
                 </div>

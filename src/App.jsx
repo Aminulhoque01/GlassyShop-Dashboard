@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Header from "./Components/Header/Header";
 import Sidebar from "./Components/Sidebar/Sidebar";
-import { createContext, forwardRef, useState } from "react";
+import { createContext, forwardRef, useEffect, useState } from "react";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import Products from "./pages/Products/Products";
@@ -32,6 +33,7 @@ import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
 import Verify from "./pages/Verify/Verify";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import toast from "react-hot-toast";
+import { fetchDataFromApi } from "./utilitis/api";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -41,7 +43,8 @@ const MyContext = createContext();
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [isLogin, setIsLogin] = useState(false);
+  const[isLogin, setIsLogin]=useState(false)
+    const[userData, setUserData]=useState(false);
   const [isOpenFullScreenPanel, setIsOpenFullScreenPanel] = useState({
     open: false,
     model: "",
@@ -56,6 +59,31 @@ function App() {
     } 
     
   }
+
+
+  useEffect(()=>{
+    const token = localStorage.getItem("accessToken");
+
+    if(token !==undefined && token !==null && token !==""){
+      setIsLogin(true)
+
+      fetchDataFromApi(`/api/user/user-details`).then((res)=>{
+        //  console.log(res)
+        setUserData(res)
+
+        if(res?.response?.data?.error === true){
+          if(res?.response?.data?.message==="You have not login"){
+            localStorage.removeItem("accessToken")
+            localStorage.removeItem("refreshToken")
+
+           setIsLogin(false)
+          }
+        }
+      })
+    }else{
+      setIsLogin(false)
+    }
+  },[isLogin])
 
   const router = createBrowserRouter([
     {
@@ -312,7 +340,8 @@ function App() {
     setIsLogin,
     isOpenFullScreenPanel,
     setIsOpenFullScreenPanel,
-    openAlertBox
+    openAlertBox,
+    userData
   };
 
   return (
