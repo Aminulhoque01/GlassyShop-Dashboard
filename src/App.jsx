@@ -159,7 +159,7 @@ function App() {
       ),
     },
     {
-      path: "/forget-password",
+      path: "/forgot-password",
       exact: true,
       element: (
         <>

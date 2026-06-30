@@ -148,7 +148,7 @@ const Verify = () => {
           </div>
 
           <div className="w-[50%]">
-            <Button
+            <Button type="submit"
               onClick={handleSubmit}
               className="w-full btn-blue text-white py-3 rounded-xl font-semibold org-btn transition"
             >

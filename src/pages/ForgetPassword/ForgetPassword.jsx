@@ -1,16 +1,82 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 
 import logo from "../../assets/logo-light-full.png";
 import login from "../../assets/loginlogo.svg";
 import { IoIosLogIn } from "react-icons/io";
 import { FaRegUserCircle } from "react-icons/fa";
 import Button from "@mui/material/Button";
- 
-
- 
+import { useContext, useState } from "react";
+import { MyContext } from "../../App";
+import toast from "react-hot-toast";
+import { postData } from "../../utilitis/api";
 
 const ForgetPassword = () => {
-  
+  const [isLoading, setIsLoading] = useState(false);
+  const [formFields, setFormFields] = useState({
+    email: localStorage.getItem("userEmail"),
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  const context = useContext(MyContext);
+  const history = useNavigate();
+
+  const onChangeInput = (e) => {
+    const { name, value } = e.target;
+    setFormFields(() => {
+      return {
+        ...formFields,
+        [name]: value,
+      };
+    });
+  };
+
+  const validValue = Object.values(formFields).every((el) => el);
+
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsLoading(true);
+
+      if (formFields.newPassword === "") {
+        context.openAlertBox("error", "Please enter new password");
+        setIsLoading(false);
+        return;
+      }
+
+      if (formFields.confirmPassword === "") {
+        context.openAlertBox("error", "Please enter confirm Password");
+        setIsLoading(false);
+        return;
+      }
+
+      if (formFields.newPassword !== formFields.confirmPassword) {
+        context.openAlertBox("error", " Password and Confirm not match");
+        setIsLoading(false);
+        return;
+      }
+
+      postData(`/api/user/reset-password`, formFields).then((res) => {
+        console.log(res);
+
+        if (res?.success === true) {
+          context.openAlertBox("success", res?.message);
+
+          localStorage.removeItem("userEmail");
+          localStorage.removeItem("actionType");
+
+          history("/login");
+        } else {
+          context.openAlertBox("error", res?.message);
+        }
+      });
+    } catch (error) {
+      toast.error(error?.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <section className=" w-full  bg-white  h-[100vh]">
@@ -38,41 +104,64 @@ const ForgetPassword = () => {
           <img src={login} alt="" className="m-auto " />
         </div>
         <h1 className="text-center text-[35px] font-[800] mt-4">
-          Having trouble to sing in ?   <br />
+          Having trouble to sing in ? <br />
           <span className="text-blue-600">Reset your password</span>
         </h1>
-
-        
-
-     
 
         <br />
         <form className="w-full px-8 mt-3">
           <div className="form-group mb-4 w-full">
-            <h4 className="text-[14px] font-[500] mb-1">Email</h4>
-            <input type="email" className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
-             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3" placeholder="Enter your Email"/>
+            <h4 className="text-[14px] font-[500] mb-1">old password</h4>
+            <input
+              type="password"
+              className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
+             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
+              placeholder="Enter your old password"
+              value={formFields.oldPassword}
+              disabled={isLoading === true ? true : false}
+              name="oldPassword"
+              onChange={onChangeInput}
+            />
+            <h4 className="text-[14px] font-[500] mb-1">New password</h4>
+            <input
+              type="password"
+              className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
+             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
+              placeholder="Enter your new password"
+              value={formFields.newPassword}
+              disabled={isLoading === true ? true : false}
+              name="newPassword"
+              onChange={onChangeInput}
+            />
+            <h4 className="text-[14px] font-[500] mb-1">confirm password</h4>
+            <input
+              type="password"
+              className="w-full h-[50px] border-2 border-[rgba(0,0,0,0.1)]
+             rounded-md focus:border-[rgba(0,0,0,0.7)] focus:outline-none px-3"
+              placeholder="Enter your confirmPassword"
+              value={formFields.confirmPassword}
+              disabled={isLoading}
+              name="confirmPassword"
+              onChange={onChangeInput}
+            />
           </div>
 
-           
-
-            
-
-           <Button className="btn-blue btn-lg w-full">Reset Password</Button>
-           <br />
-           <br />
-           <div className="text-center flex items-center justify-center gap-4">
+          <Button type="submit" className="btn-blue btn-lg w-full" onClick={handelSubmit}>Reset Password</Button>
+          <br />
+          <br />
+          <div className="text-center flex items-center justify-center gap-4">
             <span>Don't want to reset ?</span>
-            <Link to="/signup" className="text-blue-500 font-[700] text-[15px] hover:underline hover:text-gray-700">
+            <Link
+              to="/signup"
+              className="text-blue-500 font-[700] text-[15px] hover:underline hover:text-gray-700"
+            >
               Sign In ?
             </Link>
-           </div>
+          </div>
         </form>
       </div>
 
       <br />
-
-
     </section>
   );
 };
