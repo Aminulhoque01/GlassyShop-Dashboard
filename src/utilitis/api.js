@@ -49,3 +49,38 @@ export const fetchDataFromApi = async (url) => {
     return error;
   }
 };
+
+
+export const uploadImage = async (url, updatedData) => {
+  const params = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      'Content-Type':'multipart/form-data'
+    },
+  };
+
+  var response;
+    await axios.put(apiUrl + url, updatedData, params).then((res)=>{
+    console.log(res);
+    response=res
+  });
+  return response;
+  
+};
+
+export const aditData = async (url, updatedData) => {
+  const params = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      'Content-Type':'application/json'
+    },
+  };
+
+  var response;
+    await axios.put(apiUrl + url, updatedData, params).then((res)=>{
+    console.log(res);
+    response=res
+  });
+  return response;
+  
+};

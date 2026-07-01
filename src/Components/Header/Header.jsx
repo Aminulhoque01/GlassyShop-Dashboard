@@ -88,7 +88,8 @@ const Header = () => {
               onClick={handleClickMyAcc}
             >
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsEV1cmRYNcFh_-d-dqVHpxP4MPS4K4WDQ6w&s"
+              
+               src={context?.userData?.data?.avatar}
                 alt=""
                 className="w-full h-full object-cover "
               />
@@ -135,7 +136,7 @@ const Header = () => {
                 <div className="flex items-center gap-3">
                   <div className="rounded-full w-[35px] h-[35px] overflow-hidden cursor-pointer">
                     <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsEV1cmRYNcFh_-d-dqVHpxP4MPS4K4WDQ6w&s"
+                      src={context?.userData?.data?.avatar}
                       alt=""
                       className="w-full h-full object-cover "
                     />
