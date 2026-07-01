@@ -153,7 +153,7 @@ const Header = () => {
               </MenuItem>
               <Divider />
               <MenuItem onClick={handleCloseMyAcc} className="flex gap-4">
-                <FaRegUser className="text-[16px]" /> <span>My Profile</span>
+               <FaRegUser className="text-[16px]" />  <Link to="/profile"><span>My Profile</span></Link>
               </MenuItem>
               <MenuItem onClick={handleCloseMyAcc} className="flex gap-4">
                 <IoSettingsOutline className="text-[16px]" />{" "}

@@ -34,6 +34,7 @@ import Verify from "./pages/Verify/Verify";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import toast from "react-hot-toast";
 import { fetchDataFromApi } from "./utilitis/api";
+import Profile from "./pages/profile/profile";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -323,6 +324,33 @@ function App() {
                 } transition-all`}
               >
                 <Order/>
+              </div>
+            </div>
+          </section>
+        </>
+      ),
+    },
+     {
+      path: "/profile",
+      exact: true,
+      element: (
+        <>
+          <section className="main">
+            <Header />
+            <div className="contentMain flex">
+              <div
+                className={`overflow-hidden sidebarWrapper ${
+                  isSidebarOpen === true ? "w-[18%]" : "w-[0px] opacity-0"
+                } transition-all`}
+              >
+                <Sidebar />
+              </div>
+              <div
+                className={`contentRight py-4 px-5 ${
+                  isSidebarOpen === true ? "w-[82%]" : "w-[100%]"
+                } transition-all`}
+              >
+                <Profile/>
               </div>
             </div>
           </section>
