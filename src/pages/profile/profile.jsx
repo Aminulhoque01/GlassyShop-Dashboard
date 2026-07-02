@@ -2,9 +2,11 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { FaCamera, FaCloudUploadAlt } from "react-icons/fa";
 import { MyContext } from "../../App";
-import { Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import { aditData, postData, uploadImage } from "../../utilitis/api";
 import toast from "react-hot-toast";
+import { PhoneInput } from 'react-international-phone';
+import 'react-international-phone/style.css';
 
 const Profile = () => {
   const fileInputRef = useRef(null);
@@ -13,6 +15,7 @@ const Profile = () => {
    const [isLoading2, setIsLoading2] = useState(false);
   const [userId, setUserId] = useState("");
   const [isChangePasswordFormShow, setIsChangePasswordFormShow]=useState(false);
+    const [phone, setPhone] = useState('');
   const [formFields, setFormFields] = useState({
     name: "",
     email: "",
@@ -95,6 +98,8 @@ const Profile = () => {
         email: context?.userData?.data?.email,
         mobile: context?.userData?.data?.mobile,
       });
+      const ph=`"context?.userData?.data?.mobile"`
+      setPhone(ph)
 
       setChangePassword({
          email: context?.userData?.data?.email,
@@ -217,7 +222,7 @@ const Profile = () => {
   
 
   return (
-    <div className="card my-6 shadow-md rounded-xl bg-white p-6">
+    <div className="card my-6 shadow-md rounded-xl bg-white p-6  w-[65%]">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-semibold mb-8">User Profile</h2>
 
@@ -225,8 +230,7 @@ const Profile = () => {
           
       </div>
 
-      <div className="grid md:grid-cols-2 gap-10">
-        <div className="w-full p-5 flex items-center justify-center flex-col">
+        <div className="w-full  flex items-center justify-center flex-col">
           <div
             className="w-[110px] h-[110px] rounded-full overflow-hidden mb-4 relative group flex items-center 
         justify-center bg-gray-200"
@@ -277,8 +281,71 @@ const Profile = () => {
             {context?.userData?.data?.email}
           </h6>
         </div>
+
+          <form action="" className="form mt-8" onSubmit={handelSubmit}>
+              <div className="flex items-center gap-5">
+                <div className="w-[50%] ">
+                  <TextField
+                    label="Full Name"
+                    variant="outlined"
+                    size="small"
+                    className="w-full"
+                    name="name"
+                    value={formFields.name}
+                    disabled={isLoading === true ? true : false}
+                    onChange={onChangeInput}
+                  />
+                </div>
+                <div className="w-[50%] ">
+                  <TextField
+                    type="email"
+                    label="Email"
+                    variant="outlined"
+                    size="small"
+                    className="w-full"
+                    name="email"
+                    value={formFields.email}
+                    disabled={true}
+                    onChange={onChangeInput}
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center gap-5 mt-5">
+                <div className="w-[50%] ">
+                   <PhoneInput
+                    defaultCountry="bd"
+                    value={phone}
+                    disabled={isLoading === true ? true : false}
+                    onChange={(phone) => {
+                      setPhone(phone);
+                      setFormFields({
+                        mobile:phone
+                      })
+                    }}
+                  />
+                  
+                </div>
+              </div>
+
+              <br />
+
+              <div className="flex items-center gap-4">
+                <Button
+                  type="submit"
+                  disabled={!validValue}
+                  className="btn-blue  w-[300px]"
+                >
+                  {isLoading === true ? (
+                    <CircularProgress color="inherit" />
+                  ) : (
+                    "save"
+                  )}
+                </Button>
+              </div>
+            </form>
       </div>
-    </div>
+     
   );
 };
 
