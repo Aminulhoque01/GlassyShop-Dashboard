@@ -1,30 +1,50 @@
+/* eslint-disable no-unused-vars */
 import { useContext, useEffect, useRef, useState } from "react";
 import { FaCamera, FaCloudUploadAlt } from "react-icons/fa";
 import { MyContext } from "../../App";
-import { CircularProgress } from "@mui/material";
-import { uploadImage } from "../../utilitis/api";
+import { Button, CircularProgress } from "@mui/material";
+import { aditData, postData, uploadImage } from "../../utilitis/api";
+import toast from "react-hot-toast";
 
 const Profile = () => {
   const fileInputRef = useRef(null);
-    const [previews, setPreviews] = useState([]);
-  
+  const [previews, setPreviews] = useState([]);
+   const [isLoading, setIsLoading] = useState(false);
+   const [isLoading2, setIsLoading2] = useState(false);
+  const [userId, setUserId] = useState("");
+  const [isChangePasswordFormShow, setIsChangePasswordFormShow]=useState(false);
+  const [formFields, setFormFields] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+  });
+
   const [uploading, setUploading] = useState(false);
   const context = useContext(MyContext);
-  
-  useEffect(()=>{
-    const userAvatar=[];
-   if(context?.userData?.data?.avatar !=="" && context?.userData?.data?.avatar !== undefined){
-     userAvatar.push(context?.userData?.data?.avatar);
-     setPreviews(userAvatar)
-   }
-  },[context?.userData])
 
-   
+  const [changePassword, setChangePassword] = useState({
+    email: "",
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  useEffect(() => {
+    const userAvatar = [];
+    if (
+      context?.userData?.data?.avatar !== "" &&
+      context?.userData?.data?.avatar !== undefined
+    ) {
+      userAvatar.push(context?.userData?.data?.avatar);
+      setPreviews(userAvatar);
+    }
+  }, [context?.userData]);
+
   let selectedImages = [];
 
-  const formdata=new FormData();
+  const formdata = new FormData();
 
-  const onChangeFile = async (e,) => {
+  const onChangeFile = async (e) => {
     try {
       setPreviews([]);
       const files = e.target.files;
@@ -38,36 +58,174 @@ const Profile = () => {
             files[i].type === "image/png" ||
             files[i].type === "image/webp")
         ) {
-          const file= files[i];
+          const file = files[i];
           selectedImages.push(file);
-          formdata.append(`avatar`, file)
+          formdata.append(`avatar`, file);
 
-          uploadImage("/api/user/user_avatar", formdata).then((res)=>{
-            console.log(res)
-            setUploading(false)
+          uploadImage("/api/user/user_avatar", formdata).then((res) => {
+            console.log(res);
+            setUploading(false);
 
-            let avatar=[];
+            let avatar = [];
             avatar.push(res?.data?.avatar);
-            setPreviews(avatar)
-          })
-         
-         
+            setPreviews(avatar);
+          });
         }
       }
     } catch (error) {
-       context.openAlertBox("error","please select a valid JPG , PNG or webp image file")
+      context.openAlertBox(
+        "error",
+        "please select a valid JPG , PNG or webp image file",
+      );
       console.log(error);
       setUploading(false);
     }
   };
-   
+
+
+
+  useEffect(() => {
+    if (
+      context?.userData?.data?._id !== "" &&
+      context?.userData?.data?._id !== undefined
+    ) {
+      setUserId(context?.userData?.data?._id);
+      setFormFields({
+        name: context?.userData?.data?.name,
+        email: context?.userData?.data?.email,
+        mobile: context?.userData?.data?.mobile,
+      });
+
+      setChangePassword({
+         email: context?.userData?.data?.email,
+          
+      })
+    }
+  }, [context?.userData]);
+
   
+
+  const onChangeInput = (e) => {
+    const { name, value } = e.target;
+    setFormFields(() => {
+      return {
+        ...formFields,
+        [name]: value,
+      };
+    });
+
+    setChangePassword(() => {
+      return {
+        ...changePassword,
+        [name]: value,
+      };
+    });
+  };
+
+  const validValue = Object.values(formFields).every((el) => el);
+  const validValuePass = Object.values(changePassword).every((el) => el);
+
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsLoading(true);
+
+      if (formFields.name === "") {
+        context.openAlertBox("error", "Please enter name");
+        setIsLoading(false);
+        return;
+      }
+
+      if (formFields.email === "") {
+        context.openAlertBox("error", "Please enter email");
+        setIsLoading(false);
+        return;
+      }
+      if (formFields.mobile === "") {
+        context.openAlertBox("error", "Please enter mobile number");
+        setIsLoading(false);
+        return;
+      }
+
+      const res = await aditData(`/api/user/${userId}`, formFields, {
+        withCredentials: true,
+      }).then((res) => {
+        if (res?.data?.message === "User Updated successfully") {
+          toast.success(res?.data?.message);
+        }
+      });
+      console.log(res);
+    } catch (error) {
+      toast.error(error?.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handelSubmitChangePassword = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsLoading2(true);
+
+      if (changePassword.oldPassword === "") {
+        context.openAlertBox("error", "Please enter oldPassword");
+        setIsLoading2(false);
+        return;
+      }
+
+      if (changePassword.newPassword === "") {
+        context.openAlertBox("error", "Please enter newPassword");
+        setIsLoading2(false);
+        return;
+      }
+      if (changePassword.confirmPassword === "") {
+        context.openAlertBox("error", "Please enter confirmPassword");
+        setIsLoading2(false);
+        return;
+      }
+
+      if (changePassword.newPassword !== changePassword.confirmPassword) {
+        context.openAlertBox(
+          "error",
+          "newPassword and confirmPassword not match",
+        );
+      }
+
+      const res = await postData(`/api/user/reset-password`, changePassword, {
+        withCredentials: true,
+      }).then((res) => {
+        console.log(res);
+         toast.success(res?.message)
+        if(res?.error !== true){
+          setIsLoading2(false)
+          context.openAlertBox("success", res?.message)
+        }
+        else{
+           context.openAlertBox("error", res?.message)
+           setIsLoading2(false)
+        }
+      });
+      console.log(res);
+    } catch (error) {
+      toast.error(error?.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+
   return (
     <div className="card my-6 shadow-md rounded-xl bg-white p-6">
-      <h2 className="text-2xl font-semibold mb-8">User Profile</h2>
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-semibold mb-8">User Profile</h2>
+
+       <Button className="!ml-auto" onClick={()=>setIsChangePasswordFormShow(!isChangePasswordFormShow)}>change password</Button>
+          
+      </div>
 
       <div className="grid md:grid-cols-2 gap-10">
-        
         <div className="w-full p-5 flex items-center justify-center flex-col">
           <div
             className="w-[110px] h-[110px] rounded-full overflow-hidden mb-4 relative group flex items-center 
@@ -113,14 +271,12 @@ const Profile = () => {
           </div>
 
           <h3 className="text-[16px] font-[600]">
-            {/* {context?.userData?.data?.name} */}
+            {context?.userData?.data?.name}
           </h3>
           <h6 className="text-[13px] font-[400]">
-            {/* {context?.userData?.data?.email} */}
+            {context?.userData?.data?.email}
           </h6>
         </div>
-
-         
       </div>
     </div>
   );
