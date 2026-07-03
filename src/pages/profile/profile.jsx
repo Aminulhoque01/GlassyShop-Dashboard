@@ -286,6 +286,7 @@ const Profile = () => {
               <div className="flex items-center gap-5">
                 <div className="w-[50%] ">
                   <TextField
+                   type="text"
                     label="Full Name"
                     variant="outlined"
                     size="small"
