@@ -7,6 +7,7 @@ import { aditData, postData, uploadImage } from "../../utilitis/api";
 import toast from "react-hot-toast";
 import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
+import {Collapse} from "react-collapse"
 
 const Profile = () => {
   const fileInputRef = useRef(null);
@@ -222,6 +223,7 @@ const Profile = () => {
   
 
   return (
+    <>
     <div className="card my-6 shadow-md rounded-xl bg-white p-6  w-[65%]">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-semibold mb-8">User Profile</h2>
@@ -345,9 +347,12 @@ const Profile = () => {
                 </Button>
               </div>
             </form>
+
+            
       </div>
-      
-       <Collapse isOpened={isChangePasswordFormShow}>
+
+
+    <Collapse isOpened={isChangePasswordFormShow}>
             <div className="card bg-white p-5 shadow-md rounded-md">
               <div className="flex items-center pb-0">
                 <h2 className="pb-0">change password</h2>
@@ -408,7 +413,7 @@ const Profile = () => {
                   <Button
                     type="submit"
                     disabled={!validValuePass}
-                    className="btn-org  w-[300px]"
+                    className="btn-blue  w-[300px]"
                   >
                     {isLoading2 === true ? (
                       <CircularProgress color="inherit" />
@@ -420,6 +425,9 @@ const Profile = () => {
               </form>
             </div>
             </Collapse>
+    </>
+
+       
      
   );
 };
