@@ -346,6 +346,80 @@ const Profile = () => {
               </div>
             </form>
       </div>
+      
+       <Collapse isOpened={isChangePasswordFormShow}>
+            <div className="card bg-white p-5 shadow-md rounded-md">
+              <div className="flex items-center pb-0">
+                <h2 className="pb-0">change password</h2>
+                <hr />
+              </div>
+
+              <form
+                action=""
+                className="mt-5"
+                onSubmit={handelSubmitChangePassword}
+              >
+                <div className="flex items-center gap-5">
+                  <div className="w-[50%] ">
+                    <TextField
+                      label="Old Password"
+                      variant="outlined"
+                      size="small"
+                      className="w-full"
+                      name="oldPassword"
+                      value={changePassword.oldPassword}
+                      disabled={isLoading2 === true ? true : false}
+                      onChange={onChangeInput}
+                    />
+                  </div>
+                  <div className="w-[50%] ">
+                    <TextField
+                      type="new password"
+                      label="New Password"
+                      variant="outlined"
+                      size="small"
+                      className="w-full"
+                      name="newPassword"
+                      value={changePassword.newPassword}
+                      disabled={isLoading2 === true ? true : false}
+                      onChange={onChangeInput}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-5 mt-5">
+                  <div className="w-[50%] ">
+                    <TextField
+                      label="Confirm Password"
+                      variant="outlined"
+                      size="small"
+                      className="w-full"
+                      name="confirmPassword"
+                      value={changePassword.confirmPassword}
+                      disabled={isLoading === true ? true : false}
+                      onChange={onChangeInput}
+                    />
+                  </div>
+                </div>
+
+                <br />
+
+                <div className="flex items-center gap-4">
+                  <Button
+                    type="submit"
+                    disabled={!validValuePass}
+                    className="btn-org  w-[300px]"
+                  >
+                    {isLoading2 === true ? (
+                      <CircularProgress color="inherit" />
+                    ) : (
+                      "change password"
+                    )}
+                  </Button>
+                </div>
+              </form>
+            </div>
+            </Collapse>
      
   );
 };
