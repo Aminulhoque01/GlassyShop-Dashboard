@@ -333,6 +333,10 @@ const Profile = () => {
 
               <br />
 
+              <div className="flex items-center justify-center p-5 border border-dashed border-[rgba(0,0,0,0.2) bg-[#f1faff]]">
+                <span>Add address</span>
+              </div>
+
               <div className="flex items-center gap-4">
                 <Button
                   type="submit"
@@ -353,7 +357,7 @@ const Profile = () => {
 
 
     <Collapse isOpened={isChangePasswordFormShow}>
-            <div className="card bg-white p-5 shadow-md rounded-md">
+            <div className="card bg-white p-5 shadow-md rounded-md w-[65%]">
               <div className="flex items-center pb-0">
                 <h2 className="pb-0">change password</h2>
                 <hr />

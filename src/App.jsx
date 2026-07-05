@@ -32,7 +32,7 @@ import Order from "./pages/Order/Order";
 import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
 import Verify from "./pages/Verify/Verify";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
-import toast from "react-hot-toast";
+import toast, { Toaster } from 'react-hot-toast'; 
 import { fetchDataFromApi } from "./utilitis/api";
 import Profile from "./pages/profile/profile";
 
@@ -45,7 +45,7 @@ const MyContext = createContext();
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const[isLogin, setIsLogin]=useState(false)
-    const[userData, setUserData]=useState(false);
+  const[userData, setUserData]=useState(false);
   const [isOpenFullScreenPanel, setIsOpenFullScreenPanel] = useState({
     open: false,
     model: "",
@@ -416,6 +416,7 @@ function App() {
             {isOpenFullScreenPanel?.model === "Add Home Slider" && <AddHomeSlide/>}
             {isOpenFullScreenPanel?.model === "Add Categories" && <AddCategory/>}
             {isOpenFullScreenPanel?.model === "Add Sub Categories" && <AddSubCategory/>}
+            <Toaster  />
         </Dialog>
       </MyContext.Provider>
     </>
