@@ -72,14 +72,15 @@ function App() {
         //  console.log(res)
         setUserData(res)
 
-        if(res?.response?.data?.error === true){
+        
           if(res?.response?.data?.message==="You have not login"){
             localStorage.removeItem("accessToken")
             localStorage.removeItem("refreshToken")
 
-           setIsLogin(false)
+            openAlertBox("error", "Your session is close")
+            window.location.href="/login"
           }
-        }
+      
       })
     }else{
       setIsLogin(false)

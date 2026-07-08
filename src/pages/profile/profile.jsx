@@ -333,8 +333,9 @@ const Profile = () => {
 
               <br />
 
-              <div className="flex items-center justify-center p-5 border border-dashed border-[rgba(0,0,0,0.2) bg-[#f1faff]]">
-                <span>Add address</span>
+              <div className="flex items-center justify-center p-5 border border-dashed border-[rgba(0,0,0,0.2) 
+              bg-[#f1faff]] cursor-pointer hover:bg-[#e7f3f9]">
+                <span className="text-[14px] font-[500]">Add address</span>
               </div>
 
               <div className="flex items-center gap-4">
