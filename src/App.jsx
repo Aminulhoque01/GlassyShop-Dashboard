@@ -35,6 +35,7 @@ import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import toast, { Toaster } from 'react-hot-toast'; 
 import { fetchDataFromApi } from "./utilitis/api";
 import Profile from "./pages/profile/profile";
+import AddAddress from "./pages/Address/AdAddress";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -417,6 +418,7 @@ function App() {
             {isOpenFullScreenPanel?.model === "Add Home Slider" && <AddHomeSlide/>}
             {isOpenFullScreenPanel?.model === "Add Categories" && <AddCategory/>}
             {isOpenFullScreenPanel?.model === "Add Sub Categories" && <AddSubCategory/>}
+            {isOpenFullScreenPanel?.model === "Ad New Address" && <AddAddress/>}
             <Toaster  />
         </Dialog>
       </MyContext.Provider>
