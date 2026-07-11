@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -6,10 +6,16 @@ import MenuItem from "@mui/material/MenuItem";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import toast from "react-hot-toast";
+import { MyContext } from "../../App";
+import { aditData } from "../../utilitis/api";
 
 const AddAddress = () => {
-  const [isLoading] = useState(false);
+  const [isLoading,setIsLoading] = useState(false);
   const [phone, setPhone] = useState("");
+   const context = useContext(MyContext);
+
+    const [userId, setUserId] = useState("");
 
   const [formFields, setFormFields] = useState({
     address_line1: "",
@@ -19,6 +25,7 @@ const AddAddress = () => {
     country: "",
     mobile: "",
     status: "",
+    userId:"",
   });
 
     const handleInputChange = (e) => {
@@ -34,12 +41,88 @@ const AddAddress = () => {
       status: event.target.value,
     }));
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log(formFields);
-  };
+  
+   useEffect(() => {
+       if (
+         context?.userData?.data?._id !== "" &&
+         context?.userData?.data?._id !== undefined
+       ) {
+         setUserId(context?.userData?.data?._id);
+         setFormFields({
+           name: context?.userData?.data?.name,
+           email: context?.userData?.data?.email,
+           mobile: context?.userData?.data?.mobile,
+         });
+         const ph=`"context?.userData?.data?.mobile"`
+         setPhone(ph)
+   
+         
+       }
+     }, [context?.userData]);
+   
+  
+   const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      try {
+        setIsLoading(true);
+  
+        if (formFields.address_line1 === "") {
+          context.openAlertBox("error", "Please enter address_line1");
+          setIsLoading(false);
+          return;
+        }
+  
+        if (formFields.city === "") {
+          context.openAlertBox("error", "Please enter city");
+          setIsLoading(false);
+          return;
+        }
+        if (formFields.state === "") {
+          context.openAlertBox("error", "Please enter mobile state");
+          setIsLoading(false);
+          return;
+        }
+        if (formFields.pinCode === "") {
+          context.openAlertBox("error", "Please enter mobile pinCode");
+          setIsLoading(false);
+          return;
+        }
+        if (formFields.country === "") {
+          context.openAlertBox("error", "Please enter mobile country");
+          setIsLoading(false);
+          return;
+        }
+        if (formFields.mobile === "") {
+          context.openAlertBox("error", "Please enter mobile mobile");
+          setIsLoading(false);
+          return;
+        }
+        if (formFields.status === "") {
+          context.openAlertBox("error", "Please enter mobile status");
+          setIsLoading(false);
+          return;
+        }
+        if (formFields.userId === "") {
+          context.openAlertBox("error", "Please enter mobile userId");
+          setIsLoading(false);
+          return;
+        }
+  
+        const res = await aditData(`/api/user/${userId}`, formFields, {
+          withCredentials: true,
+        }).then((res) => {
+          if (res?.data?.message === "User Updated successfully") {
+            toast.success(res?.data?.message);
+          }
+        });
+        console.log(res);
+      } catch (error) {
+        toast.error(error?.message || "Something went wrong");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
   return (
     <section className="p-5 bg-white rounded-md">
