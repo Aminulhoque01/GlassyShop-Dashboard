@@ -1,137 +1,187 @@
-import { IoMdClose } from "react-icons/io";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import UploadBox from "../../Components/UploadBox/UploadBox";
-import Button from "@mui/material/Button";
-import { FaCloudUploadAlt } from "react-icons/fa";
-import { PhoneInput } from "react-international-phone";
 import React, { useState } from "react";
-
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
+import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import { FaCloudUploadAlt } from "react-icons/fa";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 
 const AddAddress = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const [phone, setPhone] = useState("");
+
   const [formFields, setFormFields] = useState({
-    name: "",
-    email: "",
+    address_line1: "",
+    city: "",
+    state: "",
+    pinCode: "",
+    country: "",
     mobile: "",
+    status: "",
   });
 
+    const handleInputChange = (e) => {
+    setFormFields((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
-   
-  const noLabelId = React.useId();
-  const [age, setAge] = useState('');
+  const handleStatusChange = (event) => {
+    setFormFields((prev) => ({
+      ...prev,
+      status: event.target.value,
+    }));
+  };
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(formFields);
   };
 
   return (
-    <section className="p-5 bg-gray-50">
-      <form className="p-8 py-3 ">
-        <div className="max-h-[72vh] overflow-y-scroll pr-4 pt-4">
-          <div className="grid grid-cols-2 mb-3 gap-4">
-            <div className="col w-[100%]">
-              <h3 className="text-[14px] font-[500] mb-1 text-black">
-                Address line 1
-              </h3>
-              <input
-                type="text"
-                className="w-full h-[40px] border border-[rgba(0,0,0,0.2)] bg-[#f3f3f3] focus:outline-none
-                     focus:border-[rgba(0,0,0,0.4)] rounded-sm p-3 text-sm"
-              />
-            </div>
-            <div className="col w-[100%]">
-              <h3 className="text-[14px] font-[500] mb-1 text-black">city</h3>
-              <input
-                type="text"
-                className="w-full h-[40px] border border-[rgba(0,0,0,0.2)] bg-[#f3f3f3] focus:outline-none
-                     focus:border-[rgba(0,0,0,0.4)] rounded-sm p-3 text-sm"
-              />
-            </div>
+    <section className="p-5 bg-white rounded-md">
+      <form onSubmit={handleSubmit}>
+        <div className="grid grid-cols-2 gap-5">
+          {/* Address */}
+          <div>
+            <h3 className="text-[14px] font-[500] mb-1">
+              Address Line 1
+            </h3>
+
+            <input
+              type="text"
+              name="address_line1"
+              value={formFields.address_line1}
+              onChange={handleInputChange}
+              className="w-full h-[45px] border border-gray-300 rounded-md px-3 outline-none focus:border-blue-500"
+              placeholder="Enter Address"
+            />
           </div>
-          <div className="grid grid-cols-3 mb-3 gap-4">
-            <div className="col w-[100%]">
-              <h3 className="text-[14px] font-[500] mb-1 text-black">state</h3>
-              <input
-                type="text"
-                className="w-full h-[40px] border border-[rgba(0,0,0,0.2)] bg-[#f3f3f3] focus:outline-none
-                     focus:border-[rgba(0,0,0,0.4)] rounded-sm p-3 text-sm"
-              />
-            </div>
-            <div className="col w-[100%]">
-              <h3 className="text-[14px] font-[500] mb-1 text-black">
-                pin code
-              </h3>
-              <input
-                type="text"
-                className="w-full h-[40px] border border-[rgba(0,0,0,0.2)] bg-[#f3f3f3] focus:outline-none
-                     focus:border-[rgba(0,0,0,0.4)] rounded-sm p-3 text-sm"
-              />
-            </div>
-            <div className="col w-[100%]">
-              <h3 className="text-[14px] font-[500] mb-1 text-black">
-                country
-              </h3>
-              <input
-                type="text"
-                className="w-full h-[40px] border border-[rgba(0,0,0,0.2)] bg-[#f3f3f3] focus:outline-none
-                     focus:border-[rgba(0,0,0,0.4)] rounded-sm p-3 text-sm"
-              />
-            </div>
-            <div className="col w-[100%]">
-              <h3 className="text-[14px] font-[500] mb-1 text-black">mobile</h3>
-              <PhoneInput
-                defaultCountry="bd"
-                value={phone}
-                disabled={isLoading === true ? true : false}
-                onChange={(phone) => {
-                  setPhone(phone);
-                  setFormFields({
-                    mobile: phone,
-                  });
-                }}
-              />
-            </div>
-            <div className="col w-[100%]">
-              <h3 className="text-[14px] font-[500] mb-1 text-black">status</h3>
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <Select
-                  aria-describedby={`${noLabelId}-helper-text`}
-                  value={age}
-                  onChange={handleChange}
-                  displayEmpty
-                  inputProps={{ "aria-label": "Age" }}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-                <FormHelperText id={`${noLabelId}-helper-text`}>
-                  aria-label and helper text
-                </FormHelperText>
-              </FormControl>
-            </div>
+
+          {/* City */}
+          <div>
+            <h3 className="text-[14px] font-[500] mb-1">
+              City
+            </h3>
+
+            <input
+              type="text"
+              name="city"
+              value={formFields.city}
+              onChange={handleInputChange}
+              className="w-full h-[45px] border border-gray-300 rounded-md px-3 outline-none focus:border-blue-500"
+              placeholder="Enter City"
+            />
+          </div>
+
+          {/* State */}
+          <div>
+            <h3 className="text-[14px] font-[500] mb-1">
+              State
+            </h3>
+
+            <input
+              type="text"
+              name="state"
+              value={formFields.state}
+              onChange={handleInputChange}
+              className="w-full h-[45px] border border-gray-300 rounded-md px-3 outline-none focus:border-blue-500"
+              placeholder="Enter State"
+            />
+          </div>
+
+          {/* Pin Code */}
+          <div>
+            <h3 className="text-[14px] font-[500] mb-1">
+              Pin Code
+            </h3>
+
+            <input
+              type="text"
+              name="pinCode"
+              value={formFields.pinCode}
+              onChange={handleInputChange}
+              className="w-full h-[45px] border border-gray-300 rounded-md px-3 outline-none focus:border-blue-500"
+              placeholder="Enter Pin Code"
+            />
+          </div>
+
+          {/* Country */}
+          <div>
+            <h3 className="text-[14px] font-[500] mb-1">
+              Country
+            </h3>
+
+            <input
+              type="text"
+              name="country"
+              value={formFields.country}
+              onChange={handleInputChange}
+              className="w-full h-[45px] border border-gray-300 rounded-md px-3 outline-none focus:border-blue-500"
+              placeholder="Enter Country"
+            />
+          </div>
+
+          {/* Mobile */}
+          <div>
+            <h3 className="text-[14px] font-[500] mb-1">
+              Mobile
+            </h3>
+
+            <PhoneInput
+              defaultCountry="bd"
+              value={phone}
+              disabled={isLoading}
+              onChange={(value) => {
+                setPhone(value);
+
+                setFormFields((prev) => ({
+                  ...prev,
+                  mobile: value,
+                }));
+              }}
+            />
+          </div>
+
+          {/* Status */}
+          <div>
+            <h3 className="text-[14px] font-[500] mb-1">
+              Status
+            </h3>
+
+          <FormControl fullWidth size="small">
+            <Select
+              value={formFields.status}
+              onChange={handleStatusChange}
+              displayEmpty
+            >
+              <MenuItem value="">
+                <em>Select Status</em>
+              </MenuItem>
+
+              <MenuItem value="Published">
+                Published
+              </MenuItem>
+
+              <MenuItem value="Unpublished">
+                Unpublished
+              </MenuItem>
+            </Select>
+          </FormControl>
           </div>
         </div>
-        <br />
 
-        <br />
-        <br />
-        <div className="w-[300px]">
+        <div className="mt-8 w-[300px]">
           <Button
             type="submit"
-            className="w-full btn-blue btn-lg flex items-center gap-2"
+            variant="contained"
+            className="!w-full !py-3 flex items-center gap-2"
           >
-            <FaCloudUploadAlt className="text-[25px] text-white" />
-            Published and View
+            <FaCloudUploadAlt className="text-[22px]" />
+            Publish & View
           </Button>
         </div>
       </form>
