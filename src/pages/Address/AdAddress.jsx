@@ -4,18 +4,17 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import { PhoneInput } from "react-international-phone";
+
 import "react-international-phone/style.css";
 import toast from "react-hot-toast";
 import { MyContext } from "../../App";
-import { aditData } from "../../utilitis/api";
+import { postData } from "../../utilitis/api";
+import { PhoneInput } from "react-international-phone";
 
 const AddAddress = () => {
-  const [isLoading,setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [phone, setPhone] = useState("");
-   const context = useContext(MyContext);
-
-    const [userId, setUserId] = useState("");
+  const context = useContext(MyContext);
 
   const [formFields, setFormFields] = useState({
     address_line1: "",
@@ -25,104 +24,93 @@ const AddAddress = () => {
     country: "",
     mobile: "",
     status: "",
-    userId:"",
+    userId: "",
   });
 
-    const handleInputChange = (e) => {
+  const handleInputChange = (e) => {
     setFormFields((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const handleStatusChange = (event) => {
-    setFormFields((prev) => ({
-      ...prev,
-      status: event.target.value,
-    }));
-  };
-  
-   useEffect(() => {
-       if (
-         context?.userData?.data?._id !== "" &&
-         context?.userData?.data?._id !== undefined
-       ) {
-         setUserId(context?.userData?.data?._id);
-         setFormFields({
-           name: context?.userData?.data?.name,
-           email: context?.userData?.data?.email,
-           mobile: context?.userData?.data?.mobile,
-         });
-         const ph=`"context?.userData?.data?.mobile"`
-         setPhone(ph)
    
-         
-       }
-     }, [context?.userData]);
-   
-  
-   const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      try {
-        setIsLoading(true);
-  
-        if (formFields.address_line1 === "") {
-          context.openAlertBox("error", "Please enter address_line1");
-          setIsLoading(false);
-          return;
-        }
-  
-        if (formFields.city === "") {
-          context.openAlertBox("error", "Please enter city");
-          setIsLoading(false);
-          return;
-        }
-        if (formFields.state === "") {
-          context.openAlertBox("error", "Please enter mobile state");
-          setIsLoading(false);
-          return;
-        }
-        if (formFields.pinCode === "") {
-          context.openAlertBox("error", "Please enter mobile pinCode");
-          setIsLoading(false);
-          return;
-        }
-        if (formFields.country === "") {
-          context.openAlertBox("error", "Please enter mobile country");
-          setIsLoading(false);
-          return;
-        }
-        if (formFields.mobile === "") {
-          context.openAlertBox("error", "Please enter mobile mobile");
-          setIsLoading(false);
-          return;
-        }
-        if (formFields.status === "") {
-          context.openAlertBox("error", "Please enter mobile status");
-          setIsLoading(false);
-          return;
-        }
-        if (formFields.userId === "") {
-          context.openAlertBox("error", "Please enter mobile userId");
-          setIsLoading(false);
-          return;
-        }
-  
-        const res = await aditData(`/api/user/${userId}`, formFields, {
-          withCredentials: true,
-        }).then((res) => {
-          if (res?.data?.message === "User Updated successfully") {
-            toast.success(res?.data?.message);
-          }
+
+  useEffect(() => {
+    if (context?.userData?.data?._id) {
+      const mobile = String(context?.userData?.data?.mobile || "");
+
+      setPhone(mobile);
+
+      setFormFields((prev) => ({
+        ...prev,
+        userId: context.userData.data._id,
+        mobile,
+      }));
+    }
+  }, [context?.userData]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsLoading(true);
+
+      if (!formFields.address_line1)
+        return context.openAlertBox("error", "Enter Address");
+
+      if (!formFields.city) return context.openAlertBox("error", "Enter City");
+
+      if (!formFields.state)
+        return context.openAlertBox("error", "Enter State");
+
+      if (!formFields.pinCode)
+        return context.openAlertBox("error", "Enter Pin Code");
+
+      if (!formFields.country)
+        return context.openAlertBox("error", "Enter Country");
+
+      if (!formFields.mobile)
+        return context.openAlertBox("error", "Enter Mobile");
+
+      const res = await postData("/api/address/add", formFields, {
+        withCredentials: true,
+      });
+
+      console.log(res);
+
+      if (res?.success) {
+        toast.success(res.message);
+
+        setFormFields({
+          address_line1: "",
+          city: "",
+          state: "",
+          pinCode: "",
+          country: "",
+          mobile: "",
+          status: "",
+          userId: context?.userData?.data?._id,
         });
-        console.log(res);
-      } catch (error) {
-        toast.error(error?.message || "Something went wrong");
-      } finally {
-        setIsLoading(false);
+
+        setPhone("");
+
+        context?.setIsOpenFullScreenPanel({
+          open: false,
+        });
       }
-    };
+    } catch (error) {
+      console.log(error);
+
+      toast.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <section className="p-5 bg-white rounded-md">
@@ -130,9 +118,7 @@ const AddAddress = () => {
         <div className="grid grid-cols-2 gap-5">
           {/* Address */}
           <div>
-            <h3 className="text-[14px] font-[500] mb-1">
-              Address Line 1
-            </h3>
+            <h3 className="text-[14px] font-[500] mb-1">Address Line 1</h3>
 
             <input
               type="text"
@@ -146,9 +132,7 @@ const AddAddress = () => {
 
           {/* City */}
           <div>
-            <h3 className="text-[14px] font-[500] mb-1">
-              City
-            </h3>
+            <h3 className="text-[14px] font-[500] mb-1">City</h3>
 
             <input
               type="text"
@@ -162,9 +146,7 @@ const AddAddress = () => {
 
           {/* State */}
           <div>
-            <h3 className="text-[14px] font-[500] mb-1">
-              State
-            </h3>
+            <h3 className="text-[14px] font-[500] mb-1">State</h3>
 
             <input
               type="text"
@@ -178,9 +160,7 @@ const AddAddress = () => {
 
           {/* Pin Code */}
           <div>
-            <h3 className="text-[14px] font-[500] mb-1">
-              Pin Code
-            </h3>
+            <h3 className="text-[14px] font-[500] mb-1">Pin Code</h3>
 
             <input
               type="text"
@@ -194,9 +174,7 @@ const AddAddress = () => {
 
           {/* Country */}
           <div>
-            <h3 className="text-[14px] font-[500] mb-1">
-              Country
-            </h3>
+            <h3 className="text-[14px] font-[500] mb-1">Country</h3>
 
             <input
               type="text"
@@ -210,20 +188,18 @@ const AddAddress = () => {
 
           {/* Mobile */}
           <div>
-            <h3 className="text-[14px] font-[500] mb-1">
-              Mobile
-            </h3>
+            <h3 className="text-[14px] font-[500] mb-1">Mobile</h3>
 
             <PhoneInput
               defaultCountry="bd"
-              value={phone}
+              value={phone || ""}
               disabled={isLoading}
               onChange={(value) => {
-                setPhone(value);
+                setPhone(String(value));
 
                 setFormFields((prev) => ({
                   ...prev,
-                  mobile: value,
+                  mobile: String(value),
                 }));
               }}
             />
@@ -231,29 +207,22 @@ const AddAddress = () => {
 
           {/* Status */}
           <div>
-            <h3 className="text-[14px] font-[500] mb-1">
-              Status
-            </h3>
+            <h3 className="text-[14px] font-[500] mb-1">Status</h3>
 
-          <FormControl fullWidth size="small">
-            <Select
-              value={formFields.status}
-              onChange={handleStatusChange}
-              displayEmpty
-            >
-              <MenuItem value="">
-                <em>Select Status</em>
-              </MenuItem>
-
-              <MenuItem value="Published">
-                Published
-              </MenuItem>
-
-              <MenuItem value="Unpublished">
-                Unpublished
-              </MenuItem>
-            </Select>
-          </FormControl>
+            <FormControl fullWidth size="small">
+              <Select
+                value={formFields.status}
+                onChange={(e) =>
+                  setFormFields((prev) => ({
+                    ...prev,
+                    status: e.target.value,
+                  }))
+                }
+              >
+                <MenuItem value={true}>Published</MenuItem>
+                <MenuItem value={false}>Unpublished</MenuItem>
+              </Select>
+            </FormControl>
           </div>
         </div>
 
@@ -261,10 +230,11 @@ const AddAddress = () => {
           <Button
             type="submit"
             variant="contained"
+            disabled={isLoading}
             className="!w-full !py-3 flex items-center gap-2"
           >
             <FaCloudUploadAlt className="text-[22px]" />
-            Publish & View
+            {isLoading ? "Saving..." : "Publish & View"}
           </Button>
         </div>
       </form>
