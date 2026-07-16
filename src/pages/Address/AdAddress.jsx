@@ -50,6 +50,8 @@ const AddAddress = () => {
     }
   }, [context?.userData]);
 
+  console.log(context?.userData)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
