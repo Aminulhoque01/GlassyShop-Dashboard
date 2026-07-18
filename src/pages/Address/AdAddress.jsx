@@ -4,7 +4,6 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { FaCloudUploadAlt } from "react-icons/fa";
-
 import "react-international-phone/style.css";
 import toast from "react-hot-toast";
 import { MyContext } from "../../App";
