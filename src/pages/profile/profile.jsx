@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { FaCamera, FaCloudUploadAlt } from "react-icons/fa";
 import { MyContext } from "../../App";
 import { Button, CircularProgress, TextField } from "@mui/material";
-import { aditData, postData, uploadImage } from "../../utilitis/api";
+import { aditData, fetchDataFromApi, postData, uploadImage } from "../../utilitis/api";
 import toast from "react-hot-toast";
 import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
@@ -96,6 +96,9 @@ const Profile = () => {
       context?.userData?.data?._id !== "" &&
       context?.userData?.data?._id !== undefined
     ) {
+       fetchDataFromApi(`/api/address/get-address?userId=${context?.userData?.data?._id }`).then((res)=>{
+      console.log(res)
+    })
       setUserId(context?.userData?.data?._id);
       setFormFields({
         name: context?.userData?.data?.name,
@@ -111,8 +114,10 @@ const Profile = () => {
       })
     }
   }, [context?.userData]);
+ 
 
-  
+ 
+ 
 
   const onChangeInput = (e) => {
     const { name, value } = e.target;
