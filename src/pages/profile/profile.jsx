@@ -9,6 +9,9 @@ import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
 import {Collapse} from "react-collapse"
 
+import Checkbox from '@mui/material/Checkbox';
+
+
 const Profile = () => {
   const fileInputRef = useRef(null);
   const [previews, setPreviews] = useState([]);
@@ -130,6 +133,8 @@ const Profile = () => {
 
   const validValue = Object.values(formFields).every((el) => el);
   const validValuePass = Object.values(changePassword).every((el) => el);
+  const label = { slotProps: { input: { 'aria-label': 'Checkbox demo' } } };
+
 
   const handelSubmit = async (e) => {
     e.preventDefault();
@@ -341,6 +346,10 @@ const Profile = () => {
                                     })}>Add address</Button>
                 
               </div>
+
+              <label className="addressBox p-3 rounded-md bg-[f1f1f1] cursor-pointer w-full items-center justify-center">
+                   <Checkbox {...label} />
+              </label>
 
               <div className="flex items-center gap-4">
                 <Button
