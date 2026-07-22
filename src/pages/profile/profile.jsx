@@ -14,7 +14,8 @@ import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { Collapse } from "react-collapse";
 
-import Checkbox from "@mui/material/Checkbox";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 
 const Profile = () => {
   const fileInputRef = useRef(null);
@@ -42,6 +43,12 @@ const Profile = () => {
     newPassword: "",
     confirmPassword: "",
   });
+
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
 
   useEffect(() => {
     const userAvatar = [];
@@ -372,9 +379,27 @@ const Profile = () => {
                 className="addressBox border border-dashed border-[rgba(0,0,0,0.2) 
               bg-[#f1faff]] p-3 rounded-md bg-[#f1f1f1] cursor-pointer w-full flex  items-center justify-center"
               >
-                <Checkbox {...label} />
-                <p>{address.name}</p>
-                <p>{address.address}</p>
+                <Radio  name="address" 
+                checked={
+                  selectedValue===(address?.address_line1 +
+                  address?.city +
+                  address?.country +
+                  address?.pinCode +
+                  address?.state )
+                }
+                 value={address?.address_line1 +
+                  address?.city +
+                  address?.country +
+                  address?.pinCode +
+                  address?.state }
+                   onChange={handleChange}
+                />
+                <span className="text-[12px]">{address?.address_line1 + " "+
+                  address?.city +" "+
+                  address?.country + " "+
+                  address?.pinCode + " "+
+                  address?.state }</span>
+                
               </label>
             ))}
             </div>
