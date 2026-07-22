@@ -7,7 +7,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import "react-international-phone/style.css";
 import toast from "react-hot-toast";
 import { MyContext } from "../../App";
-import { fetchDataFromApi, postData } from "../../utilitis/api";
+import {  postData } from "../../utilitis/api";
 import { PhoneInput } from "react-international-phone";
 
 const AddAddress = () => {

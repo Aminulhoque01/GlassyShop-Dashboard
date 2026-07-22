@@ -3,23 +3,30 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { FaCamera, FaCloudUploadAlt } from "react-icons/fa";
 import { MyContext } from "../../App";
 import { Button, CircularProgress, TextField } from "@mui/material";
-import { aditData, fetchDataFromApi, postData, uploadImage } from "../../utilitis/api";
+import {
+  aditData,
+  fetchDataFromApi,
+  postData,
+  uploadImage,
+} from "../../utilitis/api";
 import toast from "react-hot-toast";
-import { PhoneInput } from 'react-international-phone';
-import 'react-international-phone/style.css';
-import {Collapse} from "react-collapse"
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
+import { Collapse } from "react-collapse";
 
-import Checkbox from '@mui/material/Checkbox';
-
+import Checkbox from "@mui/material/Checkbox";
 
 const Profile = () => {
   const fileInputRef = useRef(null);
   const [previews, setPreviews] = useState([]);
-   const [isLoading, setIsLoading] = useState(false);
-   const [isLoading2, setIsLoading2] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
   const [userId, setUserId] = useState("");
-  const [isChangePasswordFormShow, setIsChangePasswordFormShow]=useState(false);
-    const [phone, setPhone] = useState('');
+  const [adAddress, setAdAddress] = useState("");
+  console.log(adAddress?.data);
+  const [isChangePasswordFormShow, setIsChangePasswordFormShow] =
+    useState(false);
+  const [phone, setPhone] = useState("");
   const [formFields, setFormFields] = useState({
     name: "",
     email: "",
@@ -89,35 +96,30 @@ const Profile = () => {
     }
   };
 
-
-
   useEffect(() => {
     if (
       context?.userData?.data?._id !== "" &&
       context?.userData?.data?._id !== undefined
     ) {
-       fetchDataFromApi(`/api/address/get-address?userId=${context?.userData?.data?._id }`).then((res)=>{
-      console.log(res)
-    })
+      fetchDataFromApi(
+        `/api/address/get-address?userId=${context?.userData?.data?._id}`,
+      ).then((res) => {
+        setAdAddress(res);
+      });
       setUserId(context?.userData?.data?._id);
       setFormFields({
         name: context?.userData?.data?.name,
         email: context?.userData?.data?.email,
         mobile: context?.userData?.data?.mobile,
       });
-      const ph=`"context?.userData?.data?.mobile"`
-      setPhone(ph)
+      const ph = `"context?.userData?.data?.mobile"`;
+      setPhone(ph);
 
       setChangePassword({
-         email: context?.userData?.data?.email,
-          
-      })
+        email: context?.userData?.data?.email,
+      });
     }
   }, [context?.userData]);
- 
-
- 
- 
 
   const onChangeInput = (e) => {
     const { name, value } = e.target;
@@ -138,8 +140,7 @@ const Profile = () => {
 
   const validValue = Object.values(formFields).every((el) => el);
   const validValuePass = Object.values(changePassword).every((el) => el);
-  const label = { slotProps: { input: { 'aria-label': 'Checkbox demo' } } };
-
+  const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
 
   const handelSubmit = async (e) => {
     e.preventDefault();
@@ -213,14 +214,13 @@ const Profile = () => {
         withCredentials: true,
       }).then((res) => {
         console.log(res);
-         toast.success(res?.message)
-        if(res?.error !== true){
-          setIsLoading2(false)
-          context.openAlertBox("success", res?.message)
-        }
-        else{
-           context.openAlertBox("error", res?.message)
-           setIsLoading2(false)
+        toast.success(res?.message);
+        if (res?.error !== true) {
+          setIsLoading2(false);
+          context.openAlertBox("success", res?.message);
+        } else {
+          context.openAlertBox("error", res?.message);
+          setIsLoading2(false);
         }
       });
       console.log(res);
@@ -230,17 +230,22 @@ const Profile = () => {
       setIsLoading(false);
     }
   };
-  
 
   return (
     <>
-    <div className="card my-6 shadow-md rounded-xl bg-white p-6  w-[65%]">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold mb-8">User Profile</h2>
+      <div className="card my-6 shadow-md rounded-xl bg-white p-6  w-[65%]">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-semibold mb-8">User Profile</h2>
 
-       <Button className="!ml-auto" onClick={()=>setIsChangePasswordFormShow(!isChangePasswordFormShow)}>change password</Button>
-          
-      </div>
+          <Button
+            className="!ml-auto"
+            onClick={() =>
+              setIsChangePasswordFormShow(!isChangePasswordFormShow)
+            }
+          >
+            change password
+          </Button>
+        </div>
 
         <div className="w-full  flex items-center justify-center flex-col">
           <div
@@ -294,164 +299,176 @@ const Profile = () => {
           </h6>
         </div>
 
-          <form action="" className="form mt-8" onSubmit={handelSubmit}>
-              <div className="flex items-center gap-5">
-                <div className="w-[50%] ">
-                  <TextField
-                   type="text"
-                    label="Full Name"
-                    variant="outlined"
-                    size="small"
-                    className="w-full"
-                    name="name"
-                    value={formFields.name}
-                    disabled={isLoading === true ? true : false}
-                    onChange={onChangeInput}
-                  />
-                </div>
-                <div className="w-[50%] ">
-                  <TextField
-                    type="email"
-                    label="Email"
-                    variant="outlined"
-                    size="small"
-                    className="w-full"
-                    name="email"
-                    value={formFields.email}
-                    disabled={true}
-                    onChange={onChangeInput}
-                  />
-                </div>
-              </div>
+        <form action="" className="form mt-8" onSubmit={handelSubmit}>
+          <div className="flex items-center gap-5">
+            <div className="w-[50%] ">
+              <TextField
+                type="text"
+                label="Full Name"
+                variant="outlined"
+                size="small"
+                className="w-full"
+                name="name"
+                value={formFields.name}
+                disabled={isLoading === true ? true : false}
+                onChange={onChangeInput}
+              />
+            </div>
+            <div className="w-[50%] ">
+              <TextField
+                type="email"
+                label="Email"
+                variant="outlined"
+                size="small"
+                className="w-full"
+                name="email"
+                value={formFields.email}
+                disabled={true}
+                onChange={onChangeInput}
+              />
+            </div>
+          </div>
 
-              <div className="flex items-center gap-5 mt-5">
-                <div className="w-[50%] ">
-                   <PhoneInput
-                    defaultCountry="bd"
-                    value={phone}
-                    disabled={isLoading === true ? true : false}
-                    onChange={(phone) => {
-                      setPhone(phone);
-                      setFormFields({
-                        mobile:phone
-                      })
-                    }}
-                  />
-                  
-                </div>
-              </div>
+          <div className="flex items-center gap-5 mt-5">
+            <div className="w-[50%] ">
+              <PhoneInput
+                defaultCountry="bd"
+                value={phone}
+                disabled={isLoading === true ? true : false}
+                onChange={(phone) => {
+                  setPhone(phone);
+                  setFormFields({
+                    mobile: phone,
+                  });
+                }}
+              />
+            </div>
+          </div>
 
-              <br />
+          <br />
 
-              <div className="flex items-center justify-center p-5 border border-dashed border-[rgba(0,0,0,0.2) 
-              bg-[#f1faff]] cursor-pointer hover:bg-[#e7f3f9]">
-                 <Button className="btn-blue   !text-white " onClick={()=>context.setIsOpenFullScreenPanel({
-                                      open:true,
-                                      model:"Ad New Address"
-                                    })}>Add address</Button>
-                
-              </div>
-
-              <label className="addressBox p-3 rounded-md bg-[f1f1f1] cursor-pointer w-full items-center justify-center">
-                   <Checkbox {...label} />
+          <div
+            className="flex items-center justify-center p-5 border border-dashed border-[rgba(0,0,0,0.2) 
+              bg-[#f1faff]] cursor-pointer hover:bg-[#e7f3f9]"
+          >
+            <Button
+              className="btn-blue   !text-white "
+              onClick={() =>
+                context.setIsOpenFullScreenPanel({
+                  open: true,
+                  model: "Ad New Address",
+                })
+              }
+            >
+              Add address
+            </Button>
+          </div>
+          
+          <div className="flex gap-2 flex-col mt-4">
+          {adAddress?.data?.length > 0 &&
+            adAddress.data.map((address, index) => (
+              <label
+                key={index}
+                className="addressBox border border-dashed border-[rgba(0,0,0,0.2) 
+              bg-[#f1faff]] p-3 rounded-md bg-[#f1f1f1] cursor-pointer w-full flex  items-center justify-center"
+              >
+                <Checkbox {...label} />
+                <p>{address.name}</p>
+                <p>{address.address}</p>
               </label>
+            ))}
+            </div>
 
-              <div className="flex items-center gap-4">
-                <Button
-                  type="submit"
-                  disabled={!validValue}
-                  className="btn-blue  w-[300px]"
-                >
-                  {isLoading === true ? (
-                    <CircularProgress color="inherit" />
-                  ) : (
-                    "save"
-                  )}
-                </Button>
-              </div>
-            </form>
-
-            
+          <div className="flex items-center gap-4">
+            <Button
+              type="submit"
+              disabled={!validValue}
+              className="btn-blue  w-[300px]"
+            >
+              {isLoading === true ? (
+                <CircularProgress color="inherit" />
+              ) : (
+                "save"
+              )}
+            </Button>
+          </div>
+        </form>
       </div>
 
+      <Collapse isOpened={isChangePasswordFormShow}>
+        <div className="card bg-white p-5 shadow-md rounded-md w-[65%]">
+          <div className="flex items-center pb-0">
+            <h2 className="pb-0">change password</h2>
+            <hr />
+          </div>
 
-    <Collapse isOpened={isChangePasswordFormShow}>
-            <div className="card bg-white p-5 shadow-md rounded-md w-[65%]">
-              <div className="flex items-center pb-0">
-                <h2 className="pb-0">change password</h2>
-                <hr />
+          <form
+            action=""
+            className="mt-5"
+            onSubmit={handelSubmitChangePassword}
+          >
+            <div className="flex items-center gap-5">
+              <div className="w-[50%] ">
+                <TextField
+                  label="Old Password"
+                  variant="outlined"
+                  size="small"
+                  className="w-full"
+                  name="oldPassword"
+                  value={changePassword.oldPassword}
+                  disabled={isLoading2 === true ? true : false}
+                  onChange={onChangeInput}
+                />
               </div>
-
-              <form
-                action=""
-                className="mt-5"
-                onSubmit={handelSubmitChangePassword}
-              >
-                <div className="flex items-center gap-5">
-                  <div className="w-[50%] ">
-                    <TextField
-                      label="Old Password"
-                      variant="outlined"
-                      size="small"
-                      className="w-full"
-                      name="oldPassword"
-                      value={changePassword.oldPassword}
-                      disabled={isLoading2 === true ? true : false}
-                      onChange={onChangeInput}
-                    />
-                  </div>
-                  <div className="w-[50%] ">
-                    <TextField
-                      type="new password"
-                      label="New Password"
-                      variant="outlined"
-                      size="small"
-                      className="w-full"
-                      name="newPassword"
-                      value={changePassword.newPassword}
-                      disabled={isLoading2 === true ? true : false}
-                      onChange={onChangeInput}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-5 mt-5">
-                  <div className="w-[50%] ">
-                    <TextField
-                      label="Confirm Password"
-                      variant="outlined"
-                      size="small"
-                      className="w-full"
-                      name="confirmPassword"
-                      value={changePassword.confirmPassword}
-                      disabled={isLoading === true ? true : false}
-                      onChange={onChangeInput}
-                    />
-                  </div>
-                </div>
-
-                <br />
-
-                <div className="flex items-center gap-4">
-                  <Button
-                    type="submit"
-                    disabled={!validValuePass}
-                    className="btn-blue  w-[300px]"
-                  >
-                    {isLoading2 === true ? (
-                      <CircularProgress color="inherit" />
-                    ) : (
-                      "change password"
-                    )}
-                  </Button>
-                </div>
-              </form>
+              <div className="w-[50%] ">
+                <TextField
+                  type="new password"
+                  label="New Password"
+                  variant="outlined"
+                  size="small"
+                  className="w-full"
+                  name="newPassword"
+                  value={changePassword.newPassword}
+                  disabled={isLoading2 === true ? true : false}
+                  onChange={onChangeInput}
+                />
+              </div>
             </div>
-            </Collapse>
-    </>
 
-       
-     
+            <div className="flex items-center gap-5 mt-5">
+              <div className="w-[50%] ">
+                <TextField
+                  label="Confirm Password"
+                  variant="outlined"
+                  size="small"
+                  className="w-full"
+                  name="confirmPassword"
+                  value={changePassword.confirmPassword}
+                  disabled={isLoading === true ? true : false}
+                  onChange={onChangeInput}
+                />
+              </div>
+            </div>
+
+            <br />
+
+            <div className="flex items-center gap-4">
+              <Button
+                type="submit"
+                disabled={!validValuePass}
+                className="btn-blue  w-[300px]"
+              >
+                {isLoading2 === true ? (
+                  <CircularProgress color="inherit" />
+                ) : (
+                  "change password"
+                )}
+              </Button>
+            </div>
+          </form>
+        </div>
+      </Collapse>
+    </>
   );
 };
 
