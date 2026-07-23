@@ -24,7 +24,7 @@ const Profile = () => {
   const [isLoading2, setIsLoading2] = useState(false);
   const [userId, setUserId] = useState("");
   const [adAddress, setAdAddress] = useState("");
-  console.log(adAddress?.data);
+  
   const [isChangePasswordFormShow, setIsChangePasswordFormShow] =
     useState(false);
   const [phone, setPhone] = useState("");
