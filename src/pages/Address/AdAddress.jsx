@@ -7,7 +7,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import "react-international-phone/style.css";
 import toast from "react-hot-toast";
 import { MyContext } from "../../App";
-import {  postData } from "../../utilitis/api";
+import { fetchDataFromApi, postData } from "../../utilitis/api";
 import { PhoneInput } from "react-international-phone";
 
 const AddAddress = () => {
@@ -24,6 +24,7 @@ const AddAddress = () => {
     mobile: "",
     status: "",
     userId: "",
+    selected:false
   });
 
   const handleInputChange = (e) => {
@@ -32,8 +33,6 @@ const AddAddress = () => {
       [e.target.name]: e.target.value,
     }));
   };
-
-   
 
   useEffect(() => {
     if (context?.userData?.data?._id) {
@@ -48,11 +47,6 @@ const AddAddress = () => {
       }));
     }
   }, [context?.userData]);
-
-  
-
-
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -101,6 +95,12 @@ const AddAddress = () => {
 
         context?.setIsOpenFullScreenPanel({
           open: false,
+        });
+
+        fetchDataFromApi(
+          `/api/address/get-address?userId=${context?.userData?.data?._id}`,
+        ).then((res) => {
+          context.setAdAddress(res);
         });
       }
     } catch (error) {

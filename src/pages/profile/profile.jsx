@@ -112,6 +112,7 @@ const Profile = () => {
         `/api/address/get-address?userId=${context?.userData?.data?._id}`,
       ).then((res) => {
         setAdAddress(res);
+        context.setAdAddress(res);
       });
       setUserId(context?.userData?.data?._id);
       setFormFields({
@@ -381,17 +382,9 @@ const Profile = () => {
               >
                 <Radio  name="address" 
                 checked={
-                  selectedValue===(address?.address_line1 +
-                  address?.city +
-                  address?.country +
-                  address?.pinCode +
-                  address?.state )
+                  selectedValue===(address?._id)
                 }
-                 value={address?.address_line1 +
-                  address?.city +
-                  address?.country +
-                  address?.pinCode +
-                  address?.state }
+                 value={address?._id}
                    onChange={handleChange}
                 />
                 <span className="text-[12px]">{address?.address_line1 + " "+
