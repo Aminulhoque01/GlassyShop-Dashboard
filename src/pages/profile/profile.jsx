@@ -47,7 +47,15 @@ const Profile = () => {
   const [selectedValue, setSelectedValue] = useState("");
 
   const handleChange = (event) => {
+    
     setSelectedValue(event.target.value);
+
+    if(event.target.checked === true){
+      aditData(`/api/address/${event.target.value}`,{selected:true})
+    }else{
+      aditData(`/api/address/${event.target.value}`,{selected:false})
+    }
+
   };
 
   useEffect(() => {
