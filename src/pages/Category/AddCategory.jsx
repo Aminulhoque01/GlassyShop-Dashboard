@@ -3,8 +3,26 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import UploadBox from "../../Components/UploadBox/UploadBox";
 import Button from "@mui/material/Button";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import { useState } from "react";
 
 const AddCategory = () => {
+  const [formFields, setFormFields] = useState({
+    name: "",
+    images: [],
+    parentCateName: [],
+    parentId: "",
+  });
+
+    const onChangeInput = (e) => {
+    const { name, value } = e.target;
+    setFormFields(() => {
+      return {
+        ...formFields,
+        [name]: value,
+      };
+    });
+  };
+
   return (
     <section className="p-5 bg-gray-50">
       <form className="p-8 py-3 ">
@@ -18,12 +36,13 @@ const AddCategory = () => {
                 type="text"
                 className="w-full h-[40px] border border-[rgba(0,0,0,0.2)] bg-[#f3f3f3] focus:outline-none
                      focus:border-[rgba(0,0,0,0.4)] rounded-sm p-3 text-sm"
+                onChange={onChangeInput}
               />
             </div>
           </div>
           <h3 className="text-[18px] font-[500] mb-1 text-black">
-                Category Image
-              </h3>
+            Category Image
+          </h3>
           <div className="grid grid-cols-7 gap-3">
             <UploadBox multiple={true} />
             <div className="uploadBoxWrapper relative">
