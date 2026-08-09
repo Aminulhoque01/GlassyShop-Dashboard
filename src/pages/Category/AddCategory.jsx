@@ -6,12 +6,11 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { useState } from "react";
 
 const AddCategory = () => {
-  const [formFields, setFormFields] = useState({
-    name: "",
-    images: [],
-    parentCateName: [],
-    parentId: "",
-  });
+    const [formFields, setFormFields] = useState({
+      name: "",
+      images: [],
+       
+    });
 
     const onChangeInput = (e) => {
     const { name, value } = e.target;
