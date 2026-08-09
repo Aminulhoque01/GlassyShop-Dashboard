@@ -1,7 +1,57 @@
+import { useContext, useState } from "react";
 import { IoImagesOutline } from "react-icons/io5";
+import { MyContext } from "../../App";
+import { uploadImage } from "../../utilitis/api";
 
 
 const UploadBox=(props)=>{
+    const [previews, setPreviews]=useState([])
+    
+  const [uploading, setUploading] = useState(false);
+   const context = useContext(MyContext);
+  let selectedImages = [];
+  
+    const formdata = new FormData();
+  
+    const onChangeFile = async (e) => {
+      try {
+        setPreviews([]);
+        const files = e.target.files;
+        setUploading(true);
+  
+        for (var i = 0; i < files.length; i++) {
+          if (
+            files[i] &&
+            (files[i].type === "image/jpeg" ||
+              files[i].type === "image/jpg" ||
+              files[i].type === "image/png" ||
+              files[i].type === "image/webp")
+          ) {
+            const file = files[i];
+            selectedImages.push(file);
+            formdata.append(`avatar`, file);
+  
+            uploadImage("/api/user/user_avatar", formdata).then((res) => {
+              console.log(res);
+              setUploading(false);
+  
+              let avatar = [];
+              avatar.push(res?.data?.avatar);
+              setPreviews(avatar);
+            });
+          }
+        }
+      } catch (error) {
+        context.openAlertBox(
+          "error",
+          "please select a valid JPG , PNG or webp image file",
+        );
+        console.log(error);
+        setUploading(false);
+      }
+    };
+  
+
     return(
         <div className="uploadBox p-3 rounded-md overflow-hidden border border-dashed 
         border-[rgba(0,0,0,0.3)] h-[150px] w-[100%] bg-gray-100 cursor-pointer hover:bg-gray-200
