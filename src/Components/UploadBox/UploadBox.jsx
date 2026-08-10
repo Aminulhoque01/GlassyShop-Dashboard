@@ -57,9 +57,13 @@ const UploadBox=(props)=>{
         border-[rgba(0,0,0,0.3)] h-[150px] w-[100%] bg-gray-100 cursor-pointer hover:bg-gray-200
         flex items-center justify-center flex-col relative">
             <IoImagesOutline  className="text-[40px] opacity-35 pointer-events-none"/>
+              
              
             <h4 className="text-[14px] font-[600] pointer-events-none">Image Upload</h4>
-            <input multiple={props.multiple !==undefined ? props.multiple : false} type="file" className="absolute top-0 left-0 w-full h-full z-50 opacity-0 " />
+            <input accept="image/*" multiple={props.multiple !==undefined ? props.multiple : false} type="file" className="absolute top-0 left-0 w-full h-full z-50 opacity-0 "  
+            onChange={(e) => onChangeFile(e, props?.url)} 
+            name={props?.name}
+            />
         </div>
     )
 };

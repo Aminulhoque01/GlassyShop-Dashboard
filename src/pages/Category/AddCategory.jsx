@@ -43,7 +43,7 @@ const AddCategory = () => {
             Category Image
           </h3>
           <div className="grid grid-cols-7 gap-3">
-            <UploadBox multiple={true} />
+            <UploadBox multiple={true} name="images" />
             <div className="uploadBoxWrapper relative">
               <span className="absolute w-[20px] h-[20px] rounded-full overflow-hidden -top-[10px] -right-[10px] bg-red-500 flex items-center justify-center z-50 cursor-pointer">
                 <IoMdClose className="text-[17px] text-white" />
