@@ -6,6 +6,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { useState } from "react";
 
 const AddCategory = () => {
+   const [previews, setPreviews]=useState([])
     const [formFields, setFormFields] = useState({
       name: "",
       images: [],
@@ -43,17 +44,24 @@ const AddCategory = () => {
             Category Image
           </h3>
           <div className="grid grid-cols-7 gap-3">
-            <UploadBox multiple={true} name="images" url="/api/category/upload-category-img" />
+            <UploadBox multiple={true} name="images" url="/api/category/upload-category-img" setPreviews={setPreviews}/>
             <div className="uploadBoxWrapper relative">
               <span className="absolute w-[20px] h-[20px] rounded-full overflow-hidden -top-[10px] -right-[10px] bg-red-500 flex items-center justify-center z-50 cursor-pointer">
                 <IoMdClose className="text-[17px] text-white" />
               </span>
+
+               {
+                priv
+               }
 
               <div
                 className="uploadBox p-3 rounded-md overflow-hidden border border-dashed 
                   border-[rgba(0,0,0,0.3)] h-[150px] w-[100%] bg-gray-100 cursor-pointer hover:bg-gray-200
                   flex items-center justify-center flex-col relative"
               >
+        
+
+
                 <LazyLoadImage
                   alt={"image"}
                   src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fproducts%2Fmodern%2F1.webp&w=1920&q=75" // use normal <img> attributes as props
