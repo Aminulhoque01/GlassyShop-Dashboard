@@ -1,94 +1,209 @@
+import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import UploadBox from "../../Components/UploadBox/UploadBox";
 import Button from "@mui/material/Button";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import { useState } from "react";
+
+import UploadBox from "../../Components/UploadBox/UploadBox";
+import { uploadCategoryImage } from "../../utilitis/api";
 
 const AddCategory = () => {
-   const [previews, setPreviews]=useState([])
-    const [formFields, setFormFields] = useState({
-      name: "",
-      images: [],
-       
-    });
+  const [formFields, setFormFields] = useState({
+    name: "",
+  });
 
-    const onChangeInput = (e) => {
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [previews, setPreviews] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // Category name
+  const onChangeInput = (e) => {
     const { name, value } = e.target;
-    setFormFields(() => {
-      return {
-        ...formFields,
-        [name]: value,
-      };
-    });
+
+    setFormFields((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // Image select
+  const handleFilesSelect = (files) => {
+    setSelectedImages(files);
+
+    const previewUrls = files.map((file) =>
+      URL.createObjectURL(file)
+    );
+
+    setPreviews(previewUrls);
+  };
+
+  // Submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (!formFields.name.trim()) {
+        alert("Please enter category name");
+        return;
+      }
+
+      if (selectedImages.length === 0) {
+        alert("Please select category image");
+        return;
+      }
+
+      setLoading(true);
+
+      const formData = new FormData();
+
+      // Category name
+      formData.append("name", formFields.name);
+
+      // Images
+      selectedImages.forEach((file) => {
+        formData.append("images", file);
+      });
+
+      const response = await uploadCategoryImage(
+        "/api/category/upload-category-img",
+        formData
+      );
+
+      console.log("Category Response:", response);
+
+      if (response?.data?.success) {
+        alert("Category created successfully");
+
+        // Reset
+        setFormFields({
+          name: "",
+        });
+
+        setSelectedImages([]);
+        setPreviews([]);
+      }
+    } catch (error) {
+      console.error("Category Create Error:", error);
+
+      alert(
+        error?.response?.data?.message ||
+          "Something went wrong"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <section className="p-5 bg-gray-50">
-      <form className="p-8 py-3 ">
+
+      <form
+        onSubmit={handleSubmit}
+        className="p-8 py-3"
+      >
+
         <div className="max-h-[72vh] overflow-y-scroll pr-4 pt-4">
-          <div className="grid grid-cols-1 mb-3">
-            <div className="col w-[25%]">
+
+          {/* Category Name */}
+          <div className="grid grid-cols-1 mb-5">
+
+            <div className="w-[25%]">
+
               <h3 className="text-[14px] font-[500] mb-1 text-black">
                 Category Name
               </h3>
+
               <input
                 type="text"
-                className="w-full h-[40px] border border-[rgba(0,0,0,0.2)] bg-[#f3f3f3] focus:outline-none
-                     focus:border-[rgba(0,0,0,0.4)] rounded-sm p-3 text-sm"
+                name="name"
+                value={formFields.name}
                 onChange={onChangeInput}
+                placeholder="Enter category name"
+                className="w-full h-[40px] border 
+                border-[rgba(0,0,0,0.2)] bg-[#f3f3f3] 
+                focus:outline-none rounded-sm p-3 text-sm"
               />
+
             </div>
+
           </div>
-          <h3 className="text-[18px] font-[500] mb-1 text-black">
+
+          {/* Category Image */}
+          <h3 className="text-[18px] font-[500] mb-3 text-black">
             Category Image
           </h3>
+
           <div className="grid grid-cols-7 gap-3">
-            <UploadBox multiple={true} name="images" url="/api/category/upload-category-img" setPreviews={setPreviews}/>
-            <div className="uploadBoxWrapper relative">
-              <span className="absolute w-[20px] h-[20px] rounded-full overflow-hidden -top-[10px] -right-[10px] bg-red-500 flex items-center justify-center z-50 cursor-pointer">
-                <IoMdClose className="text-[17px] text-white" />
-              </span>
 
-               {
-                priv
-               }
+            {/* Upload */}
+            <UploadBox
+              multiple={true}
+              onFilesSelect={handleFilesSelect}
+            />
 
+            {/* Preview */}
+            {previews.map((image, index) => (
               <div
-                className="uploadBox p-3 rounded-md overflow-hidden border border-dashed 
-                  border-[rgba(0,0,0,0.3)] h-[150px] w-[100%] bg-gray-100 cursor-pointer hover:bg-gray-200
-                  flex items-center justify-center flex-col relative"
+                key={index}
+                className="uploadBox relative rounded-md overflow-hidden 
+                border border-[rgba(0,0,0,0.3)] h-[150px] 
+                w-full bg-gray-100"
               >
-        
 
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newImages = selectedImages.filter(
+                      (_, i) => i !== index
+                    );
+
+                    const newPreviews = previews.filter(
+                      (_, i) => i !== index
+                    );
+
+                    setSelectedImages(newImages);
+                    setPreviews(newPreviews);
+                  }}
+                  className="absolute w-[25px] h-[25px] 
+                  rounded-full top-1 right-1 bg-red-500 
+                  flex items-center justify-center z-20"
+                >
+                  <IoMdClose className="text-[17px] text-white" />
+                </button>
 
                 <LazyLoadImage
-                  alt={"image"}
-                  src="https://isomorphic-furyroad.vercel.app/_next/image?url=https%3A%2F%2Fisomorphic-furyroad.s3.amazonaws.com%2Fpublic%2Fproducts%2Fmodern%2F1.webp&w=1920&q=75" // use normal <img> attributes as props
+                  src={image}
+                  alt={`category-${index}`}
                   className="w-full h-full object-cover"
                   effect="blur"
-                  wrapperProps={{
-                    style: { transitionDelay: "1s" },
-                  }}
                 />
+
               </div>
-            </div>
+            ))}
+
           </div>
+
         </div>
-        <br />
 
         <br />
-        <br />
+
         <div className="w-[300px]">
+
           <Button
             type="submit"
+            disabled={loading}
             className="w-full btn-blue btn-lg flex items-center gap-2"
           >
             <FaCloudUploadAlt className="text-[25px] text-white" />
-            Published and View
+
+            {loading ? "Uploading..." : "Publish and View"}
+
           </Button>
+
         </div>
+
       </form>
+
     </section>
   );
 };

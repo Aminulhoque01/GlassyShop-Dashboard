@@ -84,3 +84,10 @@ export const aditData = async (url, updatedData) => {
   return response;
   
 };
+
+export const uploadCategoryImage = async (url, formData) => {
+  return await axios.post(
+    `${apiUrl}${url}`,
+    formData
+  );
+};
