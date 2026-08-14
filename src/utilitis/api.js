@@ -91,3 +91,9 @@ export const uploadCategoryImage = async (url, formData) => {
     formData
   );
 };
+
+
+export const deleteImages= async(url,image)=>{
+  const {res}= await axios.delete(`${apiUrl}${url}`,image);
+  return res;
+}
