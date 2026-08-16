@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import { FaCloudUploadAlt } from "react-icons/fa";
 
 import UploadBox from "../../Components/UploadBox/UploadBox";
-import { uploadCategoryImage } from "../../utilitis/api";
+import { deleteImagesCloudinary, uploadCategoryImage } from "../../utilitis/api";
 
 const AddCategory = () => {
   const [formFields, setFormFields] = useState({
@@ -94,6 +94,12 @@ const AddCategory = () => {
     }
   };
 
+  const deleteImages = (image,index)=>{
+     deleteImagesCloudinary(`/api/category/deleteImage=${image}`).then((res)=>{
+      console.log(res)
+     })
+  }
+
   return (
     <section className="p-5 bg-gray-50">
 
@@ -168,7 +174,7 @@ const AddCategory = () => {
                   rounded-full top-1 right-1 bg-red-500 
                   flex items-center justify-center z-20"
                 >
-                  <IoMdClose className="text-[17px] text-white" />
+                  <IoMdClose className="text-[17px] text-white" onClick={()=>deleteImages(image, index)} />
                 </button>
 
                 <LazyLoadImage
@@ -209,3 +215,4 @@ const AddCategory = () => {
 };
 
 export default AddCategory;
+

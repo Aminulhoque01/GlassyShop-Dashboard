@@ -68,3 +68,5 @@ const UploadBox = ({ multiple = false, onFilesSelect }) => {
 };
 
 export default UploadBox;
+
+

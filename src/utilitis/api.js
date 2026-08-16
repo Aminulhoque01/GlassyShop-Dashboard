@@ -93,7 +93,7 @@ export const uploadCategoryImage = async (url, formData) => {
 };
 
 
-export const deleteImages= async(url,image)=>{
+export const deleteImagesCloudinary= async(url,image)=>{
   const {res}= await axios.delete(`${apiUrl}${url}`,image);
   return res;
 }
