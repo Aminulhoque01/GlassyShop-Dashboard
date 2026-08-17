@@ -97,3 +97,53 @@ export const deleteImagesCloudinary= async(url,image)=>{
   const {res}= await axios.delete(`${apiUrl}${url}`,image);
   return res;
 }
+
+
+export const editData = async (url, body) => {
+  try {
+    const response = await fetch(`${apiUrl}${url}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+
+    return {
+      success: false,
+      error: true,
+      message: error.message,
+    };
+  }
+};
+
+export const deleteData = async (url) => {
+  try {
+    const response = await fetch(apiUrl + url, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+
+    return {
+      success: false,
+      error: true,
+      message: error.message,
+    };
+  }
+};
