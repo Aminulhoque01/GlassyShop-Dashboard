@@ -94,7 +94,7 @@ const AddCategory = () => {
     }
   };
 
-  const deleteImages = (image,index)=>{
+  const deleteImages = (image)=>{
      deleteImagesCloudinary(`/api/category/deleteImage=${image}`).then((res)=>{
       console.log(res)
      })

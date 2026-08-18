@@ -85,13 +85,42 @@ export const aditData = async (url, updatedData) => {
   
 };
 
-export const uploadCategoryImage = async (url, formData) => {
-  return await axios.post(
-    `${apiUrl}${url}`,
-    formData
-  );
-};
+export const uploadCategoryImage = async (
+  url,
+  formData
+) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}${url}`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
+        },
+      }
+    );
 
+    return response;
+
+  } catch (error) {
+    console.log(
+      "Upload Image Error:",
+      error
+    );
+
+    return {
+      data: {
+        success: false,
+        error: true,
+        message:
+          error?.response?.data?.message ||
+          error.message,
+      },
+    };
+  }
+};
 
 export const deleteImagesCloudinary= async(url,image)=>{
   const {res}= await axios.delete(`${apiUrl}${url}`,image);
@@ -147,3 +176,7 @@ export const deleteData = async (url) => {
     };
   }
 };
+
+
+
+
