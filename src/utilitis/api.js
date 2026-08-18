@@ -179,4 +179,28 @@ export const deleteData = async (url) => {
 
 
 
+export const uploadImage = async (url, updatedData) => {
+  try {
+    const response = await axios.put(
+      `${apiUrl}${url}`,
+      updatedData,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    );
 
+    return response.data;
+  } catch (error) {
+    console.log("Upload image error:", error);
+
+    return {
+      success: false,
+      error: true,
+      message:
+        error?.response?.data?.message ||
+        error.message,
+    };
+  }
+};
