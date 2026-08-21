@@ -51,22 +51,7 @@ export const fetchDataFromApi = async (url) => {
 };
 
 
-export const uploadImage = async (url, updatedData) => {
-  const params = {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      'Content-Type':'multipart/form-data'
-    },
-  };
 
-  var response;
-    await axios.put(apiUrl + url, updatedData, params).then((res)=>{
-    console.log(res);
-    response=res
-  });
-  return response;
-  
-};
 
 export const aditData = async (url, updatedData) => {
   const params = {
@@ -178,12 +163,11 @@ export const deleteData = async (url) => {
 };
 
 
-
-export const uploadImage = async (url, updatedData) => {
+export const uploadImage = async (url, formData) => {
   try {
-    const response = await axios.put(
+    const response = await axios.post(
       `${apiUrl}${url}`,
-      updatedData,
+      formData,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -191,16 +175,18 @@ export const uploadImage = async (url, updatedData) => {
       }
     );
 
-    return response.data;
+    return response;
   } catch (error) {
-    console.log("Upload image error:", error);
+    console.log("Upload Image Error:", error);
 
     return {
-      success: false,
-      error: true,
-      message:
-        error?.response?.data?.message ||
-        error.message,
+      data: {
+        success: false,
+        message:
+          error?.response?.data?.message ||
+          error.message ||
+          "Image upload failed",
+      },
     };
   }
 };
